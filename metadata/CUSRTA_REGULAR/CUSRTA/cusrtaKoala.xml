@@ -1,0 +1,435 @@
+﻿<?xml version="1.0"?>
+<com.nokia.oss.oss51:Metadata xmlns:com.nokia.oss.oss51="http://www.nokia.com/oss/oss51">
+  <Adaptation ID="cusrta" RepProcessID="0xFF01">
+    <ExtTopology ID="Network_TOPO" StoredInMADCDF="true">
+      <Level ID="Network" ObjectNumber="1" Aggregation="true" IsTransient="true" RBName="Nokia Siemens NetWorks" BaseTable="MADCDF_P_OBJECTS" UseExtId="true">
+        <ObjectClassDefinition IntClassID="-39" IsNE="false" Name="NETWORK_OBJECT_CLASS"/>
+        <Key ID="network_id" MaxLength="100"/>
+        <Level ID="Region" ObjectNumber="1" Aggregation="true" IsTransient="true" RBName="Nokia Siemens Region" BaseTable="MADCDF_P_RELATIONSHIPS" UseExtId="true">
+          <ObjectClassDefinition IntClassID="-40" IsNE="false" Name="REGION_OBJECT_CLASS"/>
+          <Key ID="region_id" MaxLength="100"/>
+          <Level ID="SubReg" ObjectNumber="1" Aggregation="true" IsTransient="true" RBName="Nokia Siemens SubRegion" BaseTable="MADCDF_P_RELATIONSHIPS" UseExtId="true">
+            <ObjectClassDefinition IntClassID="-41" IsNE="false" Name="SUBREG_OBJECT_CLASS"/>
+            <Key ID="subreg_id" MaxLength="100"/>
+            <Level ID="Cellgp" ObjectNumber="1" Aggregation="true" IsTransient="true" RBName="Nokia Siemens CellGroup" BaseTable="MADCDF_P_RELATIONSHIPS" UseExtId="true">
+              <ObjectClassDefinition IntClassID="-42" IsNE="false" Name="CELLGP_OBJECT_CLASS"/>
+              <Key ID="cellgp_id" MaxLength="100"/>
+              <LevelMapTo ID="WBTS" BaseTable="MADCDF_P_RELATIONSHIPS" UseExtId="true">
+                <LevelMapTo ID="WCEL" BaseTable="utp_common_objects"/>
+              </LevelMapTo>
+            </Level>
+          </Level>
+        </Level>
+      </Level>
+    </ExtTopology>
+<!--Have none of sliding window algorithms. -->	
+    <Measurement ID="SERV2" Aggregation="All" RBFolderName="Service Level Erlangs Voice custhier all criteria ">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <ExtTopologyRef ID="Network_TOPO" JoinPoint="WBTS" RawMeasName="SCH">
+        <RawLevelRef>Network_TOPO.Network.Region.SubReg.Cellgp.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>Network_TOPO.Network.Region.SubReg.Cellgp.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>Network_TOPO.Network</LastLevelRef>
+      </ExtTopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max("avg_rab_hld_tm_cs_voice/100+rrc_conn_stp_att+dch_req_link_srnc";avg_rab_hld_tm_cs_voice,rrc_conn_stp_att,dch_req_link_srnc)</Formula>
+      </BusyHourDefinition>
+      <LogicalCounters>
+        <CounterRef Measurement="SERVLEV" ID="avg_rab_hld_tm_cs_voice"/>
+        <CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>
+        <CounterRef Measurement="TRAFFIC" ID="dch_req_link_srnc"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is all-->
+    <Measurement ID="TPBHQ" Aggregation="All" RBFolderName="Quarter Peak BH For All">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC.WBTS.WCEL</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(prachMessages)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>ALL</SkipStandardLevels>
+                <SynMapMeas>NBCEL</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+                <CounterGroupRef ID="NBCEL.PhysicalCounters" />
+                <CounterGroupRef ID="NBCEL.LogicalCounters" />
+      </LogicalCounters>
+     </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is all with the skipstandardlevels is OFF-->
+    <Measurement ID="POFF" Aggregation="All" RBFolderName="Quarter Peak BH For All with SkipStandardLevels is OFF">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>day</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max("rrc_conn_stp_att+dch_req_link_srnc+req_cs_voice_in_srnc";rrc_conn_stp_att,dch_req_link_srnc,req_cs_voice_in_srnc)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>NONE</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+        <CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>
+        <CounterRef Measurement="TRAFFIC" ID="dch_req_link_srnc"/>
+                <CounterRef Measurement="TRAFFIC" ID="req_cs_voice_in_srnc"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is all with skip BusyHour-->
+    <Measurement ID="QPSBH" Aggregation="All" RBFolderName="Quarter Peak BH For All skip BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC.WBTS.WCEL</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(prachMessages)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>BusyHour</SkipStandardLevels>
+                <SynMapMeas>NBCEL</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+                <CounterRef Measurement="NBCEL" ID="prachMessages"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is BH-->
+    <Measurement ID="QPBH" Aggregation="BusyHour" RBFolderName="Quarter Peak BH For BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC.WBTS.WCEL</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(prachMessages)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>ALL</SkipStandardLevels>
+                <SynMapMeas>NBCEL</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+                <CounterGroupRef ID="NBCEL.PhysicalCounters" />
+                <CounterGroupRef ID="NBCEL.LogicalCounters" />
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is all with skipstandardlevels BusyHour and Base adaptation first time level is Day-->
+    <Measurement ID="QPDAY" Aggregation="All" RBFolderName="Only have algorithm of PBHQ and aggregation is all with skipstandardlevels BusyHour and Base adaptation first time level is Day">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(rrc_conn_stp_att)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>BusyHour</SkipStandardLevels>
+                <SynMapMeas>SERVLEV</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+                <CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBHQ and aggregation is all with skipstandardlevels NONE and Base adaptation first time level is Day-->
+    <Measurement ID="QPNDY" Aggregation="All" RBFolderName="Only have algorithm of PBHQ and aggregation is all with skipstandardlevels NONE and Base adaptation first time level is Day">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(prachMessages)</Formula>
+                <Rule>PeakBH</Rule>
+                <Algorithms>PBHQ</Algorithms>
+                <Interval>15</Interval>
+                <SkipStandardLevels>NONE</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+               <CounterRef Measurement="NBCEL" ID="prachMessages"/>
+      </LogicalCounters>
+    </Measurement>		
+<!--Only have algorithm of PBH 15 min granularity and aggregation is ALL.-->
+    <Measurement ID="FMING" Aggregation="All" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For All">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max("soft_ho_dur_on_srnc_for_rt+numberOfReceivingPreambles";soft_ho_dur_on_srnc_for_rt,numberOfReceivingPreambles)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+		<SkipStandardLevels>ALL</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+		<CounterRef Measurement="NBCEL" ID="numberOfReceivingPreambles"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBH 15 min granularity and aggregation is ALL with the skipstandardlevels is OFF.-->
+    <Measurement ID="FMOFF" Aggregation="All" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For All with SkipStandardLevels is OFF">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>day</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max("soft_ho_dur_on_srnc_for_rt+numberOfReceivingPreambles";soft_ho_dur_on_srnc_for_rt,numberOfReceivingPreambles)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+		<SkipStandardLevels>NONE</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+		<CounterRef Measurement="NBCEL" ID="numberOfReceivingPreambles"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBH 15 min granularity and aggregation is ALL.-->
+    <Measurement ID="FMSBH" Aggregation="All" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For All with skip BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max("soft_ho_dur_on_srnc_for_rt+numberOfReceivingPreambles";soft_ho_dur_on_srnc_for_rt,numberOfReceivingPreambles)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+		<SkipStandardLevels>BusyHour</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+		<CounterRef Measurement="NBCEL" ID="numberOfReceivingPreambles"/>
+      </LogicalCounters>
+    </Measurement>	
+<!--Only have algorithm of PBH 15 min granularity and aggregation is BH.-->
+    <Measurement ID="FMBH" Aggregation="BusyHour" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>month</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(soft_ho_dur_on_srnc_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+        <SkipStandardLevels>ALL</SkipStandardLevels>		
+      </BusyHourDefinition>
+      <LogicalCounters>
+        <!--<CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>-->
+        <!--<CounterRef Measurement="TRAFFIC" ID="dch_req_link_srnc"/>-->
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBH 15 min granularity and aggregation is BH and SkipStandardLevels is OFF.-->
+    <Measurement ID="FMBHOFF" Aggregation="BusyHour" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For BHOFF">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(soft_ho_dur_on_srnc_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+        <SkipStandardLevels>NONE</SkipStandardLevels>		
+      </BusyHourDefinition>
+      <LogicalCounters>
+        <CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>
+        <CounterRef Measurement="TRAFFIC" ID="dch_req_link_srnc"/>
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of PBH 15 min granularity and aggregation is BH and SkipStandardLevels is BusyHour.-->
+    <Measurement ID="FMBHSBH" Aggregation="BusyHour" RBFolderName="Peak BH FIFTEEN MIN GRANULARITY For BH with skip BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>month</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(soft_ho_dur_on_srnc_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>15MinsMax</Algorithms>
+        <SkipStandardLevels>BusyHour</SkipStandardLevels>		
+      </BusyHourDefinition>
+      <LogicalCounters>
+        <!--<CounterRef Measurement="SERVLEV" ID="rrc_conn_stp_att"/>-->
+        <!--<CounterRef Measurement="TRAFFIC" ID="dch_req_link_srnc"/>-->
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+      </LogicalCounters>
+    </Measurement>	
+<!--Only have algorithm of Total BH-->
+    <Measurement ID="TTL" Aggregation="BusyHour" RBFolderName="Peak BH TOTAL BH">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(one_cell_in_act_set_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>TotalBH</Algorithms>
+		<SkipStandardLevels>ALL</SkipStandardLevels>
+		<SynMapMeas>SOFTHO</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="one_cell_in_act_set_for_rt"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of Total BH with the skipstandardlevels is OFF-->
+    <Measurement ID="TTLOFF" Aggregation="BusyHour" RBFolderName="Peak BH TOTAL BH with SkipStandardLevels is OFF">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(soft_ho_dur_on_srnc_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>TotalBH</Algorithms>
+		<SkipStandardLevels>NONE</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="soft_ho_dur_on_srnc_for_rt"/>
+      </LogicalCounters>
+    </Measurement>
+<!--Only have algorithm of Total BH with the skipstandardlevels is BusyHour-->
+    <Measurement ID="TTLSBH" Aggregation="BusyHour" RBFolderName="Peak BH TOTAL BH with SkipStandardLevels is BusyHour">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(one_cell_in_act_set_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>TotalBH</Algorithms>
+		<SkipStandardLevels>BusyHour</SkipStandardLevels>
+		<SynMapMeas>SOFTHO</SynMapMeas>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="one_cell_in_act_set_for_rt"/>
+      </LogicalCounters>
+    </Measurement>	
+<!-- Customer hierarchy exists with TOtal BH algorithms-->
+    <Measurement ID="EXTTL" Aggregation="BusyHour" RBFolderName="Peak BH TOTAL BH with customer hierarchy">
+      <Time>
+        <RawLevel>60</RawLevel>
+        <FirstLevel>hour</FirstLevel>
+        <LastLevel>week</LastLevel>
+      </Time>
+      <TopologyRef ID="ROOT" SkipAggregation="false">
+        <RawLevelRef>ROOT.RNC.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>ROOT.RNC.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>ROOT.RNC</LastLevelRef>
+      </TopologyRef>
+      <ExtTopologyRef ID="Network_TOPO" JoinPoint="WBTS" RawMeasName="TAK">
+        <RawLevelRef>Network_TOPO.Network.Region.SubReg.Cellgp.WBTS.WCEL</RawLevelRef>
+        <FirstLevelRef>Network_TOPO.Network.Region.SubReg.Cellgp.WBTS.WCEL</FirstLevelRef>
+        <LastLevelRef>Network_TOPO.Network</LastLevelRef>
+      </ExtTopologyRef>
+      <BusyHourDefinition ID="Default" RSName="Erlangs_voice_custhier">
+        <Formula>max(one_cell_in_act_set_for_rt)</Formula>
+		<Rule>PeakBH</Rule>
+		<Algorithms>TotalBH</Algorithms>
+		<SkipStandardLevels>NONE</SkipStandardLevels>
+      </BusyHourDefinition>
+      <LogicalCounters>
+		<CounterRef Measurement="SOFTHO" ID="one_cell_in_act_set_for_rt"/>
+      </LogicalCounters>
+    </Measurement>
+  </Adaptation>
+</com.nokia.oss.oss51:Metadata>
+

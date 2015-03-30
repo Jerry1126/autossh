@@ -1,0 +1,37 @@
+*** Settings ***
+Documentation     Check whether inode success or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    US43    L1
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Check_inode_success.InodeSuccess    WITH NAME    InodeSuccess
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Variables         testsuite_Check_RBSupport_ASSupport.py
+
+*** Variables ***
+${newversion}     new
+${oldversion}     old
+
+*** Test Cases ***
+Inode success or not check
+    [Documentation]    Purpose of this test case is to ensure $ssname folder has been removed to /var/tmp/rtekoa/integrationTool/ directory
+    ${stderr}=    check_whether_ss_directory_exsit    ${ss}    ${newversion}
+    should contain    ${stderr}    The directory exists
+    ${stderr}=    check_whether_ss_directory_exsit    ${ss}    ${oldversion}
+    should contain    ${stderr}    The direcotry does not exists
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    upload koala input and general config to cs
+    ${ssh}=    Get Library Instance    SSHLibrary
+    InodeSuccess.set ssh    ${ssh}
+    ${rs}=    del_the_ss_directory_if_exist    ${ss}
+    ${stderr}=    check_whether_ss_directory_exsit    ${ss}    ${newversion}
+    ${rpms}=    build test pm package
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+
+Test Suite Teardown
+    teardown and clear ss environment

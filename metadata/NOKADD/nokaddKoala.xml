@@ -1,0 +1,192 @@
+<?xml version="1.0" ?>
+<Adaptation DNMappingStrategy="trivial" ID="add" RBFolderName="ss for koala test copy from nokbsc" RepProcessID="0xEAA2" UMAProcessID="0x0000">
+	<Release>
+		<Vendor>NSN</Vendor>
+		<Element>MO101</Element>
+		<Version>1.0</Version>
+	</Release>
+	<Topology ID="ROOT" Path="PLMN-*">
+		<Level Description="MO_000000000000000000000000000101" ID="MO101" IsTransient="false" OMeSName="MO101" ObjectNumber="1" RBName="MO_0000000101">
+			<ObjectClassDefinition IntClassID="101" IsNE="true" Name="MO101_OBJECT_CLASS"/>
+			<Key ID="MO101_gid"/>
+			<Level Description="MO_000000000000000000000000000100" ID="MO100" IsTransient="false" OMeSName="MO100" ObjectNumber="1" RBName="MO_0000000100">
+				<ObjectClassDefinition IntClassID="100" IsNE="true" Name="MO100_OBJECT_CLASS"/>
+				<Key ID="MO100_gid"/>
+				<Level Description="MO_000000000000000000000000000099" ID="MO99" IsTransient="false" OMeSName="MO99" ObjectNumber="1" RBName="MO_0000000099">
+					<ObjectClassDefinition IntClassID="99" IsNE="true" Name="MO99_OBJECT_CLASS"/>
+					<Key ID="MO99_gid"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology ID="LWO0_TOPO" Path="PLMN-*">
+		<Level Description="LWO_000000000000000000000000000002" ID="LWO2" IsTransient="true" OMeSName="LWO2" ObjectNumber="1" RBName="LWO_0000000002">
+			<ObjectClassDefinition IntClassID="2" IsNE="false" Name="LWO2_OBJECT_CLASS"/>
+			<Key ID="LWO2_id"/>
+			<Level Description="LWO_000000000000000000000000000001" ID="LWO1" IsTransient="true" OMeSName="LWO1" ObjectNumber="1" RBName="LWO_0000000001">
+				<ObjectClassDefinition IntClassID="1" IsNE="false" Name="LWO1_OBJECT_CLASS"/>
+				<Key ID="LWO1_id"/>
+				<Level Description="LWO_000000000000000000000000000000" ID="LWO0" IsTransient="true" OMeSName="LWO0" ObjectNumber="1" RBName="LWO_0000000000">
+					<ObjectClassDefinition IntClassID="0" IsNE="false" Name="LWO0_OBJECT_CLASS"/>
+					<Key ID="LWO0_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology ID="LWO1_TOPO" Path="PLMN-*">
+		<Level Description="LWO_000000000000000000000000000005" ID="LWO5" IsTransient="true" OMeSName="LWO5" ObjectNumber="1" RBName="LWO_0000000005">
+			<ObjectClassDefinition IntClassID="5" IsNE="false" Name="LWO5_OBJECT_CLASS"/>
+			<Key ID="LWO5_id"/>
+			<Level Description="LWO_000000000000000000000000000004" ID="LWO4" IsTransient="true" OMeSName="LWO4" ObjectNumber="1" RBName="LWO_0000000004">
+				<ObjectClassDefinition IntClassID="4" IsNE="false" Name="LWO4_OBJECT_CLASS"/>
+				<Key ID="LWO4_id"/>
+				<Level Description="LWO_000000000000000000000000000003" ID="LWO3" IsTransient="true" OMeSName="LWO3" ObjectNumber="1" RBName="LWO_0000000003">
+					<ObjectClassDefinition IntClassID="3" IsNE="false" Name="LWO3_OBJECT_CLASS"/>
+					<Key ID="LWO3_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology ID="LWO2_TOPO" Path="PLMN-*">
+		<Level Description="LWO_000000000000000000000000000008" ID="LWO8" IsTransient="true" OMeSName="LWO8" ObjectNumber="1" RBName="LWO_0000000008">
+			<ObjectClassDefinition IntClassID="8" IsNE="false" Name="LWO8_OBJECT_CLASS"/>
+			<Key ID="LWO8_id"/>
+			<Level Description="LWO_000000000000000000000000000007" ID="LWO7" IsTransient="true" OMeSName="LWO7" ObjectNumber="1" RBName="LWO_0000000007">
+				<ObjectClassDefinition IntClassID="7" IsNE="false" Name="LWO7_OBJECT_CLASS"/>
+				<Key ID="LWO7_id"/>
+				<Level Description="LWO_000000000000000000000000000006" ID="LWO6" IsTransient="true" OMeSName="LWO6" ObjectNumber="1" RBName="LWO_0000000006">
+					<ObjectClassDefinition IntClassID="6" IsNE="false" Name="LWO6_OBJECT_CLASS"/>
+					<Key ID="LWO6_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology ID="LWO3_TOPO" Path="PLMN-*">
+		<Level Description="LWO_000000000000000000000000000011" ID="LWO11" IsTransient="true" OMeSName="LWO11" ObjectNumber="1" RBName="LWO_0000000011">
+			<ObjectClassDefinition IntClassID="11" IsNE="false" Name="LWO11_OBJECT_CLASS"/>
+			<Key ID="LWO11_id"/>
+			<Level Description="LWO_000000000000000000000000000010" ID="LWO10" IsTransient="true" OMeSName="LWO10" ObjectNumber="1" RBName="LWO_0000000010">
+				<ObjectClassDefinition IntClassID="10" IsNE="false" Name="LWO10_OBJECT_CLASS"/>
+				<Key ID="LWO10_id"/>
+				<Level Description="LWO_000000000000000000000000000009" ID="LWO9" IsTransient="true" OMeSName="LWO9" ObjectNumber="1" RBName="LWO_0000000009">
+					<ObjectClassDefinition IntClassID="9" IsNE="false" Name="LWO9_OBJECT_CLASS"/>
+					<Key ID="LWO9_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology ID="LWO4_TOPO" Path="PLMN-*">
+		<Level Description="LWO_000000000000000000000000000014" ID="LWO14" IsTransient="true" OMeSName="LWO14" ObjectNumber="1" RBName="LWO_0000000014">
+			<ObjectClassDefinition IntClassID="14" IsNE="false" Name="LWO14_OBJECT_CLASS"/>
+			<Key ID="LWO14_id"/>
+			<Level Description="LWO_000000000000000000000000000013" ID="LWO13" IsTransient="true" OMeSName="LWO13" ObjectNumber="1" RBName="LWO_0000000013">
+				<ObjectClassDefinition IntClassID="13" IsNE="false" Name="LWO13_OBJECT_CLASS"/>
+				<Key ID="LWO13_id"/>
+				<Level Description="LWO_000000000000000000000000000012" ID="LWO12" IsTransient="true" OMeSName="LWO12" ObjectNumber="1" RBName="LWO_0000000012">
+					<ObjectClassDefinition IntClassID="12" IsNE="false" Name="LWO12_OBJECT_CLASS"/>
+					<Key ID="LWO12_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Measurement ID="MEA0" RBFolderName="MEA_0000000000000000">
+		<Description>MEA_0000000000000000</Description>
+		<Time>
+			<RawLevel>60</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="false">
+			<RawLevelRef>ROOT.MO101.MO100.MO99</RawLevelRef>
+			<FirstLevelRef>ROOT.MO101.MO100.MO99</FirstLevelRef>
+			<LastLevelRef>ROOT.MO101.MO100.MO99</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LWO0_TOPO" SkipAggregation="false">
+			<RawLevelRef>LWO0_TOPO.LWO2.LWO1.LWO0</RawLevelRef>
+			<FirstLevelRef>LWO0_TOPO.LWO2.LWO1.LWO0</FirstLevelRef>
+			<LastLevelRef>LWO0_TOPO.LWO2.LWO1.LWO0</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LWO1_TOPO" SkipAggregation="false">
+			<RawLevelRef>LWO1_TOPO.LWO5.LWO4.LWO3</RawLevelRef>
+			<FirstLevelRef>LWO1_TOPO.LWO5.LWO4.LWO3</FirstLevelRef>
+			<LastLevelRef>LWO1_TOPO.LWO5.LWO4.LWO3</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LWO2_TOPO" SkipAggregation="false">
+			<RawLevelRef>LWO2_TOPO.LWO8.LWO7.LWO6</RawLevelRef>
+			<FirstLevelRef>LWO2_TOPO.LWO8.LWO7.LWO6</FirstLevelRef>
+			<LastLevelRef>LWO2_TOPO.LWO8.LWO7.LWO6</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LWO3_TOPO" SkipAggregation="false">
+			<RawLevelRef>LWO3_TOPO.LWO11.LWO10.LWO9</RawLevelRef>
+			<FirstLevelRef>LWO3_TOPO.LWO11.LWO10.LWO9</FirstLevelRef>
+			<LastLevelRef>LWO3_TOPO.LWO11.LWO10.LWO9</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LWO4_TOPO" SkipAggregation="false">
+			<RawLevelRef>LWO4_TOPO.LWO14.LWO13.LWO12</RawLevelRef>
+			<FirstLevelRef>LWO4_TOPO.LWO14.LWO13.LWO12</FirstLevelRef>
+			<LastLevelRef>LWO4_TOPO.LWO14.LWO13.LWO12</LastLevelRef>
+		</TopologyRef>
+		<PhysicalCounters>
+			<Counter ID="MEA0_counter_0" RBName="MEA0_counter_0000000">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000000</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_1" RBName="MEA0_counter_0000001">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000001</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_2" RBName="MEA0_counter_0000002">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000002</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_3" RBName="MEA0_counter_0000003">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000003</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_4" RBName="MEA0_counter_0000004">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000004</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_5" RBName="MEA0_counter_0000005">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000005</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_6" RBName="MEA0_counter_0000006">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000006</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_7" RBName="MEA0_counter_0000007">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000007</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_8" RBName="MEA0_counter_0000008">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000008</Description>
+			</Counter>
+			<Counter ID="MEA0_counter_9" RBName="MEA0_counter_0000009">
+				<TimeRawFormula>SUM</TimeRawFormula>
+				<ObjectRawFormula>SUM</ObjectRawFormula>
+				<Unit>No.</Unit>
+				<Description>MEA0_counter_0000009</Description>
+			</Counter>
+		</PhysicalCounters>
+	</Measurement>
+</Adaptation>

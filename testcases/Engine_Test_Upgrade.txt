@@ -1,0 +1,141 @@
+*** Settings ***
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           execute_cmd_command.ExecuteCmdCommand    WITH NAME    ExecuteCmdCommand
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    "    WITH NAME    ModifySSKoalaxmlfile
+Resource          ../robot_resources/RunITK_Keywords.txt
+
+*** Test Cases ***
+Engine_Test_Upgrade_Add_part
+    [Setup]    setup
+    [Template]    upgrade_add_main
+    UMAADC    NOKADC    nokadc    Measurement    RBFolderName    #Support Measurement[0..1000] add
+    UMAADD    NOKADD    nokadd    Counter    RBName    #MeasuredIndicator support add
+    UMAADE    NOKADE    nokade    Level    ID    #Support PMClassInfo(Level)[0..1000] add
+    [Teardown]    teardown
+
+Engine_Test_Upgrade_Change_part1
+    [Setup]    setup
+    [Template]    upgrade_change_attribute_main
+    UMACHA    NOKCHA    nokcha    Level    OMeSName    25    # nameInOMeS(OMeSName) in PMClassInfo(Level) support change
+    UMACHB    NOKCHB    nokchb    Level    RBName    200    #presentation(RBName) in PMClassInfo(Level) support change
+    UMACHC    NOKCHC    nokchc    Measurement    RBFolderName    200    #presentation(RBFolderName) in Measurement support change
+    UMACHD    NOKCHD    nokchd    Counter    RBName    200    #presentation(RBName) in MeasuredIndicator(Counter) support change
+    [Teardown]    teardown
+
+Engine_Test_Upgrade_Change_part2
+    [Setup]    setup
+    [Template]    upgrade_change_element_main
+    UMACHF    NOKCHF    nokchf    Counter    Description    4000    #Description in MeasuredIndicator(Counter) support change
+    UMACHE    NOKCHE    nokche    Measurement    Description    1000    #Description in Measurement support change
+    UMACHI    NOKCHI    nokchi    Counter    Unit    30    #unit in MeasuredIndicator(Counter) support change
+    [Teardown]    teardown
+
+Engine_Test_Upgrade_Change_part3
+    [Setup]    setup
+    [Template]    upgrade_change_element_main2
+    UMACHG    NOKCHG    nokchg    Counter    ObjectRawFormula    4000    #ObjectAggregationFormula(ObjRwaFormula) in MeasuredIndicator(Counter) support change
+    UMACHH    NOKCHH    nokchh    Counter    TimeRawFormula    4000    #TimeAggregationFormula (TimeRawFormula) in MeasuredIndicator(Counter) support change
+    [Teardown]    teardown
+
+*** Keywords ***
+setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    ModifySSKoalaxmlfile.set_ssh    ${ssh}
+
+teardown
+    clear ss environment
+
+upgrade_add_main
+    [Arguments]    ${sc}    ${ss}    ${ss_lower}    ${add_element}    ${change_attribute}
+    ${koala_gen}=    get_absolute_path    \\tools\\KoalaGen\\koalaGen.py    3
+    ${pmb_conf}=    get_absolute_path    \\metadata\\${ss}\\PMBGeneratorConfig.xml    1
+    ${koala_xml}=    get_absolute_path    \\metadata\\${ss}\\${ss_lower}Koala.xml    1
+    set test variable    ${cmd}    python ${koala_gen} ${pmb_conf} ${koala_xml}
+    ${rs}=    ExecuteCmdCommand.command_line    ${cmd}
+    should be true    ${rs}
+    upload koala input and general config to cs    ${ss}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    release run on ss    ${ss}
+    ${koala_remote_path}    get koala input file path    ${ss}
+    ${ID}=    ModifySSKoalaxmlfile.AddNode    ${add_element}    ${koala_remote_path}    ${ss_lower}Koala.xml
+    ModifySSKoalaxmlfile.modify_arrtibute_value    ${change_attribute}    ${ID}    ${koala_remote_path}    ${ss_lower}Koala.xml    tagname=${add_element}    identify_flag=${ID}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    uninstall test pm package    ${sc}    ${ss}
+
+upgrade_change_attribute_main
+    [Arguments]    ${sc}    ${ss}    ${ss_lower}    ${change_element}    ${change_attribute}    ${value_length}
+    ${koala_gen}=    get_absolute_path    \\tools\\KoalaGen\\koalaGen.py    3
+    ${pmb_conf}=    get_absolute_path    \\metadata\\${ss}\\PMBGeneratorConfig.xml    1
+    ${koala_xml}=    get_absolute_path    \\metadata\\${ss}\\${ss_lower}Koala.xml    1
+    set test variable    ${cmd}    python ${koala_gen} ${pmb_conf} ${koala_xml}
+    ${rs}=    ExecuteCmdCommand.command_line    ${cmd}
+    should be true    ${rs}
+    upload koala input and general config to cs    ${ss}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    release run on ss    ${ss}
+    ${value_length}=    convert to integer    ${value_length}
+    ${koala_remote_path}    get koala input file path    ${ss}
+    ${change_value}    ExecuteCmdCommand.random_str    ${value_length}
+    write    ${change_value}
+    ModifySSKoalaxmlfile.modify_arrtibute_value    ${change_attribute}    ${change_value}    ${koala_remote_path}    ${ss_lower}Koala.xml    tagname=${change_element}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    uninstall test pm package    ${sc}    ${ss}
+
+upgrade_change_element_main
+    [Arguments]    ${sc}    ${ss}    ${ss_lower}    ${change_element}    ${change_subelement}    ${value_length}
+    ${koala_gen}=    get_absolute_path    \\tools\\KoalaGen\\koalaGen.py    3
+    ${pmb_conf}=    get_absolute_path    \\metadata\\${ss}\\PMBGeneratorConfig.xml    1
+    ${koala_xml}=    get_absolute_path    \\metadata\\${ss}\\${ss_lower}Koala.xml    1
+    set test variable    ${cmd}    python ${koala_gen} ${pmb_conf} ${koala_xml}
+    ${rs}=    ExecuteCmdCommand.command_line    ${cmd}
+    should be true    ${rs}
+    upload koala input and general config to cs    ${ss}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    release run on ss    ${ss}
+    ${koala_remote_path}    get koala input file path    ${ss}
+    ${value_length}=    convert to integer    ${value_length}
+    ${change_value}    ExecuteCmdCommand.random_str    ${value_length}
+    write    ${change_value}
+    ModifySSKoalaxmlfile.modify_subelement_value    ${change_subelement}    ${change_value}    ${koala_remote_path}    ${ss_lower}Koala.xml    tagname=${change_element}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    uninstall test pm package    ${sc}    ${ss}
+
+upgrade_change_element_main2
+    [Arguments]    ${sc}    ${ss}    ${ss_lower}    ${change_element}    ${change_subelement}    ${value_length}
+    ${koala_gen}=    get_absolute_path    \\tools\\KoalaGen\\koalaGen.py    3
+    ${pmb_conf}=    get_absolute_path    \\metadata\\${ss}\\PMBGeneratorConfig.xml    1
+    ${koala_xml}=    get_absolute_path    \\metadata\\${ss}\\${ss_lower}Koala.xml    1
+    set test variable    ${cmd}    python ${koala_gen} ${pmb_conf} ${koala_xml}
+    ${rs}=    ExecuteCmdCommand.command_line    ${cmd}
+    should be true    ${rs}
+    upload koala input and general config to cs    ${ss}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    release run on ss    ${ss}
+    ${local_path}    ExecuteCmdCommand.make_dir
+    ${koala_remote_path}    get koala input file path    ${ss}
+    Get File    ${koala_remote_path}    ${local_path}
+    ${counter_list}    ExecuteCmdCommand.get_counter_list    ${local_path}
+    ${value_length}=    convert to integer    ${value_length}
+    ${change_value}    ExecuteCmdCommand.get_random_formula    ${value_length}    ${local_path}
+    ExecuteCmdCommand.remove_dir    ${local_path}
+    write    ${change_value}
+    ModifySSKoalaxmlfile.modify_subelement_value    ${change_subelement}    ${change_value}    ${koala_remote_path}    ${ss_lower}Koala.xml    tagname=${change_element}
+    ${rpms}    build test pm package    ${ss}
+    install test pm package    ${rpms}
+    Store koala output model file to temp file    ${ss}    ${sc}
+    uninstall test pm package    ${sc}    ${ss}

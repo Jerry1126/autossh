@@ -1,0 +1,26 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Transient_OB_Enhance.TRANSIENT_OB_ENHANCE    WITH NAME    OBEnhancement
+
+*** Variables ***
+
+*** Keywords ***
+Initial ssh instance and inject into OBEnhancement
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_omc    prompt=$
+    SSHLibrary.login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    OBEnhancement.set_ssh    ${ssh}
+
+check_sql_minus_not_exist
+    [Arguments]    ${ssname}    ${scname}
+    ${flag}=    OBEnhancement.Sql Minus Exist    ${ssname}    ${scname}
+    Should Not Be True    ${flag}
+
+parse_pmcore_xml
+    [Arguments]    ${ssname}    ${scname}    ${index_or_alias}
+    OBEnhancement.Parse Pmcore Xml    ${ssname}    ${scname}    ${index_or_alias}
+
+clear_local_tmp_env
+    OBEnhancement.Clear Local Tmp Env

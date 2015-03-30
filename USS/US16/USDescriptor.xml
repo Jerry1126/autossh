@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="16" name="Root Dimension adapt to NBI demand" run-standalone="true"
+	requireInstall='false'  xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[rooot dimension should always be network_element
+	 other level dimension should be configurable and default is ID name]]></Description>
+</US>

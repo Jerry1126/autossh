@@ -1,0 +1,25 @@
+*** Settings ***
+Library           SSHLibrary    WITH NAME    SSHLibrary
+Library           GCDirectIntegration.GCDirectIntegration    WITH NAME    GCDirectIntegration
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Resource          GCDirectIntegration_Keywords.txt
+Resource          KoalaRTE_Keywords.txt
+
+*** Keywords ***
+Initial ssh instance and inject into GCDirectIntegration
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_omc    prompt=$
+    SSHLibrary.login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    GCDirectIntegration.set_ssh    ${ssh}
+    [Return]    ${ssh}
+
+clear_local_tmp_env
+    GCDirectIntegration.Clear Local Tmp Env
+
+check_agg_on_value_in_sql
+    [Arguments]    ${general_config_file_path}
+    ${value}=    GCDirectIntegration.Get GCDirectIntegration Value    ${general_config_file_path}
+    ${output}=    GCDirectIntegration.Check Agg On Value    ${ssname}    ${value}
+    Should Be True    ${output}

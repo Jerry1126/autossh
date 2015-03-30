@@ -1,0 +1,129 @@
+*** Settings ***
+Documentation     check the ASSupport and the RBSupport value in GeneralConfiguration.cf and the output document.
+Suite Setup       SuiteSetup
+Suite Teardown    Suite Teardown
+Force Tags        FTT    common    US09    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Variables         testsuite_Check_RBSupport_ASSupport.py
+
+*** Variables ***
+
+*** Test Cases ***
+RBSupport
+    [Setup]    setup
+    [Template]    Run and verify koalarte with specified RBSupport and ASSupport setting
+    1    File Exist RB    1    File Exist AS
+    1    File Exist RB    0    File Not Exist AS
+    0    File Not Exist RB    1    File Exist AS
+    0    File Not Exist RB    0    File Not Exist AS
+    [Teardown]    teardown
+
+*** Keywords ***
+SuiteSetup
+    SSHLibrary.Set Default Configuration    timeout=2 min
+    SSHLibrary.Open Connection    ${SDV_ONEPM_NAS1IP}
+    SSHLibrary.Login    omc    omc
+    ${ssh}=    Get Library Instance    SSHLibrary
+    KoalaRTE.set ssh    ${ssh}
+    Initial ssh instance and inject into KoalaRTE
+
+File Exist RB
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep.xml
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_upg_reports.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_raw.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_sum.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_d3b_reg.cfg
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_raw.xml
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_sum.xml
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_aoa_cre_tablemap.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_aoa_del_tablemap.sql
+
+File Exist AS
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pmtables.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_d3b_pmtable.cfg
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pmtables.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdviews.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pdviews.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdprivileges.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdsynonyms.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pdsynonyms.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert.pl
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_rc.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_gc_raw.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_gc_all.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate.pl
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_rc.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_gc_raw.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_gc_all.sql
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesClean.pl
+    File Should Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}CheckDBStyle.sql
+
+File Not Exist RB
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep.xml
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_upg_reports.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_raw.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_sum.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_d3b_reg.cfg
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_raw.xml
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_rep_sum.xml
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_aoa_cre_tablemap.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_aoa_del_tablemap.sql
+
+File Not Exist AS
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pmtables.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_d3b_pmtable.cfg
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pmtables.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdviews.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pdviews.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdprivileges.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_pdsynonyms.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_drp_pdsynonyms.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert.pl
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_rc.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_gc_raw.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesInsert_gc_all.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate.pl
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_rc.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_gc_raw.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesUpdate_gc_all.sql
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}DimTablesClean.pl
+    File Should Not Exist    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cap/${ss}CheckDBStyle.sql
+
+Suite Teardown
+    Execute Command    rm -rf /var/tmp/rtekoa/integrationTool/${SS}
+    clear ss environment
+    SSHLibrary.close all connections
+
+change_value
+    [Arguments]    ${RBSupport}    ${ASSupport}
+    ${cf}    get general config file path
+    Execute Command    sed -i 's/(EnableRBSupport \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "[0-1]")/(EnableRBSupport \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "${RBSupport}")/' ${cf}
+    Execute Command    sed -i 's/(EnableASSupport \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "[0-1]")/(EnableASSupport \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "${ASSupport}")/' ${cf}
+
+setup
+    ${ssh}=    Get Library Instance    SSHLibrary
+
+teardown
+    Execute Command    rm -rf /var/tmp/rtekoa/integrationTool/${SS}
+
+Run and verify koalarte with specified RBSupport and ASSupport setting
+    [Arguments]    ${EnableRBSupport}    ${RBSupportCheckKeyword}    ${EnableASSupport}    ${ASSupportCheckKeyword}
+    upload koala input and general config to cs
+    change_value    ${EnableRBSupport}    ${EnableASSupport}
+    build test pm package
+    run keyword    ${RBSupportCheckKeyword}
+    run keyword    ${ASSupportCheckKeyword}
+    [Teardown]    teardown
+
+File Should Exist
+    [Arguments]    ${file}
+    ${stdout}=    Execute Command    cat ${file}
+    should not contain    ${stdout}    No such file or directory
+
+File Should Not Exist
+    [Arguments]    ${file}
+    ${stdout}=    Execute Command    cat ${file}
+    should be empty    ${stdout}

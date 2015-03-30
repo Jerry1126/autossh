@@ -1,0 +1,26 @@
+*** Settings ***
+Documentation     Check the special chars in koala input and model file.
+Suite Setup       SuitSetup
+Suite Teardown    SuitTeardown
+Force Tags        FTT    common    US40
+Library           Check_Special_Chars.special_chars    WITH NAME    special_chars
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Variables         testsuite_Check_Special_Chars.py
+
+*** Variables ***
+
+*** Test Cases ***
+Special Chars
+    ${Koala Input}    Execute Command    cat ${KOALA_INPUT_PATH}|grep -E "&amp;|&lt;|&gt;|&apos;|&quot;"
+    ${special_chars_list}    special_chars.get_koala_input    ${Koala Input}
+    ${Koala Output}    Execute Command    cat /var/tmp/rtekoa/integrationTool/${ss}/conf/${ss}.model |grep -E "&amp;|&lt;|&gt;|&apos;|&quot;"
+    ${ERR}    special_chars.check_koala_output    ${Koala Output}    ${special_chars_list}
+    should be empty    ${ERR}
+
+*** Keywords ***
+SuitSetup
+    SSHLibrary.Open Connection    ${SDV_ONEPM_NAS1IP}
+    SSHLibrary.Login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+
+SuitTeardown
+    SSHLibrary.close all connections

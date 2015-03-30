@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation     Check whether the Storage time is follow the dedicated rules
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    US24    L3
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           MeasurementStorageTimeChecker.MeasurementStorageTimeChecker    WITH NAME    MeasurementStorageTimeChecker
+Variables         testsuite_Check_RBSupport_ASSupport.py
+
+*** Variables ***
+
+*** Test Cases ***
+Check Measurement Storage Time
+    [Documentation]    This case is to check the rc storage time value
+    ${input_content}=    SSHLibrary.execute command    cat ${KOALA_INPUT_PATH}
+    ${storage_time_list}=    MeasurementStorageTimeChecker.Switch_input_to_storage_time_list    ${input_content}
+    log    ${storage_time_list}
+    ${output_file}=    get_mx_cf_file_without_installation    ${ss}
+    ${stderr}=    mon_and_monbh    ${output_file}    ${storage_time_list}
+    should be true    ${stderr}
+
+*** Keywords ***
+Test Suite Setup
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    MeasurementStorageTimeChecker.set ssh    ${ssh}
+
+Test Suite Teardown
+    SSHLibrary.close all connections

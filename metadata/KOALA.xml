@@ -1,0 +1,215 @@
+<?xml version="1.0" ?>
+<!--
+     =================================================================
+     =================================================================
+     ==
+     ==       Adaptation: Netviewer PM
+     ==       Subsystem : pm_nva
+     ==
+     =================================================================
+     ==       This is the main configuration file for this adaptation
+     ==
+     =================================================================
+     ==       Gary ZHAO , 2009-05-31
+     =================================================================
+ -->
+<Adaptation ID="tst" UMAProcessID="0x0000" RepProcessID="0xA99A" DNMappingStrategy="ovErlap" ExternalAdaptationId="com.nsn.adap1,com.nsn.adap2,com.nsn.adap3">
+	<Release>
+		<Element>NETV</Element>
+		<Version>10.4;10.2EP2;10.2EP1;10.2;10.1;9.8;9.7;8.0</Version>
+	</Release>
+
+	<Topology ID="ROOT" Path="PLMN-PLMN" Dimension="dasffa">
+		<Level ID="NETV" ObjectNumber="1" Aggregation="true" IsTransient="false" HasServicesSupport="true" RBName="NETV" ExternalID="Radio_Controller_Network" >
+			<ObjectClassDefinition IntClassID="2302" IsNE="true" Name="NETVIEWER_OBJECT_CLASS" />
+			<Key ID="netv_id" />
+			<!--  Beg NVNE -->
+			<Level ID="NVNE" ParentObj="NETV" ObjectNumber="1500" Aggregation="true" IsTransient="false" HasServicesSupport="false" RBName="NVNE" ExternalID="Wide_Band_Transmission_System" FirstNERelease="11.0" ChangedFromNERelease="9.0">
+				<ObjectClassDefinition IntClassID="2303" IsNE="true" Name="NETVIEWER_NETWORK_ELEMENT_OBJECT_CLASS" />
+				<Key ID="nvne_id" />
+				<Level ID="IDU" ObjectNumber="10" Aggregation="true" IsTransient="true" RBName="IDU">
+					<Key ID="idu_id" />
+				</Level>
+				<!-- end of IDU -->
+				<Level ID="RrR" ObjectNumber="10" Aggregation="true" IsTransient="true" RBName="rRR" FirstNERelease="15.0">
+					<Key ID="rrr_id" />
+				</Level>
+			</Level>
+			<!--  End NVNE -->
+		</Level>
+	</Topology>
+
+	<Topology ID="DIM_TOPO" Path="PLMN-PLMN" Dimension="DIMS">
+		<Level ID="ABC" ObjectNumber="1" Aggregation="true" IsTransient="true">
+			<Key ID="abc_id" />
+				<Level ID="BCD" ObjectNumber="10" Aggregation="true" IsTransient="true">
+					<Key ID="bcd_id" />
+				</Level>
+		</Level>
+	</Topology>
+
+	<Topology ID="TRA_TOPO" Path="PLMN-PLMN" Dimension="Trasient">
+		<Level ID="QWE" ObjectNumber="1" Aggregation="true" IsTransient="true">
+			<Key ID="qwe_id" />
+				<Level ID="ASD" ObjectNumber="10" Aggregation="true" IsTransient="true">
+					<Key ID="asd_id" />
+				</Level>
+		</Level>
+	</Topology>
+
+		<Measurement ID="A1IDUAAA" RBFolderName="Indoor Unit B1 (24H)" Aggregation="All" NEName="H_B1" OverSize="0">
+		<Description>24 hour B1 statistics for Indoor Units</Description>
+		<Time>
+			<RawLevel>2000</RawLevel>
+			<FirstLevel>day</FirstLevel>
+			<LastLevel>week</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="true">
+			<RawLevelRef>ROOT.NETV.NVNE.IDU</RawLevelRef>
+			<FirstLevelRef>ROOT.NETV.NVNE.IDU</FirstLevelRef>
+			<LastLevelRef>ROOT.NETV</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="DIM_TOPO" SkipAggregation="true">
+			<RawLevelRef>DIM_TOPO.ABC.BCD</RawLevelRef>
+			<FirstLevelRef>DIM_TOPO.ABC.BCD</FirstLevelRef>
+			<LastLevelRef>DIM_TOPO.ABC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRA_TOPO" SkipAggregation="true">
+			<RawLevelRef>TRA_TOPO.QWE.ASD</RawLevelRef>
+			<!--FirstLevelRef>TRA_TOPO.QWE.ASD</FirstLevelRef>
+			<LastLevelRef>TRA_TOPO.QWE</LastLevelRef-->
+		</TopologyRef>
+<AdditionalTopologyPaths Replacement="ROOT">
+	<AdditionalTopologyPath>ROOT.NETVIWER</AdditionalTopologyPath>
+</AdditionalTopologyPaths>
+    <BusyHourDefinition>
+          <Formula>MAX(OutageIntensity012)</Formula>
+    </BusyHourDefinition>
+		<PhysicalCounters>
+
+		<CounterGroup ID="24H_B1_COUNTERS"  SplitPart="1">
+
+		<Counter ID="OutageIntensity012" OMeSName="H_B1_OI_012">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(OutageIntensity012)</TimeRawFormula>
+			<ObjectRawFormula>sum(OutageIntensity012)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+
+		</CounterGroup>
+<CounterGroupRef splitpart="1">B2idu24.PhysicalCounters.PHSICAL</CounterGroupRef>
+		</PhysicalCounters>
+<LogicalCounters>
+<CounterGroupRef BHSummOnly="true">B2idu24.PhysicalCounters.LOGICAL</CounterGroupRef>
+</LogicalCounters>
+	</Measurement>
+
+	<Measurement ID="B2idu24" RBFolderName="Indoor Unit B2 (24H)" Aggregation="No" oversize="0" NEName="H_B2" FirstNERelease="12" ChangedFromNERelease="11">
+		<Description>24 hour B2 statistics for Indoor Units</Description>
+		<Time>
+			<RawLevel>2000</RawLevel>
+			<FirstLevel>day</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="true">
+			<RawLevelRef>ROOT.NETV.NVNE.IDU</RawLevelRef>
+			<FirstLevelRef>ROOT.NETV.NVNE.IDU</FirstLevelRef>
+			<LastLevelRef>ROOT.NETV</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="DIM_TOPO" SkipAggregation="true">
+			<RawLevelRef>DIM_TOPO.ABC.BCD</RawLevelRef>
+			<FirstLevelRef>DIM_TOPO.ABC.BCD</FirstLevelRef>
+			<LastLevelRef>DIM_TOPO.ABC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRA_TOPO" SkipAggregation="true">
+			<RawLevelRef>TRA_TOPO.QWE.ASD</RawLevelRef>
+			<FirstLevelRef>TRA_TOPO.QWE.ASD</FirstLevelRef>
+			<LastLevelRef>TRA_TOPO.QWE</LastLevelRef>
+		</TopologyRef>
+    <BusyHourDefinition>
+          <Formula>MAX(LOGICAL002)</Formula>
+    </BusyHourDefinition>
+		<PhysicalCounters>
+<CounterGroup ID="PHSICAL" splitpart="2">
+		<Counter ID="AutageIntensity861" OMeSName="A_B1_OI_861" FirstNERelease="11.0" ChangedFromNERelease="10">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(AutageIntensity861)</TimeRawFormula>
+			<ObjectRawFormula>sum(AutageIntensity861)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+		<Counter ID="AutageIntensity862" OMeSName="A_B1_OI_862" HideInSummary="true" FirstNERelease="11.0" ChangedFromNERelease="">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(AutageIntensity862)</TimeRawFormula>
+			<ObjectRawFormula>sum(AutageIntensity862)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+		</CounterGroup>
+		<CounterGroup ID="LOGICAL" SplitPart="1">
+		<Counter ID="LOGICAL001" OMeSName="LOGICAL_001">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(LOGICAL001)</TimeRawFormula>
+			<ObjectRawFormula>sum(LOGICAL001)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+		<Counter ID="LOGICAL002" OMeSName="LOGICAL_002">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(LOGICAL002)</TimeRawFormula>
+			<ObjectRawFormula>sum(LOGICAL002)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+		</CounterGroup>
+
+		</PhysicalCounters>
+	</Measurement>	
+
+	<Measurement ID="B1I24" RBFolderName="Indoor Unit B1 (24H)" Aggregation="No" NEName="H_B1" OverSize="0" SubMeasName="B1I">
+		<Description>24 hour B1 statistics for Indoor Units</Description>
+		<Time>
+			<RawLevel>2000</RawLevel>
+			<FirstLevel>day</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="false">
+			<RawLevelRef>ROOT.NETV.NVNE.IDU</RawLevelRef>
+			<FirstLevelRef>ROOT.NETV.NVNE.IDU</FirstLevelRef>
+			<LastLevelRef>ROOT.NETV</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="DIM_TOPO" SkipAggregation="true">
+			<RawLevelRef>DIM_TOPO.ABC.BCD</RawLevelRef>
+			<FirstLevelRef>DIM_TOPO.ABC.BCD</FirstLevelRef>
+			<LastLevelRef>DIM_TOPO.ABC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRA_TOPO" SkipAggregation="true">
+			<RawLevelRef>TRA_TOPO.QWE.ASD</RawLevelRef>
+			<FirstLevelRef>TRA_TOPO.QWE.ASD</FirstLevelRef>
+			<LastLevelRef>TRA_TOPO.QWE</LastLevelRef>
+		</TopologyRef>
+    <BusyHourDefinition>
+          <Formula>MAX(LOGICAL002)</Formula>
+    </BusyHourDefinition>
+		<PhysicalCounters>
+
+
+
+		<CounterGroup ID="24H_B1_COUNTERS"  SplitPart="1">
+
+		<Counter ID="OutageIntensity001" OMeSName="H_B1_OI_001">		
+			<Unit>Integer number</Unit>	
+			<TimeRawFormula>avg(OutageIntensity001)</TimeRawFormula>
+			<ObjectRawFormula>sum(OutageIntensity001)</ObjectRawFormula>
+			<Description>It is the rate between the number of Unavailability Periods and the Observation Period</Description>	
+</Counter>
+
+		</CounterGroup>
+<CounterGroupRef splitpart="2">B2idu24.PhysicalCounters.PHSICAL</CounterGroupRef>
+		</PhysicalCounters>
+<LogicalCounters>
+<CounterGroupRef>B2idu24.PhysicalCounters.LOGICAL</CounterGroupRef>
+</LogicalCounters>
+	</Measurement>
+
+
+
+
+</Adaptation>
+

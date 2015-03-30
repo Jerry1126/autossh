@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation     Test if all the adaptation published in the environment can be runned by koarte without error. The input file come from models.
+Suite Setup       Setup
+Suite Teardown    Teardown
+Default Tags      FTT    L1
+Test Timeout      30 minutes
+Metadata          Author    tony.peng@nsn.com
+Library           SSHLibrary
+Library           OperatingSystem
+Library           GetAllModels.py    WITH NAME    GetModels
+Library           Connection.py    WITH NAME    Connect
+Library           koarteRun.py    WITH NAME    KOARTE
+Library           loganlyse.py    WITH NAME    LogAnlyse
+
+*** Test Cases ***
+koarte run
+    ${models}=    Get List    ${con}
+    KOARTE.Run    ${con}    ${models}
+    @{errors}=    LogAnlyse.Count Errors    ${con}
+    : FOR    ${e}    IN    @{errors}
+    \    Should Be Equal As Integers    ${e}    0
+
+*** Keywords ***
+Setup
+    ${con}=    Connect    ${SDV_ONEPM_NAS1IP}    ${SDV_DB_OMC_USER}    ${SDV_DB_OMC_PASSWORD}
+    Set Suite Variable    ${con}
+    Scp    ${con}    ${CURDIR}/../scripts/koarte_testrun.sh    /tmp/koarte_testrun.sh
+
+Teardown
+    Connect.Close    ${con}

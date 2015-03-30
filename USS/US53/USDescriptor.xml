@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="53" name="testsuite_new_O2_scratch_installation" run-standalone="true"
+	requireInstall='true'  xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[Check scratch installation success or not for both gc and rc type]]></Description>
+</US>

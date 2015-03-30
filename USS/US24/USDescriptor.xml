@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="24" name="Month/MonthBh default storage time"
+	requireInstall='false' xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[if not defined month agg:
+		Hour : 8 day
+		Day/BH/week/weekbh:15
+		if defined month agg:
+		Hour : 8 day
+		Day/Daybh/month/monthbh: 40 day
+		Week: 15 day]]></Description>
+</US>

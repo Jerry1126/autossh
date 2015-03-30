@@ -1,0 +1,4 @@
+(BaseAdaptationDir "/opt/nokia/oss/umaran-5.0-nokrww-8.3.0.344")
+(Subsystem         "cusrta")
+(KOALAFileName     "/tmp/TA/cusrtaKoala.xml")
+(EnableRBSupport        "0")

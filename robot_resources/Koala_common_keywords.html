@@ -1,0 +1,880 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Koala common keywords</title>
+</head>
+<body>
+<h1>Koala common keywords</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Setting</th>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>SSHLibrary</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>StringUtils.py</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>CommonFunctions_Koala.py</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keyword</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Open And Login">Open And Login</a></td>
+<td>[Arguments]</td>
+<td>${arg1}</td>
+<td>${arg2}</td>
+<td>${arg3}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Open Connection</td>
+<td>${arg1}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Login</td>
+<td>${arg2}</td>
+<td>${arg3}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_CS Installation">CS Installation</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${pkg}</td>
+<td>${adapid}</td>
+<td>${version}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${installout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task INSTALL -pkg ${pkg}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${installout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${installout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${configureout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task CONFIGURE -pkg Nokia-UMACUS-${adapid}-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${configureout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${configureout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${activateout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task ACTIVATE -pkg Nokia-UMACUS-${adapid}-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${activateout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${activateout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkresult}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/ManageSS.pl --list UMACUS ${adapid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkresult}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should contain</td>
+<td>${checkresult}</td>
+<td>UMACUS-5.0-${adapid}-${version} (CONFIGURED) (ACTIVATED) (ACTIVE)</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_DS Installation">DS Installation</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${pkg}</td>
+<td>${adapid}</td>
+<td>${version}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${installout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task INSTALL -pkg ${pkg}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${installout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${installout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${configureout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task CONFIGURE -pkg Nokia-UMACUS-${adapid}-DB-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${configureout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${configureout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${activateout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task ACTIVATE -pkg Nokia-UMACUS-${adapid}-DB-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${activateout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${activateout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkresult}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/ManageSS.pl --list UMACUS ${adapid}-DB</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkresult}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should contain</td>
+<td>${checkresult}</td>
+<td>UMACUS-5.0-${adapid}-DB-${version} (CONFIGURED) (ACTIVATED) (ACTIVE)</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_CS Uninstallation">CS Uninstallation</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adapid}</td>
+<td>${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${deactivateout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task DEACTIVATE -pkg Nokia-UMACUS-${adapid}-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${deactivateout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should not contain</td>
+<td>${deactivateout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${unconfigureout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task UNCONFIGURE -pkg Nokia-UMACUS-${adapid}-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${unconfigureout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should not contain</td>
+<td>${unconfigureout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${stdout}</td>
+<td>Execute Command</td>
+<td>rpm -e Nokia-UMACUS-${adapid}-5.0-${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${stdout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should not contain</td>
+<td>${stdout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${stdout}</td>
+<td>"UMACUS-5.0-${adapid}-${version}" removed</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_DS Uninstallation">DS Uninstallation</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adapid}</td>
+<td>${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>${deactivateout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task DEACTIVATE -pkg Nokia-UMACUS-${adapid}-DB-5.0</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>log</td>
+<td>${deactivateout}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>Should not contain</td>
+<td>${deactivateout}</td>
+<td>ERROR:</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>execute ds deactivate</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>/usr/bin/nokia/installmx -task DEACTIVATE -pkg Nokia-UMACUS-${adapid}-DB-5.0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${unconfigureout}</td>
+<td>Execute command</td>
+<td>/usr/bin/nokia/installmx -task UNCONFIGURE -pkg Nokia-UMACUS-${adapid}-DB-5.0</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${unconfigureout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${unconfigureout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${stdout}</td>
+<td>Execute Command</td>
+<td>rpm -e Nokia-UMACUS-${adapid}-DB-5.0-${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${stdout}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should not contain</td>
+<td>${stdout}</td>
+<td>ERROR:</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Contain</td>
+<td>${stdout}</td>
+<td>"UMACUS-5.0-${adapid}-DB-${version}" removed</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check if CS is installed">Check if CS is installed</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adapid}</td>
+<td>${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkresult}</td>
+<td>Execute command</td>
+<td>rpm -qa | grep -i ${adapid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkresult}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should contain</td>
+<td>${checkresult}</td>
+<td>Nokia-UMACUS-${adapid}-5.0-${version}-1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Close Connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check if DS is installed">Check if DS is installed</a></td>
+<td>[Arguments]</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${adapid}</td>
+<td>${version}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>open and login</td>
+<td>${host}</td>
+<td>${user}</td>
+<td>${pwd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkresult}</td>
+<td>Execute command</td>
+<td>rpm -qa | grep -i ${adapid}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkresult}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should contain</td>
+<td>${checkresult}</td>
+<td>Nokia-UMACUS-${adapid}-DB-5.0-${version}-1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Execute SQL Query Remotely">Execute SQL Query Remotely</a></td>
+<td>[Arguments]</td>
+<td>${sqlquery}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result} =</td>
+<td>Execute Command and Get RC</td>
+<td>echo -e \"set feedback off\\nset pagesize 0\\n${sqlquery}\" | sqlplus -s omc/omc</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>${0}</td>
+<td>SQL query ${sqlquery} exited with result ${rc}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Not Contain</td>
+<td>${result}</td>
+<td>ERROR</td>
+<td>SQL query ${sqlquery} result contains ERROR</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Execute Command and Get RC">Execute Command and Get RC</a></td>
+<td>[Arguments]</td>
+<td>${command}</td>
+<td>@{restargs}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Execute command remotely and get RC. Returns list of [rc, output]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${result} =</td>
+<td>Execute Command</td>
+<td>${command};echo -e "\$?"</td>
+<td>@{restargs}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${lastLine}</td>
+<td>${allButLastLine} =</td>
+<td>Split to Last Line and Rest</td>
+<td>${result}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc} =</td>
+<td>Convert To Integer</td>
+<td>${lastLine}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${resultList} =</td>
+<td>Create List</td>
+<td>${rc}</td>
+<td>${allButLastLine}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${resultList}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check Counters existed">Check Counters existed</a></td>
+<td>[Arguments]</td>
+<td>${columname}</td>
+<td>${tablename}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${sql}</td>
+<td>generate sql</td>
+<td>${columname}</td>
+<td>${tablename}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}</td>
+<td>Execute SQL Query Remotely</td>
+<td>${sql}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}</td>
+<td>Trim</td>
+<td>${rs}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${res}</td>
+<td>check ref counter</td>
+<td>${rs}</td>
+<td>${columname}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be equal</td>
+<td>${res}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check nonexisted counter">Check nonexisted counter</a></td>
+<td>[Arguments]</td>
+<td>${columname}</td>
+<td>${tablename}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${sql}</td>
+<td>generate sql</td>
+<td>${columname}</td>
+<td>${tablename}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}</td>
+<td>Execute SQL Query Remotely</td>
+<td>${sql}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}</td>
+<td>Trim</td>
+<td>${rs}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should be empty</td>
+<td>${rs}</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

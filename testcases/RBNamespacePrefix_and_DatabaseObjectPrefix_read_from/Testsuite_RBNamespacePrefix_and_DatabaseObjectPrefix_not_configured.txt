@@ -1,0 +1,100 @@
+*** Settings ***
+Documentation     Check whether RBNamespacePrefix and DatabaseObjectPrefix is same as the ss name when they are not configured in metadata
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    run_standalone    US42_standalone    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           RBname_and_DBObject_Prefix_read_from_model_file.RBandDBprefixReadFrom    WITH NAME    RBandDBprefixReadFrom
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+
+*** Variables ***
+${base_ss}        nokktt
+${extension_ss}    cuslte
+${base_sc}        umaktt
+
+*** Test Cases ***
+DBobjectprefix and RBNamePrefix value check when DBobjectprefix and RBNamePrefix were set but with empty value
+    [Documentation]    Check whether DatabaseObjectPrefix in cusxxxrdb_cre_synonyms.sql file is same as the ss name if DBobjectprefix and RBNamePrefix were set but with empty value
+    [Setup]    Test case setup for empty DBObjectPrefix and RBNamePrefix with empty value
+    Check RBNameSapcePrefix and DataBaseObjectPrefix
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${base_ss}    ${RBName_and_DBObject_model}
+    [Teardown]    Test case teardow
+
+DBobjectprefix and RBNamePrefix read from model file if DBobjectprefix and RBNamePrefix lines were commented
+    [Documentation]    Check whether DatabaseObjectPrefix in cusxxxrdb_cre_synonyms.sql file is same as the ss name if DBobjectprefix and RBNamePrefix lines were commented
+    [Setup]    Test case setup for empty DBObjectPrefix and RBNamePrefix line were commented
+    Check RBNameSapcePrefix and DataBaseObjectPrefix
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${base_ss}    ${RBName_and_DBObject_model}
+    should not be true    ${stdout}
+    [Teardown]    Test case teardow
+
+DBobjectprefix and RBNamePrefix value check when DBobjectprefix and RBNamePrefix were not set in metadata file
+    [Documentation]    Check whether DatabaseObjectPrefix in cusxxxrdb_cre_synonyms.sql file is same as the ss name
+    [Setup]    Test case setup for no DBObjectPrefix and RBNamePrefix items
+    Check RBNameSapcePrefix and DataBaseObjectPrefix
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${base_ss}    ${RBName_and_DBObject_model}
+    should not be true    ${stdout}
+    [Teardown]    Test case teardow
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    RBandDBprefixReadFrom.set ssh    ${ssh}
+
+Test case setup for no DBObjectPrefix and RBNamePrefix items
+    upload koala input and general config to cs
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${stdout}=    fabricate_conf_file_without_DBobjectPrefix_and_RBname    ${ss_remote_path}    ${base_ss}
+    ${rpms}=    build test pm package
+
+Fabricate_conf_file
+    [Arguments]    ${newcontent}
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${Prefix}=    create list    DatabaseObjectPrefix    RBNamespacePrefix
+    Modify conf file    ${ss_remote_path}    ${Prefix}    ${newcontent}
+
+Test case setup for empty DBObjectPrefix and RBNamePrefix with empty value
+    upload koala input and general config to cs
+    Fabricate_conf_file    ""
+    ${rpms}=    build test pm package
+
+Test case setup for empty DBObjectPrefix and RBNamePrefix line were commented
+    upload koala input and general config to cs
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${Prefix}=    create list    DatabaseObjectPrefix    RBNamespacePrefix
+    Comment line in conf file    ${ss_remote_path}    ${Prefix}
+    ${rpms}=    build test pm package
+
+Test Suite Teardown
+    teardown and clear ss environment
+
+Modify conf file
+    [Arguments]    ${ss_remote_path}    ${original}    ${newcontent}
+    ${configure_file}=    retrieve_configure_file    ${ss_remote_path}    ${base_ss}
+    ${stdout}=    edit_dedicated_line_content    ${original}    ${configure_file}    ${newcontent}
+    ${Prefix}=    execute_command    grep -i 'DatabaseObjectPrefix*' \ ${ss_remote_path}/${base_ss}GeneralConfiguration.cf
+    ${Prefix}=    execute_command    grep -i 'RBNamespacePrefix*' \ ${ss_remote_path}/${base_ss}GeneralConfiguration.cf
+
+Comment line in conf file
+    [Arguments]    ${ss_remote_path}    ${content}
+    ${configure_file}=    retrieve_configure_file    ${ss_remote_path}    ${base_ss}
+    ${stdout}=    comment_dedicated_line    ${content}    ${configure_file}
+
+Check RBNameSapcePrefix and DataBaseObjectPrefix
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${DBobjectPrefix_RBNamePrefix}=    retrieve_DBObjectPrefix_or_RBNameSpacePrefix    ${ss_remote_path}
+    ${stdout}=    check_model_or_info_file_exist_or_not    False    ${base_sc}    ${base_ss}    info
+    ${stdout1}=    check_model_or_info_file_exist_or_not    False    ${base_sc}    ${base_ss}    model
+    ${RBName_and_DBObject_info}=    check_RBName_and_DBObject_in_model_or_info_file    info    False    ${base_sc}    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+
+Test case teardow
+    clear ss environment

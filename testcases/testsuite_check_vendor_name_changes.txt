@@ -1,0 +1,27 @@
+*** Settings ***
+Documentation     Check the Vender name in output files
+Test Setup        Test Case Setup
+Test Teardown     Test Case Teardown    #Suite Setup    Test Suite Setup    #Suite Teardown    Test Suite Teardown
+Force Tags        US17    FTT    common    L1
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           String.String    WITH NAME    String
+
+*** Variables ***
+
+*** Test Cases ***
+Check vendor name
+    [Tags]    A
+    [Setup]    Test case setup
+    ${year}=    Get Time    year    NOW
+    ${stdout}    ${stder}=    Execute Command    ls | grep -ri 'Copyright' /var/tmp/rtekoa/integrationTool/nokktt/nokkttcdb/|grep -i -v 'Copyright (c) Nokia ${year}'|grep -i -v 'Copyright (c) Nokia Networks' | grep -i -v 'Copyright (c) Nokia 2014'    return_stderr=True
+    log    ${stdout}
+    Should Be Empty    ${stder}
+    Should Be Empty    ${stdout}
+
+*** Key Word ***
+Test Case Setup
+    SSHLibrary.open connection    ${SDV_ONEPM_NAS1IP}
+    SSHLibrary.Login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+
+Test Case Teardown
+    SSHLibrary.Close all connections

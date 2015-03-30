@@ -1,0 +1,14 @@
+*** Settings ***
+Library           SSHLibrary    WITH NAME    SSHLibrary
+Library           OMeSGenerateAndAgg.OMeSGenerateAndAgg    WITH NAME    OmesAgg
+
+*** Keywords ***
+run_pmdata_factory
+    [Arguments]    ${ssname}    ${scname}    ${line_number}    ${root_alias}=onepm_cs1_root
+    ${return_value_pmdata}=    OmesAgg.Run Pmdata Tool    ${ssname}    ${scname}    ${line_number}    ${root_alias}
+    Should Be Equal    ${return_value_pmdata}    pass
+
+run_cosprc
+    [Arguments]    ${db_prefix}    ${agg_date}=None    ${omc_alias}=onepm_cs1_omc
+    ${return_value_cosprc}=    OmesAgg.Run Cosprcmx    ${db_prefix}    ${agg_date}    ${omc_alias}
+    Should Be Equal    ${return_value_cosprc}    pass

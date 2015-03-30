@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="17" name="Vendor name change" requireInstall='false'  xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+    <Description>Nokia Solutions and Networks</Description>
+</US>

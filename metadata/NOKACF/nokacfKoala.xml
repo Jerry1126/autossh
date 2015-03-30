@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+	<!--
+		=================================================================
+		===================== SYSTEM IDENTIFICATION =====================
+		================================================================= ==
+		== Adaptation: == Subsystem : Nar8 ==
+		================================================================= ==
+		This is the main configuration file for this adaptation ==
+		================================================================= ==
+		ID : Wed Sep 22 23:37:06 2004 for KOALA v0.979a
+		=================================================================
+	-->
+<Adaptation ID="acf" RBFolderName = "aaaaa"
+	RepProcessID="0xEAA2" UMAProcessID="0x0000" DNMappingStrategy="trivial">
+	<Release>
+		<Vendor>NSN</Vendor>
+		<Element>KSC</Element>
+		<Version>S16_2;S16.13;S16.12;S16.11;S16;S15.3;S15.2;S15;S14;S13;S12;S11.5
+		</Version>
+	</Release>
+	<NDWInformation FN_ND="9999" NDWProcessID="0xE556"></NDWInformation>
+	<Topology Dimension="2G Network" ID="ROOT" Path="PLMN-*"
+		ExtraHierarchies="MR;WS">
+		<Level Aggregation="true"
+			Description="Global ID of the network element unique within the NetAct."
+			ID="KSC" IsMeasuringElement="true" IsTransient="false" ObjectNumber="50">
+			<ObjectClassDefinition IntClassID="9903" IsNE="false"
+				Name="KSC_KSC_OBJECT_CLASS" />
+			<Key ID="ksc_gid" />
+			<Level Aggregation="true"
+				Description="Global ID of the network element unique within the NetAct."
+				ID="KCF" IsTransient="false" ObjectNumber="1">
+				<ObjectClassDefinition IntClassID="9927" IsNE="false"
+					Name="KSC_KCF_OBJECT_CLASS" />
+				<Key ID="kcf_gid" />
+				<!--</Level> -->
+
+				<Level Aggregation="true"
+					Description="Global ID of the network element unique within the NetAct."
+					ID="KTS" IsTransient="false" ObjectNumber="240">
+					<ObjectClassDefinition IntClassID="9904" IsNE="false"
+						Name="KSC_KTS_OBJECT_CLASS" />
+					<Key ID="kts_gid" />
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Topology Dimension="TRX Type" ID="TRXTP_TOPO" Path="PLMN-*"
+		RBName="TRX Type">
+		<Level Aggregation="true"
+			Description="Type of TRX: normal TRX = 0, extended TRX = 1." ID="TTP"
+			IsTransient="true" ObjectNumber="3" RBName="TRX Type">
+			<ObjectClassDefinition IntClassID="0" IsNE="false"
+				Name="KSC_TTP_OBJECT_CLASS" />
+			<Key ID="ttp_id" />
+		</Level>
+	</Topology>
+	<Topology Dimension="Segement" ID="SEG_TOPO" Path="PLMN-*"
+		RBName="Segment">
+		<Level Aggregation="true"
+			Description="SEGMENT" ID="SEG"
+			IsTransient="true" ObjectNumber="3" RBName="SEGMENT">
+			<ObjectClassDefinition IntClassID="0" IsNE="false"
+				Name="KSC_SEG_OBJECT_CLASS" />
+			<Key ID="seg_id"/>
+		</Level>
+	</Topology>
+	<Storing>
+		<Raw>14</Raw>
+		<Hour>62</Hour>
+		<Day>366</Day>
+		<Week>1096</Week>
+		<Month>1096</Month>
+		<DayBH>366</DayBH>
+		<WeekBH>1096</WeekBH>
+		<MonthBH>1096</MonthBH>
+	</Storing>
+	<Measurement OMeSName="TRAFFICT" Aggregation="All" ID="TRAFFICT"
+		RBFolderName="Traffic" OverSize="True" SubMeasName="TRA">
+		<Description>Traffic Measurement (TRAFFIC)</Description>
+		<Time>
+			<RawLevel>60</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="false">
+			<RawLevelRef>ROOT.KSC.KCF.KTS</RawLevelRef>
+			<FirstLevelRef>ROOT.KSC.KCF.KTS</FirstLevelRef>
+			<LastLevelRef>ROOT.KSC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="SEG_TOPO" SkipAggregation="false">
+			<RawLevelRef>SEG_TOPO.SEG</RawLevelRef>
+			<FirstLevelRef>SEG_TOPO.SEG</FirstLevelRef>
+			<LastLevelRef>SEG_TOPO.SEG</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRXTP_TOPO" SkipAggregation="false">
+			<RawLevelRef>TRXTP_TOPO.TTP</RawLevelRef>
+			<FirstLevelRef>TRXTP_TOPO.TTP</FirstLevelRef>
+			<LastLevelRef>TRXTP_TOPO.TTP</LastLevelRef>
+		</TopologyRef>
+		<BusyHourDefinition>
+			<Formula>MAX(AVE_BUSY_TCH)</Formula>
+		</BusyHourDefinition>
+
+		<PhysicalCounters>
+			<CounterGroup ID="group1" RBFolderName="none" SplitPart="1">
+				<Counter ID="SDCCH_SEIZ_ATT" OMeSName="c001000">
+					<TimeRawFormula>sum(SDCCH_SEIZ_ATT)</TimeRawFormula>
+					<ObjRawFormula>sum(SDCCH_SEIZ_ATT)</ObjRawFormula>
+					<Unit>No.</Unit>
+				</Counter>
+				<Counter ID="SDCCH_BUSY_ATT" OMeSName="c001001">
+					<TimeRawFormula>sum(SDCCH_BUSY_ATT)</TimeRawFormula>
+					<ObjRawFormula>sum(SDCCH_BUSY_ATT)</ObjRawFormula>
+					<Unit>No.</Unit>
+				</Counter>
+			</CounterGroup>
+
+			<CounterGroup ID="group2" RBFolderName="none" SplitPart="2">
+
+				<Counter ID="GPRS_TER_UPGRD_REQ" OMeSName="c001174">
+					<TimeRawFormula>sum(GPRS_TER_UPGRD_REQ)</TimeRawFormula>
+					<ObjRawFormula>sum(GPRS_TER_UPGRD_REQ)</ObjRawFormula>
+					<Unit>No.</Unit>
+				</Counter>
+			</CounterGroup>
+
+			<CounterGroup ID="spare" RBFolderName="none" SplitPart="3">
+				<!--from S15.3 spare to official-->
+				<Counter ID="SPARE001191" OMeSName="spare001191"
+					HideInSummary="true" HideInRB="true"></Counter>
+				<!--end-->
+				<!--from S15.1 spare to official-->
+				<Counter ID="SPARE001225" Name="spare001225" HideInSummary="true"
+					HideInRB="true"></Counter>
+			</CounterGroup>
+			
+		</PhysicalCounters>
+		<LogicalCounters>
+			<CounterGroupRef BHSummOnly="true" SplitPart="0">RESAVAIL.LogicalCounters.RES_PERIOD_GROUP
+			</CounterGroupRef>
+			<CounterGroupRef BHSummOnly="true" SplitPart="0">RESAVAIL.PhysicalCounters.bhcounter</CounterGroupRef>
+			<Counter ID="period_duration_sum" FromSubViewName="tra2">
+				<Unit>Min</Unit>
+				<TimeRawFormula>SUM(period_duration)</TimeRawFormula>
+				<TimeSumFormula>SUM(period_duration_sum)</TimeSumFormula>
+				<ObjRawFormula>SUM(period_duration_sum)</ObjRawFormula>
+				<ObjectSumFormula>SUM(period_duration_sum)</ObjectSumFormula>
+				<Description>Duration of the measurement period in minutes. Values summed up also in object dimension.</Description>
+			</Counter>
+		</LogicalCounters>
+	</Measurement>
+	<Measurement OMeSName="RESAVAIL" Aggregation="All" ID="RESAVAIL"
+		RBFolderName="Resource Availability &amp;" GIMSplit="true" OverSize="True" SubMeasName="RES">
+		<Description>Resource Availability Measurement (RESAVAIL)
+		</Description>
+		<Time>
+			<RawLevel>60</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT" SkipAggregation="false">
+			<RawLevelRef>ROOT.KSC.KCF.KTS</RawLevelRef>
+			<FirstLevelRef>ROOT.KSC.KCF.KTS</FirstLevelRef>
+			<LastLevelRef>ROOT.KSC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="SEG_TOPO" SkipAggregation="false">
+			<RawLevelRef>SEG_TOPO.SEG</RawLevelRef>
+			<FirstLevelRef>SEG_TOPO.SEG</FirstLevelRef>
+			<LastLevelRef>SEG_TOPO.SEG</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRXTP_TOPO" SkipAggregation="false">
+			<RawLevelRef>TRXTP_TOPO.TTP</RawLevelRef>
+			<FirstLevelRef>TRXTP_TOPO.TTP</FirstLevelRef>
+			<LastLevelRef>TRXTP_TOPO.TTP</LastLevelRef>
+		</TopologyRef>
+		<BusyHourDefinition>
+			<Formula>MAX(AVE_BUSY_TCH)</Formula>
+		</BusyHourDefinition>
+		<PartitionGranularity>
+			<PartitionLevel TimeLevel="Raw" ServiceType="RC">hour</PartitionLevel>
+			<PartitionLevel TimeLevel="day" ServiceType="RC">week</PartitionLevel>	
+			<PartitionLevel TimeLevel="Raw" ServiceType="GC">hour</PartitionLevel>	
+			<PartitionLevel TimeLevel="Week" ServiceType="GC">mon</PartitionLevel>
+		</PartitionGranularity>
+		<PhysicalCounters>
+			<CounterGroup ID="bhcounter" RBFolderName="none" SplitPart="5">
+				<Counter ID="AVE_BUSY_TCH" OMeSName="c002027">
+					<TimeRawFormula>sum(AVE_BUSY_TCH)</TimeRawFormula>
+					<ObjRawFormula>sum(AVE_BUSY_TCH)</ObjRawFormula>
+					<Unit>No.</Unit>
+				</Counter>
+			</CounterGroup>
+			<CounterGroupRef BHSummOnly="true" SplitPart="6">TRAFFICT.LogicalCounters.group2</CounterGroupRef>
+		</PhysicalCounters>
+
+		<LogicalCounters>
+			<CounterGroup ID="SEG_RES_GROUP" RBFolderName="none">
+				<Counter ID="SEG_AVE_BUSY_TCH" HideInRB="true">
+					<TimeRawFormula>sum(AVE_BUSY_TCH)</TimeRawFormula>
+					<ObjRawFormula>sum(AVE_BUSY_TCH)</ObjRawFormula>
+					<Unit>No.</Unit>
+				</Counter>
+			</CounterGroup>
+			<CounterGroup ID="RES_PERIOD_GROUP" RBFolderName="none">
+				<Counter HideInRB="true" ID="RESAVAIL_PERIOD_DURATION">
+					<Unit>No.</Unit>
+					<TimeRawFormula>SUM(PERIOD_DURATION)</TimeRawFormula>
+					<ObjRawFormula>AVG(PERIOD_DURATION)</ObjRawFormula>
+				</Counter>
+			</CounterGroup>
+			<Counter ID="period_duration_sum" FromSubViewName="res5">
+				<Unit>Min</Unit>
+				<TimeRawFormula>SUM(period_duration)</TimeRawFormula>
+				<TimeSumFormula>SUM(period_duration_sum)</TimeSumFormula>
+				<ObjRawFormula>SUM(period_duration_sum)</ObjRawFormula>
+				<ObjectSumFormula>SUM(period_duration_sum)</ObjectSumFormula>
+				<Description>Duration of the measurement period in minutes. Values summed up also in object dimension.</Description>
+			</Counter>
+		</LogicalCounters>
+	</Measurement>
+</Adaptation>

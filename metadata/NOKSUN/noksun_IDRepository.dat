@@ -1,0 +1,151 @@
+$VAR1 = {
+          'htGivenID' => {
+                           'dimension' => {
+                                            '2g network' => 1,
+                                            'time' => 0,
+                                            '3g network' => 2
+                                          },
+                           'hierarchy' => {
+                                            'week' => 0,
+                                            'month' => 1,
+                                            'root' => 3
+                                          },
+                           'folder' => {
+                                         '_adaptation_root_folder_' => 173404160
+                                       }
+                         },
+          'htNextID' => {
+                          'folder' => 173404161
+                        },
+          'htLevelID' => {
+                           'week.all' => 0,
+                           'month.all' => 6,
+                           'month.month' => 9,
+                           'month.day' => 10,
+                           'week.year' => 1,
+                           'month.hour' => 11,
+                           'week.raw' => 5,
+                           'week.day' => 3,
+                           'month.quarter' => 8,
+                           'week.week' => 2,
+                           'month.raw' => 12,
+                           'month.year' => 7,
+                           'root' => 14,
+                           'week.hour' => 4
+                         },
+          'strTimestamp' => 'Tue Jul 29 11:48:28 2014',
+          'intStartRID' => 173404160,
+          'htCounterID' => {},
+          'low_case' => 1
+        };
+$VAR2 = {
+          'htUniqueName' => {
+                              'mo2' => 1,
+                              'chengdu1' => 1,
+                              'sichuan' => 1,
+                              'sichuan1' => 1,
+                              'china1' => 1,
+                              'mo31' => 1,
+                              'chengdu' => 1,
+                              'mo32' => 1,
+                              'mo1' => 1,
+                              'china' => 1
+                            },
+          'location.china.sichuan' => 'sichuan',
+          'location.china.sichuan.chengdu' => 'chengdu',
+          'root.mo1.mo2.mo32' => 'mo32',
+          'root.mo1.mo2.mo31.location.china.sichuan' => 'sichuan1',
+          'root.mo1.mo2' => 'mo2',
+          'root.mo1.mo2.mo31' => 'mo31',
+          'root.mo1.mo2.mo31.location.china' => 'china1',
+          'root.mo1' => 'mo1',
+          'location.china' => 'china',
+          'root.mo1.mo2.mo31.location.china.sichuan.chengdu' => 'chengdu1',
+          'htNextIndex' => {
+                             'mo2' => 1,
+                             'sichuan' => 2,
+                             'mo31' => 1,
+                             'chengdu' => 2,
+                             'mo32' => 1,
+                             'mo1' => 1,
+                             'china' => 2
+                           }
+        };
+$VAR3 = {
+          'cpu1' => {
+                      'htCounters' => {
+                                        'cpu1_index_1' => 3,
+                                        'cpu1_duration_1' => 2,
+                                        'cpu1_used_1' => 1
+                                      },
+                      'intCounters' => 4
+                    },
+          'cpu' => {
+                     'htCounters' => {
+                                       'cpu_used_1' => 1,
+                                       'cpu_overide_1' => 4,
+                                       'cpu_index_1' => 5,
+                                       'cpu_index_3' => 7,
+                                       'cpu_left_1' => 3,
+                                       'cpu_duration_1' => 2,
+                                       'cpu_index_2' => 6
+                                     },
+                     'intCounters' => 8
+                   },
+          'mmdu' => {
+                      'htCounters' => {
+                                        'mmdu_count_1' => 4,
+                                        'mmdu_owner' => 6,
+                                        'mmdu_left_1' => 3,
+                                        'mmdu_index_1' => 5,
+                                        'mmdu_used_1' => 1,
+                                        'mmdu_duration_1' => 2
+                                      },
+                      'intCounters' => 7
+                    },
+          'mchu' => {
+                      'htCounters' => {
+                                        'mchu_counts' => 7,
+                                        'mchu_used_1' => 1,
+                                        'mchu_owner' => 6,
+                                        'mchu_left_1' => 3,
+                                        'mchu_duration_1' => 2,
+                                        'mchu_size_1' => 5,
+                                        'mchu_index_1' => 4
+                                      },
+                      'intCounters' => 8
+                    },
+          'cppu' => {
+                      'htCounters' => {
+                                        'cppu_index_1' => 3,
+                                        'cppu_owner' => 5,
+                                        'cppu_duration_1' => 2,
+                                        'cppu_pair' => 4,
+                                        'cppu_used_1' => 1
+                                      },
+                      'intCounters' => 6
+                    },
+          'traf' => {
+                      'htCounters' => {
+                                        'traffic_bh_2' => 2,
+                                        'traffic_type_4' => 6,
+                                        'traffic_type_6' => 8,
+                                        'traffic_type_1' => 3,
+                                        'traffic_type_5' => 7,
+                                        'traffic_type_8' => 10,
+                                        'traffic_type_2' => 4,
+                                        'traffic_type_7' => 9,
+                                        'traffic_bh_1' => 1,
+                                        'traffic_type_3' => 5
+                                      },
+                      'intCounters' => 11,
+                      '1' => {
+                               'intKeys' => 4,
+                               'htKeys' => {
+                                             'china_id' => 1,
+                                             'chengdu_id' => 3,
+                                             'sichuan_id' => 2
+                                           }
+                             }
+                    }
+        };

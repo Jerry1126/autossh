@@ -1,0 +1,2 @@
+import os
+EXCLUDED_SS=['NOKBSC','NOKBSR']

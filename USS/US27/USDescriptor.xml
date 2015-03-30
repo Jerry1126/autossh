@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="27" name="transient object insert enhancement to replace 'minus'" xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[RTEKOA_DEV_027]]></Description>
+</US>

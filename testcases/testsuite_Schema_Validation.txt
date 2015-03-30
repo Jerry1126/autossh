@@ -1,0 +1,27 @@
+*** Settings ***
+Force Tags        US14    L1
+Library           Check_Schema_Validation.xml_schema    WITH NAME    xml_schema
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Variables         testsuite_Schema_Validation.py
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+
+*** Test Cases ***
+Schema_Validation
+    [Setup]    Setup
+    [Template]    xml_schema.compare_input_with_schema
+    ${schema}    Koala.xml
+    ${schema}    Koala1.xml
+    ${schema}    Koala2.xml
+    ${schema}    Koala3.xml
+    ${schema}    Koala4.xml
+    ${schema}    Koala5.xml
+
+*** Keywords ***
+Setup
+    ${ssh}=    Get Library Instance    SSHLibrary
+    KoalaRTE.set ssh    ${ssh}
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    ${stdout}    Execute Command    ls -l /opt/nokia/oss/conf/B-4_Koala_Schema.xsd|awk -F '-> ' '{print $2}'
+    write    ${stdout}
+    Get File    ${stdout}    ${KOALA_SCHEMA_PATH}

@@ -1,0 +1,537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>TA Runner</title>
+</head>
+<body>
+<h1>TA Runner</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Suite Setup</td>
+<td>SuiteSetup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>SuiteTeardown</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../robot_resources/KoalaRTE_Keywords.txt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>UserStory.UserStoryReader</td>
+<td>WITH NAME</td>
+<td>UserStoryReader</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>utilities.TestRunner</td>
+<td>WITH NAME</td>
+<td>TestRunner</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>GetLevelFlag.GetLevelFlag</td>
+<td>WITH NAME</td>
+<td>GetLevelFlag</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Cases</th>
+</tr>
+<tr>
+<td class="name"><a name="test_run TA for not standalone US without KoalaInputTemplate and GeneralConfTemplate">run TA for not standalone US without KoalaInputTemplate and GeneralConfTemplate</a></td>
+<td>[Setup]</td>
+<td>setup</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${keys}=</td>
+<td>evaluate</td>
+<td>['not_run_standalone','without_koala_template','without_general_conf_template']</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${uss_}=</td>
+<td>UserStoryReader.get_subset_user_stories_by_given_filter_keys</td>
+<td>${uss}</td>
+<td>${keys}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${uss_}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${include_tags}=</td>
+<td>evaluate</td>
+<td>map(lambda x:"%sANDftt"%x,${uss_})</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${include_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${exclude_tags}=</td>
+<td>get_exclude_tags</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${exclude_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${extra_variables}=</td>
+<td>evaluate</td>
+<td>{'WS_PM_RPM_NAME':'${rpm_name}','WS_PM_RPM_VERSION':'${rpm_version}','KOALA_INPUT_PATH':'${koala input file path}','GENERAL_CONFIG_INPUT_PATH':'${general config file path}'}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${extra_variables}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${koala_case_rs}=</td>
+<td>TestRunner.run_test</td>
+<td>not_standalone_US_without_KoalaInputTemplate_and_GeneralConfTemplate</td>
+<td>testcases</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${include_tags}</td>
+<td>${exclude_tags}</td>
+<td>extra_variables=${extra_variables}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${include_tags}=</td>
+<td>evaluate</td>
+<td>['ftt']</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${include_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${common_case_rs}=</td>
+<td>TestRunner.run_test</td>
+<td>not_standalone_US_without_KoalaInputTemplate_and_GeneralConfTemplate_commonTA</td>
+<td>common-cases</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${EMPTY}</td>
+<td>extra_variables=${extra_variables}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be true</td>
+<td>${koala_case_rs} and ${common_case_rs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>teardown</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_run TA for standalone US and standalone TA cases">run TA for standalone US and standalone TA cases</a></td>
+<td>[Setup]</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${keys}=</td>
+<td>evaluate</td>
+<td>['run_standalone']</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${uss_}=</td>
+<td>UserStoryReader.get_subset_user_stories_by_given_filter_keys</td>
+<td>${uss}</td>
+<td>${keys}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${uss_}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${include_tags}=</td>
+<td>evaluate</td>
+<td>map(lambda x:"%sANDftt"%x,${uss_})+["run_standaloneANDftt"]</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${include_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${exclude_tags}=</td>
+<td>get_exclude_tags</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${exclude_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}=</td>
+<td>TestRunner.run_test</td>
+<td>standalone_US_standalone_cases</td>
+<td>testcases</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${include_tags}</td>
+<td>${exclude_tags}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be true</td>
+<td>${rs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_SuiteSetup">SuiteSetup</a></td>
+<td>initial ssh instance and inject into KoalaRTE</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${uss}=</td>
+<td>UserStoryReader.list_user_stories</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set suite variable</td>
+<td>${uss}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_setup">setup</a></td>
+<td>upload koala input and general config to cs</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${koala input file path}=</td>
+<td>get koala input file path</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set test variable</td>
+<td>${koala input file path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${general config file path}=</td>
+<td>get general config file path</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set test variable</td>
+<td>${general config file path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rpms}=</td>
+<td>build test pm package</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rpm_name}=</td>
+<td>evaluate</td>
+<td>${rpms}[0].split('/')[-1]</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rpm_version}=</td>
+<td>evaluate</td>
+<td>'${rpm_name}'.split('-')[4]</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set test variable</td>
+<td>${rpm_name}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set test variable</td>
+<td>${rpm_version}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>install test pm package</td>
+<td>${rpms}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Store koala output model file to temp file</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_teardown">teardown</a></td>
+<td>uninstall test pm package</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>clear ss environment</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_SuiteTeardown">SuiteTeardown</a></td>
+<td>teardown and clear ss environment</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_get_exclude_tags">get_exclude_tags</a></td>
+<td>${level_flag}=</td>
+<td>GetLevelFlag.get_flag</td>
+<td>${KOARTE_DIR}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${exclude_tags}=</td>
+<td>Create List</td>
+<td>L1</td>
+<td>L2</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>L3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${final_exclude_tags}=</td>
+<td>Evaluate</td>
+<td>filter(lambda x: x != '${level_flag}', ${exclude_tags})</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${final_exclude_tags}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${final_exclude_tags}</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

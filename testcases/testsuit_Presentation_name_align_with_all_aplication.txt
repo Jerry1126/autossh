@@ -1,0 +1,44 @@
+*** Settings ***
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           presentation_name_align_with_all_aplication.presentation_name_align_with_all_aplication    WITH NAME    presentation_name_align_with_all_aplication
+Variables         testsuit_Presentation_name_align_with_all_aplication.py
+
+*** Variables ***
+
+*** Test Cases ***
+Presentation_name_align_with_all_aplication
+    [Tags]    FTT    common    US49    L2
+    [Setup]    setup
+    [Template]    get and check the RBFolderName in koala input and database
+    change_RBFolderName="aaaaa"
+    change_no_RBFolderName
+    [Teardown]    teardown
+
+*** Keywords ***
+setup
+    Initial ssh instance and inject into KoalaRTE
+    upload koala input and general config to cs
+
+teardown
+    teardown and clear ss environment
+
+get and check the RBFolderName in koala input and database
+    [Arguments]    ${command}
+    run keyword    ${command}
+    ${koala_input_path}    get koala input file path    ${ss}
+    ${local_path}    make_dir
+    get file    ${koala_input_path}    ${local_path}
+    ${RBFolderName_AD}    get_Adaptation_RBFolderName    ${ss}    ${local_path}
+    remove_dir    ${local_path}
+    build test pm package    ${ss}
+    ${sql_result}    Execute Command    sed -n '/INSERT INTO raa_t_adaptation/,/;/{p}' /var/tmp/rtekoa/integrationTool/${ss}/${ss}rdb/${ss}rdb_aoa_cre_registry.sql|sed -n '/(/,/)/{p}'
+    ${RBFolderName_DB}    get_Database_RBFolderName    ${sql_result}
+    should contain    ${RBFolderName_DB}    ${RBFolderName_AD}
+
+change_RBFolderName="aaaaa"
+    ${koala_input_path}    get koala input file path    ${ss}
+    Execute Command    sed -i 's/\\(.*Adaptation\\s+*ID\\s*=\\s*\\"\\s*\\S*\\"\\).*/\\1 RBFolderName="aaaaa"/g' ${koala_input_path}
+
+change_no_RBFolderName
+    ${koala_input_path}    get koala input file path    ${ss}
+    Execute Command    sed -i 's/\\(.*Adaptation\\s+*ID\\s*=\\s*\\"\\s*\\S*\\"\\).*/\\1 /g' ${koala_input_path}

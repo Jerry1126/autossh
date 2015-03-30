@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ 
+      =================================================================
+
+     =================================================================
+     ==
+     ==      Adaptation: 	Nokia Solutions and Networks LTE
+     ==      Subsystem : 	noklte
+     ==  
+     =================================================================
+     ==       This is the main configuration file for this adaptation
+     ==
+     =================================================================
+     ==       ID : LNBTS
+     =================================================================
+ 
+
+  -->
+<Adaptation RepProcessID="0xA9CD" UMAProcessID="0x0000" ID="lte" DNMappingStrategy="trivial" RBFolderName="LNBTS-NSN LTE Base Transceiver Station">
+  <Release>
+    <Vendor>NSN</Vendor>
+    <Element>LNBTS</Element>
+		<Version>LNF7.0/LNZ5.0;LN7.0/LNT5.0;LN6.0/LNT4.0;LN5.0/LNT3.0/LNFZ5.0;LN5.0/LNT3.0;LNT3.1;LNT2.0/LN3.0;LNT1.0/LN2.0;LN1.0</Version>
+  </Release>
+  <Topology Dimension="LTE" Path="PLMN(16:PLMN_OBJECT_CLASS)-*" ID="ROOT" ExtraHierarchies="MR;WS">
+    <Level ID="MRBTS" HasServicesSupport="false" IsTransient="false" Aggregation="false" RBName="Nokia Solutions and Networks MRBTS" ObjectNumber="10000" ExtraHierarchies="MR;WS">
+      <ObjectClassDefinition Name="MRBTS_OBJECT_CLASS" IsNE="true" IntClassID="3128"/>
+      <Key ID="mrbts_id"/>
+      <Level ID="LNBTS" HasServicesSupport="true" IsTransient="false" Aggregation="true" ObjectNumber="1" RBName="Nokia Solutions and Networks LNBTS" ExtraHierarchies="MR;WS" IsMeasuringElement="true">
+        <ObjectClassDefinition Name="LNBTS_OBJECT_CLASS" IsNE="true" IntClassID="3129"/>
+        <Key ID="lnbts_id"/>
+        <Level ID="LNCEL" HasServicesSupport="false" IsTransient="false" Aggregation="true" ObjectNumber="3" RBName="Nokia Solutions and Networks LNCEL" ExtraHierarchies="MR;WS">
+          <ObjectClassDefinition Name="LNCEL_OBJECT_CLASS" IsNE="true" IntClassID="3130"/>
+          <Key ID="lncel_id"/>
+        </Level>
+        <Level ID="FTM" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="Nokia Solutions and Networks FTM">
+          <ObjectClassDefinition Name="FTM_OBJECT_CLASS" IsNE="true" IntClassID="1793"/>
+          <Key ID="ftm_id"/>
+          <Level ID="IPNO" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="IPNO">
+            <ObjectClassDefinition Name="IPNO_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="ipno_id"/>
+            <Level ID="IPRM" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="IPRM">
+              <ObjectClassDefinition Name="IPRM_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+              <Key ID="iprm_id"/>
+            </Level>
+            <Level ID="IEIF" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="IEIF">
+              <ObjectClassDefinition Name="IEIF_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+              <Key ID="ieif_id"/>
+              <Level ID="IPPM" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="IPPM">
+                <ObjectClassDefinition Name="IPPM_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+                <Key ID="ippm_id"/>
+              </Level>
+              <Level ID="PHBPM" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="PHBPM">
+                <ObjectClassDefinition Name="PHBPM_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+                <Key ID="phbpm_id"/>
+              </Level>
+              <Level ID="IVIF" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="IVIF">
+                <ObjectClassDefinition Name="IVIF_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+                <Key ID="ivif_id"/>
+                <LevelRef ID="IPPM"/>
+                <LevelRef ID="PHBPM"/>
+              </Level>
+<!-- IVIF -->
+            </Level>
+<!-- IEEF -->
+            <Level ID="TWAMP" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="TWAMP">
+              <ObjectClassDefinition Name="TWAMP_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+              <Key ID="twamp_id"/>
+            </Level>
+            <Level ID="TOPIK" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="TOPIK">
+				<ObjectClassDefinition Name="TOPIK_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+				<Key ID="topik_id"/>			
+			</Level>
+          </Level>
+<!-- IPNO -->
+          <Level ID="ETHLK" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="ETHLK">
+            <ObjectClassDefinition Name="ETHLK_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="ethlk_id"/>
+          </Level>
+          <Level ID="IPSECC" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="IPSECC">
+            <ObjectClassDefinition Name="IPSECC_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="ipsecc_id"/>
+          </Level>
+          <Level ID="L2SWI" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="L2SWI">
+            <ObjectClassDefinition Name="L2SWI_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="l2swi_id"/>
+          </Level>
+          <Level ID="TAC" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="TAC">
+            <ObjectClassDefinition Name="TAC_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="tac_id"/>
+            <Level ID="LTAC" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="LTAC">
+				<ObjectClassDefinition Name="LTAC_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+				<Key ID="ltac_id"/>			
+			</Level>		
+          </Level>
+          <Level ID="TOPB" HasServicesSupport="false" IsTransient="true" Aggregation="false" ObjectNumber="1" RBName="TOPB">
+            <ObjectClassDefinition Name="TOPB_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="topb_id"/>
+            <Level ID="TOPF" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="TOPF">
+				      <ObjectClassDefinition Name="TOPF_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+				      <Key ID="topf_id"/>			
+			      </Level>	
+			      <Level ID="TOPP" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="TOPP">
+				      <ObjectClassDefinition Name="TOPP_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+				      <Key ID="topp_id"/>			
+			      </Level>	
+          </Level>
+		  <Level ID="WIFICNF" HasServicesSupport="false" IsTransient="true" Aggregation="true" ObjectNumber="1" RBName="WIFICNF">
+            <ObjectClassDefinition Name="WIFICNF_OBJECT_CLASS" IsNE="false" IntClassID="0"/>
+            <Key ID="wificnf_id"/>
+          </Level>
+        </Level>
+<!-- FTM -->
+      </Level>
+<!-- LNBTS-->
+    </Level>
+<!-- MRBTS -->
+  </Topology>
+  <Topology ID="Handover_adjacent_cell" Path="PLMN(16:PLMN_OBJECT_CLASS)-*" Dimension="Handover adjacent cell">
+    <Level ID="ECI" ObjectNumber="1" Aggregation="false" IsTransient="true">
+      <ObjectClassDefinition IntClassID="0" IsNE="false" Name="ECI_OBJECT_CLASS"/>
+      <Key ID="eci_id"/>
+    </Level>
+  </Topology>
+  <Topology ID="MCCMNC" Path="PLMN-PLMN" Dimension="MCC / MNC">
+    <Level ID="MCC" RBName="MCC" ObjectNumber="4" Aggregation="false" IsTransient="true">
+		<ObjectClassDefinition IntClassId="0" IsNE="false" Name="MCC_OBJECT_CLASS"/>
+		<Key ID="mcc_id" MaxLength="100"/>
+		<Level ID="MNC" RBName="MNC" ObjectNumber="4" Aggregation="false" IsTransient="true">
+			<ObjectClassDefinition IntClassId="0" IsNE="false" Name="MNC_OBJECT_CLASS"/>
+			<Key ID="mnc_id" MaxLength="100"/>
+		</Level> 
+    </Level>
+  </Topology>
+  <Topology ID="Destination_MCC_MNC" Path="PLMN-PLMN" Dimension="Destination MCC / MNC">
+    <Level ID="DMCC" OMeSName="MCC" RBName="Dest MCC" ObjectNumber="4" Aggregation="true" IsTransient="true">
+		<ObjectClassDefinition IntClassId="0" IsNE="false" Name="DMCC_OBJECT_CLASS"/>
+		<Key ID="dmcc_id" MaxLength="100"/>
+		<Level ID="DMNC" OMeSName="MNC" RBName="Dest MNC" ObjectNumber="4" Aggregation="true" IsTransient="true">
+			<ObjectClassDefinition IntClassId="0" IsNE="false" Name="DMNC_OBJECT_CLASS"/>
+			<Key ID="dmnc_id" MaxLength="100"/>
+		</Level> 
+    </Level>
+  </Topology>
+  <Topology ID="HO_Target" Path="PLMN-PLMN" Dimension="HO Target">
+    <Level ID="HOT" OMeSName="HOT" RBName="HOT" ObjectNumber="4" Aggregation="false" IsTransient="true">
+		<ObjectClassDefinition IntClassId="0" IsNE="false" Name="HOT_OBJECT_CLASS"/>
+		<Key ID="hot_id" MaxLength="100"/>
+		<Level ID="TCID" OMeSName="TCID" RBName="TCID" ObjectNumber="4" Aggregation="false" IsTransient="true">
+			<ObjectClassDefinition IntClassId="0" IsNE="false" Name="TCID_OBJECT_CLASS"/>
+			<Key ID="tcid_id" MaxLength="100"/>
+		</Level>		
+    </Level>
+    <Level ID="LAC" OMeSName="LAC" RBName="LAC" ObjectNumber="4" Aggregation="false" IsTransient="true">
+		<ObjectClassDefinition IntClassId="0" IsNE="false" Name="LAC_OBJECT_CLASS"/>
+		<Key ID="lac_id" MaxLength="100"/>
+		<LevelRef ID="TCID"/>		
+    </Level>	
+  </Topology>
+  <Topology ID="HRPD_bandclass" Path="PLMN-PLMN" Dimension="HRPD Band Class">
+    <Level ID="HBC" OMeSName="HBC" RBName="HBC" ObjectNumber="3" Aggregation="true" IsTransient="true">
+      <ObjectClassDefinition IntClassID="0" IsNE="false" Name="HBC_OBJECT_CLASS"/>
+      <Key ID="hbc_id" MaxLength="100"/>
+    </Level>
+  </Topology>
+  <Measurement NEName="LTE_Cell_Load" Aggregation="All" RBFolderName="LTE Cell Load" OMeSName="LTE_Cell_Load" ID="LCELLD" OverSize="1" SubMeasName="SMN">
+    <Description>LTE Cell Load measurement (M8001) measures packet scheduling related measurements.</Description>
+    <Time>
+      <RawLevel>60</RawLevel>
+      <FirstLevel>hour</FirstLevel>
+      <LastLevel>month</LastLevel>
+    </Time>
+    <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MRBTS.LNBTS.LNCEL</RawLevelRef>
+      <FirstLevelRef>ROOT.MRBTS.LNBTS.LNCEL</FirstLevelRef>
+      <LastLevelRef>ROOT.MRBTS.LNBTS</LastLevelRef>
+    </TopologyRef>
+    <TopologyRef ID="MCCMNC" SkipAggregation="true">
+      <RawLevelRef>MCCMNC.MCC.MNC</RawLevelRef>
+      <FirstLevelRef>MCCMNC.MCC.MNC</FirstLevelRef>
+      <LastLevelRef>MCCMNC.MCC.MNC</LastLevelRef>
+    </TopologyRef>
+    <BusyHourDefinition>
+      <Formula>max("NVL(PDCP_SDU_DELAY_DL_DTCH_MIN,0) + NVL(NUM_RRC_CONN_UE_AVG,0)";PDCP_SDU_DELAY_DL_DTCH_MIN,NUM_RRC_CONN_UE_AVG)</Formula>
+    </BusyHourDefinition>
+    <PhysicalCounters>
+     <CounterGroup ID="LCELLD2" SplitPart="2" >
+     <Counter OMeSName="M8001C0" ID="PDCP_SDU_DELAY_DL_DTCH_MIN"
+            NEName="PDCP SDU delay on DL DTCH Min">
+    <Unit>ms</Unit>
+    <TimeRawFormula>min</TimeRawFormula>
+    <ObjRawFormula>min</ObjRawFormula>
+    <Description>The minimum retention period for a PDCP SDU (DL) inside the eNB. UPDATED: At the first transmission of a TB containing a segment of the SDU.</Description>
+   </Counter>
+   </CounterGroup>
+  <CounterGroup ID="LCELLD1" SplitPart="1">
+   <Counter OMeSName="M8001C225" ID="NUM_RRC_CONN_UE_AVG" NEName="Average number of RRC connected UEs per cell">
+    <Unit>Integer number</Unit>
+    <TimeRawFormula>avg</TimeRawFormula>
+    <ObjRawFormula>avg</ObjRawFormula>
+    <Description>This measurement provides the average number of RRC connected UEs, that is UEs in RRC_CONNECTED state.
+The reported value is 100 times higher than the actual value (for example 1.00 is stored as 100). UPDATED: After change of number of RRC connected UEs.</Description>
+   </Counter>
+</CounterGroup>
+  </PhysicalCounters>
+    <LogicalCounters>
+      <Counter ID="period_duration_sum">
+        <Unit>Min</Unit>
+        <TimeRawFormula>SUM(period_duration)</TimeRawFormula>
+        <TimeSumFormula>SUM(period_duration_sum)</TimeSumFormula>
+        <ObjRawFormula>SUM(period_duration_sum)</ObjRawFormula>
+        <ObjectSumFormula>SUM(period_duration_sum)</ObjectSumFormula>
+        <Description>Duration of the measurement period in minutes. Values summed up also in object dimension.</Description>
+      </Counter>
+    </LogicalCounters>
+  </Measurement>
+  <Measurement NEName="LTE_S1AP" Aggregation="All" RBFolderName="LTE S1AP" OMeSName="LTE_S1AP" ID="LS1AP">
+    <Description>S1 Interface measurement (M8000) measures GTP protocol procedures on user plane.</Description>
+    <Time>
+      <RawLevel>60</RawLevel>
+      <FirstLevel>hour</FirstLevel>
+      <LastLevel>month</LastLevel>
+    </Time>
+    <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MRBTS.LNBTS</RawLevelRef>
+      <FirstLevelRef>ROOT.MRBTS.LNBTS</FirstLevelRef>
+      <LastLevelRef>ROOT.MRBTS.LNBTS</LastLevelRef>
+    </TopologyRef>
+    <BusyHourDefinition>
+      <Formula> max(S1_SETUP_ATT)</Formula>
+    </BusyHourDefinition>
+    <PhysicalCounters>
+      <Counter OMeSName="M8000C0" ID="INI_CONT_STP_REQ" NEName="Initial Context Setup requests">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Initial Context Setup Requests. UPDATED: The reception of an S1AP:Initial Context Setup Request  message sent by the MME to eNB.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C1" ID="INI_CONT_STP_COMP" NEName="Initial Context Setup completions">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful Initial Context Setup completions. UPDATED: The transmission of an S1AP:Initial Context Setup Response message sent by the eNB to MME for the successful Initial Context Setup completion.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C2" ID="INI_CONT_STP_FAIL_RNL" NEName="Initial Context Setup failures due to Radio Network Layer cause">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Initial Context Setup failures the cause of which is the Radio Network Layer UPDATED: The transmission of an S1AP:Initial Context Setup Response message sent by the eNB to MME for the failed Initial Context Setup. The transmission of the S1AP: Initial Context Setup Failure to MME if the Initial Context Setup procedure has failed and the cause is bearer-independent</Description>
+      </Counter>
+      <Counter OMeSName="M8000C3" ID="INI_CONT_STP_FAIL_TRPORT" NEName="Initial Context Setup failures due to Transport Layer cause">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Initial Context Setup failures the cause of which is the Transport Layer. UPDATED: The transmission of an S1AP:Initial Context Setup Response message sent by the eNB to MME for the failed Initial Context Setup. Transmission of an S1AP: Initial Context Setup Failure to the MME if the Initial Context Setup procedure has failed and the cause is bearer-independent.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C4" ID="INI_CONT_STP_FAIL_RESOUR" NEName="Initial Context Setup failures due to Resource reasons">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Initial Context Setup failures because of  Resource reasons. UPDATED: The transmission of an S1AP:Initial Context Setup Response message sent by the eNB to MME for the failed Initial Context Setup. The transmission of an S1AP: Initial Context Setup Failure message to MME if the Initial Context Setup procedure has failed and the cause is bearer-independent.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C5" ID="INI_CONT_STP_FAIL_OTHER" NEName="Initial Context Setup failures due to Other reasons">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Initial Context Setup failures because of Other reasons. UPDATED: The transmission of an S1AP:Initial Context Setup Response message sent by the eNB to MME for the failed Initial Context Setup. The transmission of an S1AP: Initial Context Setup Failure to the MME if the Initial Context Setup procedure has failed and the cause is bearer-independent  The counter is updated if the failure detected does not match any other counter failure.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C6" ID="S1_SETUP_ATT" NEName="S1 setup requests">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Setup Requests. UPDATED: This counter is updated when eNB transmits an S1AP:S1 Setup Request message to MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C7" ID="S1_SETUP_SUCC" NEName="S1 setup completions">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Setup completions. UPDATED: This counter is updated when eNB receives an S1AP:S1 Setup Response message sent by MME</Description>
+      </Counter>
+      <Counter OMeSName="M8000C8" ID="S1_SETUP_FAIL_NO_RESP" NEName="S1 setup failure No response from MME">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Setup failures due to no response from MME. UPDATED: This counter is updated when the timer expires.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C9" ID="S1_SETUP_FAIL_IND_BY_MME" NEName="S1 setup failure due to MME rejection">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Setup failures due to a failure indication from MME. UPDATED: This counter is updated when eNB receives  an S1AP:S1 Setup Failure message sent by MME</Description>
+      </Counter>
+      <Counter OMeSName="M8000C11" ID="S1_PAGING" NEName="S1 Paging requests">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 paging requests. UPDATED: This counter is updated when eNB receives an S1AP:Paging message sent by MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C12" ID="UE_LOG_S1_SETUP" NEName="Number of UE-associated logical S1-connection establishments">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The establishment of UE-associated logical S1-connection is initiated by the reception of the first NAS signaling message within the RRC Connection Establishment. UPDATED: Transmission of the S1AP message INITIAL UE MESSAGE containing the first NAS signaling message to the MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C13" ID="S1AP_GLOBAL_RESET_INIT_ENB" NEName="Global S1 Reset initiated by the eNB">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Full Reset messages initiated either by eNB UPDATED: Transmission of a global S1AP: RESET Message</Description>
+      </Counter>
+      <Counter OMeSName="M8000C14" ID="S1AP_GLOBAL_RESET_INIT_MME" NEName="Global S1 Reset initiated by the MME">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Full Reset messages initiated by MME UPDATED: Reception of a global S1AP:RESET Message sent by MME to the eNB.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C15" ID="S1AP_PARTIAL_RESET_INIT_ENB" NEName="Partial S1 Reset initiated by the eNB">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Partial Reset messages initiated either by eNB UPDATED: Transmission of a partial S1AP: RESET Message</Description>
+      </Counter>
+      <Counter OMeSName="M8000C16" ID="S1AP_PARTIAL_RESET_INIT_MME" NEName="Partial S1 Reset initiated by the MME">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of S1 Partial Reset messages initiated by MME UPDATED: Reception of a partial S1AP:RESET Message sent by MME to the eNB.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C17" ID="E_RAB_SETUP_SUCC" NEName="E-RAB setup completions">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful E-RAB Setup Completions UPDATED: Transmission of a S1AP:E-RAB Setup Response message sent by eNB to MME when E-RAB Setup List is not empty</Description>
+      </Counter>
+      <Counter OMeSName="M8000C18" ID="E_RAB_SETUP_FAIL_RNL" NEName="E-RAB setup failures due to radio network layer problems">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful E-RAB Setup Failures due to radio network layer problems UPDATED: Transmission of a S1AP:E-RAB Setup Response message sent by eNB to MME when reason for at least one bearer is radio network layer problems</Description>
+      </Counter>
+      <Counter OMeSName="M8000C19" ID="E_RAB_SETUP_FAIL_TRANSPORT" NEName="E-RAB setup failures due to transport layer problems">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful E-RAB Setup Failures due to transport layer problems UPDATED: Transmission of a S1AP:E-RAB Setup Response message sent by eNB to MME when reason for at least one bearer is transport layer problems</Description>
+      </Counter>
+      <Counter OMeSName="M8000C20" ID="E_RAB_SETUP_FAIL_RESOURCE" NEName="E-RAB setup failures due to resource problems">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful E-RAB Setup Failures due to resource problems UPDATED: Transmission of a S1AP:E-RAB Setup Response message sent by eNB to MME when reason for at least one bearer is resource problems</Description>
+      </Counter>
+      <Counter OMeSName="M8000C21" ID="E_RAB_SETUP_FAIL_OTHER" NEName="E-RAB setup failures due to other reasons">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of successful E-RAB Setup Failures due to other reasons UPDATED: Transmission of a S1AP:E-RAB Setup Response message sent by eNB to MME when reason for at least one bearer is other than radio network layer problems, transport layer problems, resource problems</Description>
+      </Counter>
+      <Counter OMeSName="M8000C22" ID="E_RAB_SETUP_ATT" NEName="E-RAB setup requests">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of E-RAB Setup Requests UPDATED: Reception of a S1AP:E-RAB Setup Request message in eNB. Message is sent by MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C23" ID="UE_CONTEXT_MOD_ATT" NEName="UE Context modification attempts">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of UE context modification attempts UPDATED: Reception of an S1AP: UE CONTEXT MODIFICATION REQUEST message sent by MME to the eNB irrespective of the modified information.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C24" ID="UE_CONTEXT_MOD_ATT_AMBR" NEName="UE Context modification attempts due to AMBR">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of UE context modification attempts due to UE-AMBR modification UPDATED: Reception of an S1AP: UE CONTEXT MODIFICATION REQUEST message sent by MME to the eNB in case that this message contains the UE-AMBR value.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C25" ID="UE_CONTEXT_MOD_FAIL" NEName="UE Context modification failures">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of UE context modification failures UPDATED: Transmission of an S1AP: UE CONTEXT MODIFICATION FAILURE message sent by eNB to MME.</Description>
+      </Counter>
+	  <Counter OMeSName="M8000C26" ID="S1AP_WRITE_REP_WARN_FAIL" NEName="Number of failed WRITE-REPLACE WARNING procedures">
+		<Unit>Integer number</Unit>
+		<TimeRawFormula>sum</TimeRawFormula>
+		<ObjRawFormula>sum</ObjRawFormula>
+		<Description>This measurement provides the number of failed WRITE-REPLACE WARNING procedures. The procedure is regarded as failed when there is no eNB cell for which the Warning Message handling has been successfully initiated.	UPDATED: The counter is incremented when an S1AP:WRITE-REPLACE WARNING RESPONSE message is sent to the MME and the Broadcast Completed Area List IE is not included.</Description>
+	  </Counter>
+	  <Counter OMeSName="M8000C27" ID="S1AP_KILL_FAIL" NEName="Number of failed KILL procedures">
+		<Unit>Integer number</Unit>
+		<TimeRawFormula>sum</TimeRawFormula>
+		<ObjRawFormula>sum</ObjRawFormula>
+		<Description>Number of failed KILL procedures. The procedure is regarded as failed when the cancellation of the indicated Warning Message has not been initiated for at least one cell of the eNB.	UPDATED: The counter is incremented when an S1AP:KILL RESPONSE message is sent to the MME and the Broadcast Cancelled Area List IE is not included.</Description>
+	  </Counter>
+      <Counter OMeSName="M8000C29" ID="S1AP_NAS_UPLINK" NEName="Number of Uplink NAS Transport messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Uplink NAS Transport messages sent to MME. UPDATED: This counter is updated at the transmission of an S1AP: UPLINK NAS TRANSPORT message to the MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C30" ID="S1AP_NAS_DOWNLINK" NEName="Number of Downlink NAS Transport messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Downlink NAS Transport messages received by the eNB. UPDATED: This counter is updated following the reception of an S1AP: DOWNLINK NAS TRANSPORT message sent by the MME to the eNB.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C31" ID="UE_CONTEXT_MOD_ATT_CSFB" NEName="UE Context modification attempts due to CS Fallback">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of UE Context modification attempts due to CS Fallback UPDATED: This counter is updated following the reception of an S1AP: UE CONTEXT MODIFICATION REQUEST message sent by the MME to the eNB in case that this message contains the CS Fallback Indicator (3GPP TS 36.413, TS 23.272).</Description>
+      </Counter>
+      <Counter OMeSName="M8000C32" ID="E_RAB_SETUP_ATT_EMG" NEName="E-RAB Setup Requests for IMS emergency sessions">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of E-RAB Setup Requests for IMS emergency sessions UPDATED: Reception of the S1AP: E-RAB SETUP REQUEST message (eNB &lt;- MME) in case that this message contains the ARP (Allocation and Retention Priority) priority level which is used for emergency sessions (3GPP TS 36.413)
+</Description>
+      </Counter>
+      <Counter OMeSName="M8000C33" ID="E_RAB_SETUP_SUCC_EMG" NEName="E-RAB Setup Completions for IMS emergency sessions">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of E-RAB Setup Completions for IMS emergency sessions UPDATED: Transmission of the S1AP: E-RAB SETUP RESPONSE message (eNB -&gt; MME) in case that this message contains the E-RAB ID of the IMS emergency session in the E-RAB Setup List AND was sent in response to the reception of the S1AP: E-RAB SETUP REQUEST message (eNB &lt;- MME) containing the ARP (Allocation and Retention Priority) priority level which is used for emergency sessions (3GPP TS 36.413).</Description>
+      </Counter>
+      <Counter OMeSName="M8000C34" ID="E_RAB_SETUP_FAIL_RB_EMG" NEName="E-RAB setup failures for IMS emergency sessions due to to missing RB (Radio Bearer) resources">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of E-RAB setup failures for IMS emergency sessions due to to missing RB (Radio Bearer) resources UPDATED: Transmission of the S1AP: E-RAB SETUP RESPONSE message (eNB -&gt;  MME) in case that this message contains the E-RAB ID of the IMS emergency session in the E-RAB Failed to Setup List  (because of missing RB (Radio Bearer) resources) AND was sent in response to the reception of the S1AP: E-RAB SETUP REQUEST message (eNB &lt;- MME) containing the ARP (Allocation and Retention Priority) priority level which is used for emergency sessions (3GPP TS 36.413).</Description>
+      </Counter>
+      <Counter OMeSName="M8000C35" ID="S1AP_LCS_REP_CTRL" NEName="Number of Location Reporting Control messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>The number of Location Reporting Control messages received from MME per eNB. UPDATED: Reception of an S1AP: LOCATION REPORTING CONTROL message sent by MME to the eNB.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C36" ID="S1AP_LCS_REP" NEName="Number of Location Report messages">
+        <Unit>Integer number</Unit>
+    	<TimeRawFormula>sum</TimeRawFormula>
+    	<ObjRawFormula>sum</ObjRawFormula>
+    	<Description>The number of Location Report messages sent to MME per eNB. UPDATED: Transmission of an S1AP: LOCATION REPORT message to the MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C37" ID="X2_IP_RETR_VIA_S1_SUCC" NEName="Number of successful  X2 IP address retrievals via S1">
+    	<Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+    	<ObjRawFormula>sum</ObjRawFormula>
+    	<Description>This counter provides the number of successful X2 IP address retrievals of a neighbor eNB via S1 UPDATED: Reception of S1AP:MME CONFIGURATION TRANSFER including 'SON Information Reply' with 'X2 TNL Configuration Info' 
+- (3GPP TS 36.413)</Description>
+      </Counter>
+      <Counter OMeSName="M8000C38" ID="X2_IP_RETR_VIA_S1_ATT" NEName="Number of attempted X2 IP address retrievals via S1">
+    	<Unit>Integer number</Unit>
+    	<TimeRawFormula>sum</TimeRawFormula>
+    	<ObjRawFormula>sum</ObjRawFormula>
+    	<Description>This counter provides the number of attempts initiated by eNB  to retrieve the X2 IP address of a neighbor eNB via S1. UPDATED: Transmission of S1AP:ENB CONFIGURATION TRANSFER including 'SON Information Request' for 'X2 TNL Configuration Info'. 
+- (3GPP TS 36.413)</Description>
+      </Counter>
+      <Counter OMeSName="M8000C39" ID="S1AP_WRITE_REP_WARN_REQ"
+            NEName="Number of WRITE-REPLACE WARNING REQUEST messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>Number of S1AP:WRITE-REPLACE WARNING REQUEST messages received from MME. UPDATED: The counter is updated when an S1AP:WRITE-REPLACE WARNING REQUEST message is received from MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C40" ID="S1AP_WRITE_REP_WARN_RESP"
+            NEName="Number of WRITE-REPLACE WARNING  RESPONSE messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>Number of S1AP:WRITE-REPLACE WARNING RESPONSE messages sent to MME. UPDATED: The counter is updated when an S1AP:WRITE-REPLACE WARNING RESPONSE message is sent to MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C41" ID="S1AP_KILL_REQ" NEName="Number of KILL REQUEST messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>Number of S1AP:KILL REQUEST messages received from MME. UPDATED: The counter is updated when an S1AP:KILL REQUEST message is received from MME.</Description>
+      </Counter>
+      <Counter OMeSName="M8000C42" ID="S1AP_KILL_RESP"
+            NEName="Number of KILL RESPONSE messages">
+        <Unit>Integer number</Unit>
+        <TimeRawFormula>sum</TimeRawFormula>
+        <ObjRawFormula>sum</ObjRawFormula>
+        <Description>Number of S1AP:KILL RESPONSE messages sent to MME. UPDATED: The counter is updated when an S1AP:KILL RESPONSE message is sent to MME.</Description>
+      </Counter>
+    </PhysicalCounters>
+    <LogicalCounters>
+      <Counter ID="period_duration_sum">
+        <Unit>Min</Unit>
+        <TimeRawFormula>SUM(period_duration)</TimeRawFormula>
+        <TimeSumFormula>SUM(period_duration_sum)</TimeSumFormula>
+        <ObjRawFormula>SUM(period_duration_sum)</ObjRawFormula>
+        <ObjectSumFormula>SUM(period_duration_sum)</ObjectSumFormula>
+        <Description>Duration of the measurement period in minutes. Values summed up also in object dimension.</Description>
+      </Counter>
+    </LogicalCounters>
+  </Measurement>
+</Adaptation>

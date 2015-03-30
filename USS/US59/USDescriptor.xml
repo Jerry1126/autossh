@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="59" name="Add owner column for raa_t_adaptation table" run-standalone="false"
+	requireInstall='true'  xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[https://confluence.inside.nsn.com/pages/viewpage.action?pageId=310609068]]></Description>
+</US>

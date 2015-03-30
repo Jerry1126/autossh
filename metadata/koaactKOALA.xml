@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<Adaptation ID="act" UMAProcessID="0xFEBB" RepProcessID="0xFEBB">
+        <Release>
+                <Vendor>Nokia</Vendor>
+                <Element>Demo Sprint 2</Element>
+                <Version>1.0</Version>
+        </Release>
+
+        <NDWInformation NDWProcessID="0xFEBB" FN_ND="2147" />
+
+        <Topology ID="ROOT" Dimension="3G Network" Path="PLMN-PLMN">
+                <Level ID="WXYZ" ObjectNumber="5" Aggregation="true" IsTransient="false" HasFilterSupport="true" HasServicesSupport="true">
+                        <ObjectClassDefinition IntClassID="1434" IsNE="true" Name="NOKIA_VERIFICATION_WXYZ_OBJECT_CLASS"/>
+                        <Key ID="wxyz_id"/>
+                        <Level ID="WXYZ1" ObjectNumber="5" Aggregation="true" IsTransient="false" ParentObj="WXYZ">
+                                <ObjectClassDefinition IntClassID="1435" IsNE="true" Name="NOKIA_VERIFICATION_WXYZ1_OBJECT_CLASS"/>
+                                <Key ID="wxyz1_id"/>
+                        </Level>
+                </Level>
+        </Topology>
+        <Topology ID="TRANSIENT" Dimension="TRANSIENT" Path="PLMN-PLMN">
+                <Level ID="TRANS" ObjectNumber="10" Aggregation="true" IsTransient="true">
+                        <Key ID="trans_id" MaxLength="222"/>
+                </Level>
+        </Topology>
+
+        <Topology ID="TRANS2" Dimension="TRANSIENT2" Path="PLMN-PLMN">
+                <Level ID="TRAN2" ObjectNumber="10" Aggregation="true" IsTransient="true">
+                        <Key ID="tran2_id" MaxLength="222"/>
+                        <Level ID="TRAN3" ObjectNumber="10" Aggregation="true" IsTransient="true" ParentObj="TRAN2">
+                        <Key ID="tran3_id" MaxLength="222"/>
+                        </Level>
+                </Level>
+        </Topology>
+        
+        <Measurement ID="sedgrd" Aggregation="All" OverSize="true" SubMeasName="sed">
+                <Time>
+                        <RawLevel>15</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>month</LastLevel>
+                </Time>
+                <TopologyRef ID="ROOT">
+                        <RawLevelRef>ROOT.WXYZ</RawLevelRef>
+                        <FirstLevelRef>ROOT.WXYZ</FirstLevelRef>
+                        <LastLevelRef>ROOT.WXYZ</LastLevelRef>
+                </TopologyRef>
+                <BusyHourDefinition>
+                  <Formula>max(second_upgrade_counter)</Formula>
+                </BusyHourDefinition>
+          <PhysicalCounters>
+                   <CounterGroup ID="G1" SplitPart="1" RBFolderName="none">
+                      <Counter ID="second_upgrade_counter1">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                        <Counter ID="second_upgrade_counter">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                   </CounterGroup>
+                   <CounterGroup ID="G2" SplitPart="3" RBFolderName="none">
+                        <Counter ID="second_upgrade_counter2">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                   </CounterGroup>
+          </PhysicalCounters>
+          <!--LogicalCounters>
+                   <CounterGroupRef ID="sample.PhysicalCounters.CGG2"/>
+          </LogicalCounters-->
+       </Measurement>         
+
+        <Measurement ID="sample" Aggregation="All" OverSize="true" SubMeasName="samp">
+                <Time>
+                        <RawLevel>15</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>month</LastLevel>
+                </Time>
+                <TopologyRef ID="ROOT">
+                        <RawLevelRef>ROOT.WXYZ.WXYZ1</RawLevelRef>
+                        <FirstLevelRef>ROOT.WXYZ.WXYZ1</FirstLevelRef>
+                        <LastLevelRef>ROOT.WXYZ.WXYZ1</LastLevelRef>
+                </TopologyRef>
+                <TopologyRef ID="TRANSIENT">
+                        <RawLevelRef>TRANSIENT.TRANS</RawLevelRef>
+                        <FirstLevelRef>TRANSIENT.TRANS</FirstLevelRef>
+                        <LastLevelRef>TRANSIENT.TRANS</LastLevelRef>
+                </TopologyRef>
+                <BusyHourDefinition>
+                  <Formula>avg(second_upgrade_counter2)</Formula>
+                </BusyHourDefinition>
+                <PhysicalCounters>
+                    <CounterGroup ID="CGG1" SplitPart="1" RBFolderName="none">
+                        <Counter ID="test_counter">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                        <Counter ID="test_counter2">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjectRawFormula>avg</ObjectRawFormula>
+                                <ObjectSumFormula>avg</ObjectSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                    </CounterGroup>
+                    <CounterGroup ID="CGG2" SplitPart="5" RBFolderName="none">
+                        <Counter ID="new_counter">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjectRawFormula>avg</ObjectRawFormula>
+                                <ObjectSumFormula>avg</ObjectSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                        <Counter ID="new_counter_upg">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjectRawFormula>avg</ObjectRawFormula>
+                                <ObjectSumFormula>avg</ObjectSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+                    </CounterGroup>
+                </PhysicalCounters>
+                <LogicalCounters>
+                   <CounterGroupRef ID="sedgrd.PhysicalCounters.G2"/>
+                   <!--CounterGroupRef ID="sedgrd.LogicalCounters"/-->
+                </LogicalCounters>
+        </Measurement>
+        <Measurement ID="upgrd1" Aggregation="All" OverSize="true" SubMeasName="upgd">
+                <Time>
+                        <RawLevel>15</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>month</LastLevel>
+                </Time>
+                <TopologyRef ID="ROOT">
+                        <RawLevelRef>ROOT.WXYZ</RawLevelRef>
+                        <FirstLevelRef>ROOT.WXYZ</FirstLevelRef>
+                        <LastLevelRef>ROOT.WXYZ</LastLevelRef>
+                </TopologyRef>
+                <TopologyRef ID="TRANS2" SkipAggregation="false">
+                        <RawLevelRef>TRANS2.TRAN2.TRAN3</RawLevelRef>
+                        <FirstLevelRef>TRANS2.TRAN2.TRAN3</FirstLevelRef>
+                        <LastLevelRef>TRANS2.TRAN2</LastLevelRef>
+                </TopologyRef>
+                <TopologyRef ID="TRANSIENT" SkipAggregation="false">
+                        <RawLevelRef>TRANSIENT.TRANS</RawLevelRef>
+                        <FirstLevelRef>TRANSIENT.TRANS</FirstLevelRef>
+                        <LastLevelRef>TRANSIENT.TRANS</LastLevelRef>
+                </TopologyRef>
+<BusyHourDefinition>
+        <Formula>max(test_counter)</Formula>
+</BusyHourDefinition>
+                <PhysicalCounters>
+                        <CounterGroup ID="CG1" SplitPart="1" RBFolderName="none">
+                        <Counter ID="upgrade_counter">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+
+                        <Counter ID="new_counter_1">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>New Counter.</Description>
+                        </Counter>
+                        </CounterGroup>
+                        <CounterGroup ID="CG2" SplitPart="2" RBFolderName="none">
+                        <Counter ID="upgrade_counter1">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+<Counter ID="upgrade_counter2">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+<Counter ID="upgrade_counter3">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+
+                        </CounterGroup>
+        <CounterGroupRef ID="sedgrd.PhysicalCounters" SplitPart="2"/>
+        <CounterGroup ID="CG3" SplitPart="6" RBFolderName="none">
+                        <Counter ID="test_counter_upg">
+                                <TimeRawFormula>sum</TimeRawFormula>
+                                <TimeSumFormula>sum</TimeSumFormula>
+                                <ObjRawFormula>avg</ObjRawFormula>
+                                <ObjSumFormula>avg</ObjSumFormula>
+                                <Description>Only used for testing purposes.</Description>
+                        </Counter>
+        </CounterGroup>              
+        </PhysicalCounters>
+        <LogicalCounters>
+                <CounterGroupRef ID="sample.PhysicalCounters"/>
+        </LogicalCounters>
+ </Measurement>
+</Adaptation>

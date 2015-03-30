@@ -1,0 +1,21 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           Hourly_Partition.Hourly_Partition    WITH NAME    Hourly_Partition
+
+*** Variables ***
+${ssname}         nokktt
+
+*** Test Cases ***
+Hourly Partition
+    [Tags]    FTT    common    US56    L2
+    [Setup]    setup
+    ${ERR}    Hourly_Partition.compare    ${ssname}
+    should be empty    ${ERR}
+    [Teardown]
+
+*** Keywords ***
+setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    Hourly_Partition.set_ssh    ${ssh}

@@ -1,0 +1,1984 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Testsuite Scratch Upgrade New Algorithms Extension Adaptation Regular</title>
+</head>
+<body>
+<h1>Testsuite Scratch Upgrade New Algorithms Extension Adaptation Regular</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Suite Setup</td>
+<td>SuiteSetup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>SuiteTeardown</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>SSHLibrary.SSHLibrary</td>
+<td>WITH NAME</td>
+<td>SSHLibrary</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>Koala.KoalaRTE</td>
+<td>WITH NAME</td>
+<td>KoalaRTE</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>CommonFunctions_Koala.CommonFunctions_Koala</td>
+<td>WITH NAME</td>
+<td>CommonFunctions_Koala</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../../../../userdata/jinpchen/Desktop/rte_extension_cases.tar/rtekoa_robot_testcases/Koala_common_keywords.html</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../robot_resources/KoalaRTE_Keywords.txt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Variables</td>
+<td>../lib/Constants.py</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="variable">
+<tr>
+<th class="name" colspan="5">Variables</th>
+</tr>
+<tr>
+<td class="name">${ss_name}</td>
+<td>CUSRTA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">${sc_name}</td>
+<td>UMACUS</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Cases</th>
+</tr>
+<tr>
+<td class="name"><a name="test_Scratch_Upgrade_New_Algorithms_Extension_Adaptation_Regular">Scratch_Upgrade_New_Algorithms_Extension_Adaptation_Regular</a></td>
+<td>New algorithm for extension adaptation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Upgrade new algorithm for extension adaptation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_SuiteSetup">SuiteSetup</a></td>
+<td>Initial ssh instance and inject into KoalaRTE</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>upload koala input and general config to cs</td>
+<td>${ss_name}</td>
+<td>metadata/${ss_name}_SCRATCH_REGULAR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_SuiteTeardown">SuiteTeardown</a></td>
+<td>#</td>
+<td>uninstall test pm package</td>
+<td>${sc_name}</td>
+<td>${ss_name}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>#gc</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>#</td>
+<td>teardown and clear ss environment</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>SSHLibrary.Close All Connections</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_New algorithm for extension adaptation">New algorithm for extension adaptation</a></td>
+<td>${rpmpackages}=</td>
+<td>build test pm package</td>
+<td>${ss_name}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>release run on ss</td>
+<td>${ss_name}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>install test pm package</td>
+<td>${rpmpackages}</td>
+<td>gc</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check new algorithms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check base counters</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Cosprc aggregation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>check log</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Upgrade new algorithm for extension adaptation">Upgrade new algorithm for extension adaptation</a></td>
+<td>upload koala input and general config to cs</td>
+<td>${ss_name}</td>
+<td>metadata/${ss_name}_UPGRADE_REGULAR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rpmpackages_upgrade}=</td>
+<td>build test pm package</td>
+<td>${ss_name}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>install test pm package</td>
+<td>${rpmpackages_upgrade}</td>
+<td>gc</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check upgrade algorithms</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check added counter</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>cosprc aggregation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check log</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check new algorithms">Check new algorithms</a></td>
+<td>Switch Connection</td>
+<td>onepm_cs1_omc</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkserv2}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_SERV2_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkserv2}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${serv2}</td>
+<td>check contain views</td>
+<td>${checkserv2}</td>
+<td>SERV2</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${serv2}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checktpbhq}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_TPBHQ_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checktpbhq}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tpbhq}</td>
+<td>check contain views</td>
+<td>${checktpbhq}</td>
+<td>TPBHQ</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${tpbhq}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkpoff}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_POFF_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkpoff}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${poff}</td>
+<td>check contain views</td>
+<td>${checkpoff}</td>
+<td>POFF</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${poff}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkqbph}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_QPBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkqbph}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${qpbh}</td>
+<td>check contain views</td>
+<td>${checkqbph}</td>
+<td>QPBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${qpbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfming}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMING_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfming}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fming}</td>
+<td>check contain views</td>
+<td>${checkfming}</td>
+<td>FMING</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fming}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfmoff}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMOFF_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfmoff}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fmoff}</td>
+<td>check contain views</td>
+<td>${checkfmoff}</td>
+<td>FMOFF</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fmoff}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfmbh}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfmbh}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fmbh}</td>
+<td>check contain views</td>
+<td>${checkfmbh}</td>
+<td>FMBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fmbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfmbhoff}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMBHOFF_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfmbhoff}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fmbhoff}</td>
+<td>check contain views</td>
+<td>${checkfmbhoff}</td>
+<td>FMBHOFF</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fmbhoff}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkttl}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_TTL_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkttl}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${ttl}</td>
+<td>check contain views</td>
+<td>${checkttl}</td>
+<td>TTL</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${ttl}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkttloff}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_TTLOFF_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkttloff}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${ttloff}</td>
+<td>check contain views</td>
+<td>${checkttloff}</td>
+<td>TTLOFF</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${ttloff}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkecone}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_ECONE_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkecone}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkexttl}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_EXTTL_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkexttl}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${exttl}</td>
+<td>check contain views</td>
+<td>${checkexttl}</td>
+<td>EXTTL</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${exttl}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkqpsbh}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_QPSBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkqpsbh}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${qpsbh}</td>
+<td>check contain views</td>
+<td>${checkqpsbh}</td>
+<td>QPSBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${qpsbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfmsbh}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMSBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfmsbh}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fmsbh}</td>
+<td>check contain views</td>
+<td>${checkfmsbh}</td>
+<td>FMSBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fmsbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkfmbhsbh}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_FMBHSBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkfmbhsbh}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fmbhsbh}</td>
+<td>check contain views</td>
+<td>${checkfmbhsbh}</td>
+<td>FMBHSBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${fmbhsbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkttlsbh}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_TTLSBH_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkttlsbh}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${ttlsbh}</td>
+<td>check contain views</td>
+<td>${checkttlsbh}</td>
+<td>TTLSBH</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${ttlsbh}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checksyn}</td>
+<td>Execute SQL Query Remotely</td>
+<td>select SYNONYM_NAME from dba_synonyms where TABLE_OWNER='NOKRWW' and SYNONYM_NAME like 'CUSRTA%';</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checksyn}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${syn}</td>
+<td>check synonms</td>
+<td>${checksyn}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${syn}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Cosprc aggregation">Cosprc aggregation</a></td>
+<td>Execute command</td>
+<td>rm -f $NMSTRACEDIR/cusrta*</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${sql_command}</td>
+<td>Trim</td>
+<td>SELECT distinct(to_char(period_start_time ,'yyyyMMdd')) AS Dat FROM NOKRWW_PV_SERVLEV_MNC1_RAW order by Dat;</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${sqlplus_result}</td>
+<td>Execute SQL Query Remotely</td>
+<td>${sql_command}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${sqlplus_result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should not be empty</td>
+<td>${sqlplus_result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${date}</td>
+<td>get cosprc date</td>
+<td>${sqlplus_result}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${date}</td>
+<td>trim</td>
+<td>${date}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${date}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>execute command</td>
+<td>cosprcmx.pl -dm cusrta --sum=${date} -t 9</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check log">check log</a></td>
+<td>${log}</td>
+<td>Execute command</td>
+<td>ls /$NMSTRACEDIR | grep -i cusrta_</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>${log}</td>
+<td>Get Log File</td>
+<td>${logfiles}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${log}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkexception}</td>
+<td>Execute command</td>
+<td>less $NMSTRACEDIR/${log} | grep -i exception</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkexception}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checkerror}</td>
+<td>Execute command</td>
+<td>less /$NMSTRACEDIR/${log} | grep -i error</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkerror}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>should be empty</td>
+<td>${checkexception}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Comment</td>
+<td>should be empty</td>
+<td>${checkerror}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check base counters">Check base counters</a></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_TPBHQ_WCEL_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_TPBHQ_WCEL_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_TPBHQ_WCEL_WKBHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_WCEL_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_WCEL_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_WCEL_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_RNC_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_RNC_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_RNC_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_POFF_RNC_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_WCEL_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_WCEL_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_WCEL_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_RNC_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_RNC_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_RNC_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_POFF_RNC_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_WKBHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPSBH_WCEL_WEEK</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPBH_WCEL_HOURQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPBH_WCEL_BHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>prachMessages</td>
+<td>CUSRTA_PV_QPBH_WCEL_WKBHQ</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMING_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMING_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMING_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMING_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_RNC_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_RNC_WEEK</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_RNC_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_RNC_WEEK</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>numberOfReceivingPreambles</td>
+<td>CUSRTA_PV_FMOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBH_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBH_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>dch_req_link_srnc</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_FMBHOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHSBH_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_FMBHSBH_RNC_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTL_WCEL_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTL_WCEL_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTL_RNC_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTL_RNC_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_WCEL_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_WCEL_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_RNC_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>soft_ho_dur_on_srnc_for_rt</td>
+<td>CUSRTA_PV_TTLOFF_RNC_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTLSBH_WCEL_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTLSBH_WCEL_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTLSBH_RNC_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_TTLSBH_RNC_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_CELLGP_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_CELLGP_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_CELLGP_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_CELLGP_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_NETWORK_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_NETWORK_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_NETWORK_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_NETWORK_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_REGION_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_REGION_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_REGION_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_REGION_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_SUBREG_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_SUBREG_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_SUBREG_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_SUBREG_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL1_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL1_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL1_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_WCEL1_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_RNC_TTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check nonexisted counter</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_RNC_WTTLBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>one_cell_in_act_set_for_rt</td>
+<td>CUSRTA_PV_EXTTL_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check upgrade algorithms">Check upgrade algorithms</a></td>
+<td>${checkupuse}</td>
+<td>Execute Command</td>
+<td>etlcolDBInfo.pl -t CUSRTA%_UPUSE_%</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checkupuse}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${upuse}</td>
+<td>check contain views</td>
+<td>${checkupuse}</td>
+<td>UPUSE</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${upuse}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${checksyn}</td>
+<td>Execute SQL Query Remotely</td>
+<td>select SYNONYM_NAME from dba_synonyms where TABLE_OWNER='NOKRWW' and SYNONYM_NAME like 'CUSRTA%';</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${checksyn}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${syn}</td>
+<td>check synonms</td>
+<td>${checksyn}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal</td>
+<td>${syn}</td>
+<td>PASS</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Check added counter">Check added counter</a></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_WEEK</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_WCEL_PEAKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_HOUR</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_DAY</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_WEEK</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_BH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_WEEKBH</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Check Counters existed</td>
+<td>rrc_conn_stp_att</td>
+<td>CUSRTA_PV_UPUSE_RNC_PEAKBH</td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

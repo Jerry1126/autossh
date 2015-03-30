@@ -1,0 +1,156 @@
+*** Settings ***
+Suite Setup       suite_setup
+Suite Teardown    suite_teardown
+Force Tags        FTT    coresmoke    common    L3
+Default Tags      PM
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           CheckPMUserExpiration    WITH NAME    CheckPMUserExpiration
+Library           Database.DatabaseCore    ${SDV_DB_HOSTNAME_IP}    ${SDV_DB_SYSTEM_USER}    ${SDV_DB_SYS_PASSWORD}    WITH NAME    DatabaseCore
+Variables         testsuite_Check_PM_User_Expiration.py
+
+*** Test Cases ***
+check_User_Lock_Expiration_Status
+    [Setup]    Setup
+    [Template]    Verify User Lock and Expiration Status and Profile
+    ${ADAPTATION}
+    ${ADAPTATION}RAW
+    pmw
+    pmr
+    omc
+    [Teardown]    TearDown
+
+Try_to_login
+    [Setup]    setup
+    [Template]    Try login db with given username and password
+    ${ADAPTATION}    ${ADAPTATION}    False    01017
+    ${ADAPTATION}RAW    ${ADAPTATION}RAW    False    01017
+    pmw    pmw    False    01017
+    pmr    pmr    False    01017
+    omc    omc    False    01017
+    [Teardown]    teardown
+
+try_to_login_after_db_user_locked
+    [Setup]    setup_lock_db_user
+    [Template]    Try login db with given username and password
+    ${ADAPTATION}    ${ADAPTATION}    True    28000
+    ${ADAPTATION}RAW    ${ADAPTATION}RAW    True    28000
+    pmw    pmw    True    28000
+    pmr    pmr    True    28000
+    omc    omc    True    28000
+    [Teardown]    teardown_lock_db_user
+
+try_to_login_after_db_user_expired
+    [Setup]    setup_expire_db_user
+    [Template]    Try Login DB with given username and password
+    ${ADAPTATION}    ${ADAPTATION}    True    28001
+    ${ADAPTATION}RAW    ${ADAPTATION}RAW    True    28001
+    pmw    pmw    True    28001
+    pmr    pmr    True    28001
+    omc    omc    True    28001
+    [Teardown]    teardown_expire_db_user
+
+*** Keywords ***
+Setup
+    [Documentation]    Setup for testcase,
+    ...
+    ...    Install Adaptation for test on the lab
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    CheckPMUserExpiration.set_ssh    ${ssh}
+    ${db}=    Get Library Instance    DatabaseCore
+    CheckPMUserExpiration.set_db    ${db}
+
+suite_setup
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    omc    prompt=$
+    SSHLibrary.login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    CheckPMUserExpiration.set_ssh    ${ssh}
+    CheckPMUserExpiration.upload_koala_input_and_general_config_to_cs
+    ${rpms}    CheckPMUserExpiration.build_test_pm_package
+    ${inst_rs}    CheckPMUserExpiration.install_test_pm_package    ${rpms}    ${SDV_ONEPM_DSS1NAME}
+    should be true    ${inst_rs}
+
+suite_teardown
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    CheckPMUserExpiration.set_ssh    ${ssh}
+    ${inst_rs}    CheckPMUserExpiration.uninstall_test_pm_package    ${SDV_ONEPM_DSS1NAME}
+    should be true    ${inst_rs}
+    SSHLibrary.close_all_connections
+    DatabaseCore.close
+
+Teardown
+    SSHLibrary.close_all_connections
+
+Element Should Be Equal With Value
+    [Arguments]    ${sequence}    ${position}    ${value}
+    ${Element}=    Evaluate    ${sequence}[${position}]
+    should be equal    ${Element}    ${value}
+
+Verify User Lock and Expiration Status and Profile
+    [Arguments]    ${username}
+    ${user_info}=    CheckPMUserExpiration.get_user_expire_lock_and_profile_info    ${username}
+    ${expire_date}=    Evaluate    ${user_info}[0]
+    ${lock_date}=    Evaluate    ${user_info}[1]
+    ${profile}=    Evaluate    ${user_info}[2]
+    should be empty    ${expire_date}
+    should be empty    ${lock_date}
+    should be equal    ${profile}    NAS_RESOURCE
+
+Try Login DB with given username and password
+    [Arguments]    ${username}    ${password}    ${expect_fail}    ${error_number}
+    ${err_numbers}=    CheckPMUserExpiration.try_login_db_with_user    ${username}    ${password}
+    run keyword if    ${expect_fail}    Should be true    len(${err_numbers})>0
+    run keyword if    not ${expect_fail}    should be true    len(${err_numbers})<2
+    run keyword if    len(${err_numbers})>0    element should be equal with value    ${err_numbers}    0    ${error_number}
+
+setup_lock_db_user
+    setup
+    CheckPMUserExpiration.lock_db_user    ${ADAPTATION}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.lock_db_user    ${ADAPTATION}RAW    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.lock_db_user    pmw    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.lock_db_user    pmr    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.lock_db_user    omc    ${SDV_DB_SYS_PASSWORD}
+
+teardown_lock_db_user
+    CheckPMUserExpiration.unlock_db_user    ${ADAPTATION}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.unlock_db_user    ${ADAPTATION}RAW    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.unlock_db_user    pmw    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.unlock_db_user    pmr    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.unlock_db_user    omc    ${SDV_DB_SYS_PASSWORD}
+    teardown
+
+setup_expire_db_user
+    setup
+    ${ADAPTATION_PASS}=    CheckPMUserExpiration.get_db_user_encrypted_password    ${ADAPTATION}    ${SDV_DB_SYS_PASSWORD}
+    ${ADAPTATIONRAW_PASS}=    CheckPMUserExpiration.get_db_user_encrypted_password    ${ADAPTATION}RAW    ${SDV_DB_SYS_PASSWORD}
+    ${pmw_PASS}=    CheckPMUserExpiration.get_db_user_encrypted_password    pmw    ${SDV_DB_SYS_PASSWORD}
+    ${pmr_PASS}=    CheckPMUserExpiration.get_db_user_encrypted_password    pmr    ${SDV_DB_SYS_PASSWORD}
+    ${omc_PASS}=    CheckPMUserExpiration.get_db_user_encrypted_password    omc    ${SDV_DB_SYS_PASSWORD}
+    set test variable    \${ADAPTATION_PASS}
+    set test variable    \${ADAPTATIONRAW_PASS}
+    set test variable    \${pmw_PASS}
+    set test variable    \${pmr_PASS}
+    set test variable    \${omc_PASS}
+    CheckPMUserExpiration.change_db_user_password    ${ADAPTATION}    ${ADAPTATION}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.change_db_user_password    ${ADAPTATION}RAW    ${ADAPTATION}RAW    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.change_db_user_password    pmw    pmw    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.change_db_user_password    pmr    pmr    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.change_db_user_password    omc    omc    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.expire_db_user    ${ADAPTATION}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.expire_db_user    ${ADAPTATION}RAW    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.expire_db_user    pmw    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.expire_db_user    pmr    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.expire_db_user    omc    ${SDV_DB_SYS_PASSWORD}
+
+teardown_expire_db_user
+    CheckPMUserExpiration.restore_db_user_password    ${ADAPTATION}    ${ADAPTATION_PASS}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.restore_db_user_password    ${ADAPTATION}RAW    ${ADAPTATIONRAW_PASS}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.restore_db_user_password    pmw    ${pmw_PASS}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.restore_db_user_password    pmr    ${pmr_PASS}    ${SDV_DB_SYS_PASSWORD}
+    CheckPMUserExpiration.restore_db_user_password    omc    ${omc_PASS}    ${SDV_DB_SYS_PASSWORD}
+    teardown

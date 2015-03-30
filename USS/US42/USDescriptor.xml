@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="42" name="Read RBNamespacePrefix and DatabaseObjectPrefix from base adaptation .model file" xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+		<Description><![CDATA[Currently extenstion build read RBNameSpace and DBObject from info file.
+		Solution:
+		If the info file does not exist, read from model file]]></Description>
+</US>

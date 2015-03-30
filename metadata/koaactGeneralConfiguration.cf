@@ -1,0 +1,54 @@
+(KOALAVersion   "BOSS5")
+# ------------------------------------------------------------
+# General Definitions
+# -------------------------------------------------------------
+(KOALAFileName   "/tmp/koaactKOALA.xml")
+(Subsystem       "koaact")
+(SCName          "koala")
+
+# ------------------------------------------------------------
+# This adaptations has to support OMeS Release 2
+# -------------------------------------------------------------
+(OMeSVersion            "2")
+(ExternalOMeSFile       "NO")
+
+#(TSPType         "DictionaryManaged")
+(TSPType         "LocallyManaged")
+#(TSPUniformSize  "512K")
+
+(GCDirectIntegration "0")
+
+(AggIndexRebuildCronEntry  "25 3 * * 0,2,4")
+(AggIndexMaintainCronEntry "15 2 * * 0,2,4")
+
+(EnableFilterSupport    "1")
+
+# Enables/disables generation and publishing of nupsrvmx.wco file
+(EnableNUPSRVSupport            "00")
+
+(TSMaxNextExtend   "64")
+
+# ------------------------------------------------------------
+# The following Cron-Entry defines when summarization on the
+# RC starts.
+# -------------------------------------------------------------
+(ReporterCronEntry "10 * * * *")
+(EnableRBSupport "1")
+
+# ------------------------------------------------------------
+# Define the components to be generated and the location
+# of the generated file.
+# -------------------------------------------------------------
+(Component      "Subsystem")
+(Component      "ETLoad")
+(Component      "PMWarehouse")
+
+
+
+(PBMapping      ""
+        (subsystem      "/vobs/koala/test/demos/koaact")
+        (xxxcap         "/vobs/koala/test/demos/koaact/actcap")
+        (xxxcdb         "/vobs/koala/test/demos/koaact/actcdb")
+        (xxxrap         "/vobs/koala/test/demos/koaact/actrap")
+        (xxxrdb         "/vobs/koala/test/demos/koaact/actrdb")
+)

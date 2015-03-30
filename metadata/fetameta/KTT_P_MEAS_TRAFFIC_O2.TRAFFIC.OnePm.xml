@@ -1,0 +1,125 @@
+<Adaptation>
+<MeasurementNumber>TRAFFICT</MeasurementNumber>
+<ObjectHierarchy>KSC-KCF-KTS/SEG/TTP</ObjectHierarchy>
+<PMCoreMeasType>TRAFFICT</PMCoreMeasType>
+<RBFolderName>Traffic</RBFolderName>
+<OMeSName>TRAFFICT</OMeSName>
+<BusyHourDefinitionFormula></BusyHourDefinitionFormula>
+<KoalaRawId>TTP1</KoalaRawId>
+<TimeSummaryLevels>HOUR,DAY,WEEK,BH,WEEKBH,MON,MONBH</TimeSummaryLevels>
+<NWSummaryLevels>KSC,SEG,KTS</NWSummaryLevels>
+<AggregationHierarchy >KSC-KCF-KTS-SEG/TTP</AggregationHierarchy>
+<AIBDetails>
+<DisplayID>001</DisplayID>
+<MeasurementName>TRAFFIC(001)</MeasurementName>
+<Description>The KSC traffic measurement registers information related to the stand alone dedicated control channels (SDCCH) and traffic channels (TCH). The KSC traffic measurement counters are divided into different classes. There are counters regarding the number of attempts to seize TCHs and SDCCHs, successful calls, lengths of the queue, the reasons for Failures and GPRS territory counters. This measurement collects one set of results for each KTS. Signalling charts are drawn with the accuracy of message interface.</Description>
+<RecommendedInterval>1 h</RecommendedInterval>
+</AIBDetails>
+<RawDetails table="KTT_P_MEAS_TRAFFICT_O2" view="KTT_PS_TRAFFICT_TTP1_RAW" viewRaw="KTT_P_TRAFFICT_TTP1_PMC" viewAgg="KTT_PV_TRAFFICT_TTP1_RAW">
+</RawDetails>
+<SummaryDetails>
+<SumTable table="KTT_P_TRAFFICT_KSC_HOUR" view="KTT_PS_TRAFFICT_KSC_HOUR" viewAgg="KTT_PV_TRAFFICT_KSC_HOUR">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KSC_DAY" view="KTT_PS_TRAFFICT_KSC_DAY" viewAgg="KTT_PV_TRAFFICT_KSC_DAY">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KSC_WEEK" view="KTT_PS_TRAFFICT_KSC_WEEK" viewAgg="KTT_PV_TRAFFICT_KSC_WEEK">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KSC_BH" view="KTT_PS_TRAFFICT_KSC_BH" viewAgg="KTT_PV_TRAFFICT_KSC_BH">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KSC_WEEKBH" view="KTT_PS_TRAFFICT_KSC_WEEKBH" viewAgg="KTT_PV_TRAFFICT_KSC_WEEKBH">
+</SumTable>
+
+
+
+<SumTable table="KTT_P_TRAFFICT_KCF_HOUR" view="KTT_PS_TRAFFICT_KCF_HOUR" viewAgg="KTT_PV_TRAFFICT_KCF_HOUR">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KCF_DAY" view="KTT_PS_TRAFFICT_KCF_DAY" viewAgg="KTT_PV_TRAFFICT_KCF_DAY">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KCF_WEEK" view="KTT_PS_TRAFFICT_KCF_WEEK" viewAgg="KTT_PV_TRAFFICT_KCF_WEEK">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KCF_BH" view="KTT_PS_TRAFFICT_KCF_BH" viewAgg="KTT_PV_TRAFFICT_KCF_BH">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KCF_WEEKBH" view="KTT_PS_TRAFFICT_KCF_WEEKBH" viewAgg="KTT_PV_TRAFFICT_KCF_WEEKBH">
+</SumTable>
+
+<SumTable table="KTT_P_TRAFFICT_SEG1_HOUR" view="KTT_PS_TRAFFICT_SEG1_HOUR" viewAgg="KTT_PV_TRAFFICT_SEG1_HOUR">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_SEG1_DAY" view="KTT_PS_TRAFFICT_SEG1_DAY" viewAgg="KTT_PV_TRAFFICT_SEG1_DAY">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_SEG1_WEEK" view="KTT_PS_TRAFFICT_SEG1_WEEK" viewAgg="KTT_PV_TRAFFICT_SEG1_WEEK">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_SEG1_BH" view="KTT_PS_TRAFFICT_SEG1_BH" viewAgg="KTT_PV_TRAFFICT_SEG1_BH">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_SEG1_WEEKBH" view="KTT_PS_TRAFFICT_SEG1_WEEKBH" viewAgg="KTT_PV_TRAFFICT_SEG1_WEEKBH">
+</SumTable>
+
+
+<SumTable table="KTT_P_TRAFFICT_KTS_HOUR" view="KTT_PS_TRAFFICT_KTS_HOUR" viewAgg="KTT_PV_TRAFFICT_KTS_HOUR">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KTS_DAY" view="KTT_PS_TRAFFICT_KTS_DAY" viewAgg="KTT_PV_TRAFFICT_KTS_DAY">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KTS_WEEK" view="KTT_PS_TRAFFICT_KTS_WEEK" viewAgg="KTT_PV_TRAFFICT_KTS_WEEK">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KTS_BH" view="KTT_PS_TRAFFICT_KTS_BH" viewAgg="KTT_PV_TRAFFICT_KTS_BH">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_KTS_WEEKBH" view="KTT_PS_TRAFFICT_KTS_WEEKBH" viewAgg="KTT_PV_TRAFFICT_KTS_WEEKBH">
+</SumTable>
+
+
+<SumTable table="KTT_P_TRAFFICT_TTP1_HOUR" view="KTT_PS_TRAFFICT_TTP1_HOUR" viewAgg="KTT_PV_TRAFFICT_TTP1_HOUR">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_TTP1_DAY" view="KTT_PS_TRAFFICT_TTP1_DAY" viewAgg="KTT_PV_TRAFFICT_TTP1_DAY">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_TTP1_WEEK" view="KTT_PS_TRAFFICT_TTP1_WEEK" viewAgg="KTT_PV_TRAFFICT_TTP1_WEEK">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_TTP1_BH" view="KTT_PS_TRAFFICT_TTP1_BH" viewAgg="KTT_PV_TRAFFICT_TTP1_BH">
+</SumTable>
+<SumTable table="KTT_P_TRAFFICT_TTP1_WEEKBH" view="KTT_PS_TRAFFICT_TTP1_WEEKBH" viewAgg="KTT_PV_TRAFFICT_TTP1_WEEKBH">
+</SumTable>
+
+</SummaryDetails>
+<Counters>
+<Counter ID="c001001" colName="SDCCH_BUSY_ATT" timeFormula="sum" nwFormula="sum" unit="No." neName="SEIZURE ATTEMPTS WITH BUSY SDCCH">
+<Description>Number of times when an MS attempts to seize an SDCCH but the attempt is unsuccessful because all SDCCHs are busy. This counter does not necessarily mean that the call attempt is lost, because the call may be established as an FACCH call setup using TCH instead of SDCCH. This counter is not triggered when the TCH reconfiguration is attempted because of dynamic SDCCH allocation. If the attempt fails, the SDCCH_busy_attempt is triggered together with 1155 UNSUCC_IMM_ASS_SDCCH_ATTEMPT.</Description>
+<Updated>When the RRM has no SDCCHs to allocate for a call or HO attempts. 
+
+See figures: 
+- FACCH call setup due to SDCCH congestion with counters 
+- FACCH call setup because of SDCCH congestion 
+- SDCCH congestion, FACCH call setup is not activated</Updated>
+<OriginalRelease>S1</OriginalRelease>
+<Features>CS Statistics Enhancements (ID: BSS20003)</Features>
+<InternalUnit>DWORD</InternalUnit>
+</Counter>
+<Counter ID="c001000" colName="SDCCH_SEIZ_ATT" timeFormula="sum" nwFormula="sum" unit="No." neName="SEIZURE ATTEMPTS">
+<Description>Number of times when an MS attempts to seize an SDCCH.</Description>
+<Updated>When the RRM receives requests for SDCCH from an MS as the MS needs a channel for either a call or a HO. 
+
+See figures: 
+- Basic call with counters
+- FACCH call setup due to SDCCH congestion with counters 
+- FACCH call setup due to SDCCH congestion, no free TCH channel 
+- SDCCH congestion, FACCH call setup is not activated 
+- Successful SDCCH internal intra-cell handover 
+- Successful SDCCH internal inter-cell handover 
+- Successful SDCCH external handover target 
+- Reconfiguration from TCH to SDCCH</Updated>
+<OriginalRelease>S1</OriginalRelease>
+<InternalUnit>DWORD</InternalUnit>
+</Counter>
+<Counter ID="c001174" colName="GPRS_TER_UPGRD_REQ" timeFormula="sum" nwFormula="sum" unit="No." neName="GPRS TER UPGRD REQ">
+<Description>Number of territory upgrade requests received from the Packet Controller Unit.</Description>
+<Updated>"When the Radio Resource Management receives from the Packet Controller Unit a request for new radio time slots to be added into the GPRS territory. The PCU can request an upgrade after BSC has fulfilled the default territory defined by the operator parameters.
+
+The upgrade of the GPRS territory may be started for various reasons, for example when GPRS is set enabled in a BTS, GPRS-TRX is created or deblocked, TSL inside the GPRS territory is deblocked or CS load decreases, but this counter is not triggered in these cases.
+
+This counter is triggered only when GPRS Territory Upgrade is started by Packet Switched Radio Resource Management requesting additional GPRS capacity.
+
+Incase of DLDC territory upgrade request, this counter is updated together with counter 001257 - GPRS TERRITORY UPGRADE REQUEST DUE DLDC"</Updated>
+<OriginalRelease>S9</OriginalRelease>
+<Dependencies>001257</Dependencies>
+<Features>DLDC Territory Procedures (ID: BSS21343), General Packet Radio Service (GPRS) (ID: BSS09006)</Features>
+<InternalUnit>DWORD</InternalUnit>
+</Counter>
+</Counters>
+</Adaptation>

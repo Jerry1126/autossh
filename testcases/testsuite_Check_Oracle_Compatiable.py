@@ -1,0 +1,2 @@
+SC='UMAKTT'
+SS='NOKKTT'

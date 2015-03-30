@@ -1,0 +1,83 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE    WITH NAME    KoalaRTE
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    ''    WITH NAME    ModifySSKoalaxmlfile
+
+*** Variables ***
+
+*** Keywords ***
+Initial ssh instance and inject into KoalaRTE
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    timeout=60    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_omc    timeout=60    prompt=$
+    SSHLibrary.login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+    ${ssh}=    Get Library Instance    SSHLibrary
+    KoalaRTE.set_ssh    ${ssh}
+
+upload koala input and general config to cs
+    [Arguments]    ${ss}=NOKKTT    ${koala_input_path}=metadata
+    KoalaRTE.upload_koala_input_and_general_config_to_cs    ${ss}    onepm_cs1_root    ${koala_input_path}
+
+teardown and clear ss environment
+    KoalaRTE.clear_ss_environment    onepm_cs1_root
+    KoalaRTE.close_ssh_sessions
+
+build test pm package
+    [Arguments]    ${ss}=NOKKTT    ${time_out}=300    ${return_print}=False
+    @{rpms}=    KoalaRTE.build_test_pm_package    ${ss}    onepm_cs1_omc    ${time_out}    ${return_print}
+    [Return]    @{rpms}
+
+install test pm package
+    [Arguments]    ${rpms}    ${cluster_type}=rc    ${check_warningLog}=False    ${check_install_result}=True
+    ${install_result}=    KoalaRTE.install_test_pm_package    ${rpms}    ${SDV_ONEPM_DSS1NAME}    onepm_cs1_root    ${cluster_type}    ${check_warningLog}
+    run keyword if    ${check_install_result}    should be true    ${install_result}
+    [Return]    ${install_result}
+
+uninstall test pm package
+    [Arguments]    ${sc}=UMAKTT    ${ss}=NOKKTT    ${cluster_type}=rc    ${check_uninstall_result}=True
+    ${uninstall_result}=    KoalaRTE.uninstall_test_pm_package    ${SDV_ONEPM_DSS1NAME}    ${sc}    ${ss}    onepm_cs1_root    ${cluster_type}
+    run keyword if    ${check_uninstall_result}    should be true    ${uninstall_result}
+    [Return]    ${uninstall_result}
+
+release run on ss
+    [Arguments]    ${ss}=NOKKTT    ${time_out}=300
+    ${rpms}=    KoalaRTE.release_run_on_ss    ${ss}    onepm_cs1_omc    ${time_out}
+    [Return]    ${rpms}
+
+unrelease run on ss
+    [Arguments]    ${ss}=NOKKTT    ${time_out}=300
+    ${rpms}=    KoalaRTE.unrelease_run_on_ss    ${ss}    onepm_cs1_omc    ${time_out}
+    [Return]    ${rpms}
+
+get general config file path
+    [Arguments]    ${ss}=nokktt
+    ${rs}=    KoalaRTE.get_general_config_file_path    ${ss}
+    [Return]    ${rs}
+
+get koala input file path
+    [Arguments]    ${ss}=nokktt
+    ${rs}=    KoalaRTE.get_koala_input_file_path    ${ss}
+    [Return]    ${rs}
+
+get ss path after installation
+    [Arguments]    ${sc}=umaktt    ${ss}=nokktt
+    ${rs}=    KoalaRTE.get_ss_path_after_installation    ${sc}    ${ss}
+    [Return]    ${rs}
+
+get ss path without installation
+    [Arguments]    ${ss}=nokktt
+    ${rs}=    KoalaRTE.get_ss_path_without_installation    ${ss}
+    [Return]    ${rs}
+
+clear ss environment
+    KoalaRTE.clear_ss_environment    onepm_cs1_root
+
+Store koala output model file to temp file
+    [Arguments]    ${ssname}=nokktt    ${scname}=umaktt
+    ${store_return}=    KoalaRTE.Store koala output model file    ${ssname}    ${scname}
+    Should Be True    ${store_return}
+
+Get koala output model file
+    ${model_file_str}=    KoalaRTE.Get Koala Output Model File
+    @{model_list}=    Split String    ${model_file_str}    \n
+    [Return]    @{model_list}

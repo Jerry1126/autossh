@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Testsuite Omc User Validate</title>
+</head>
+<body>
+<h1>Testsuite Omc User Validate</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Documentation</td>
+<td class="colspan4" colspan="4">It's for user validation that running KOARTE . If runs with none-omc user, then error message will pop up at the very beginning of run, and run is aborted.</td>
+</tr>
+<tr>
+<td class="name">Suite Setup</td>
+<td>suiteSetup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>suiteCleanup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Force Tags</td>
+<td>FTT</td>
+<td>run_standalone</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>SSHLibrary</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>${CURDIR}/../lib/resRemoteCmds.html</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="variable">
+<tr>
+<th class="name" colspan="5">Variables</th>
+</tr>
+<tr>
+<td class="name">${errorMsg}</td>
+<td>Error: KOARTE is only expected to be run as omc user! Running KOARTE is aborted!</td>
+<td># the pop-up warning message when runnning koarte with none-omc user.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">${adaptDir}</td>
+<td>/var/tmp/rtekoa/integrationTool/koaact</td>
+<td># generated PM adaptation directory path</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">${inputPath}</td>
+<td>/tmp/koaactKOALA.xml</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">${endMsg}</td>
+<td>Have a nice day :)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Cases</th>
+</tr>
+<tr>
+<td class="name"><a name="test_omc user run check">omc user run check</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Run KOARTE with omc user and check KOARTE can normally finish run without the pop-up error message.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>/tmp/koarte_testrun.sh</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>Koarte run doesn't normally execute.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># check if adaptation directory generate as expectation.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Directory Should Exist</td>
+<td>${adaptDir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>koaact adaptation content doesn't generate as expectation.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># check if koarte run end prompt message is found</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>grep \ "${endMsg}" /tmp/koalog</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal as integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>koarte run doesn't normally finish.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td>cleanup</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_none-omc user run check">none-omc user run check</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Run KOARTE with none-omc user and check if the error message pops up.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Setup]</td>
+<td>setup</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>/tmp/koarte_testrun.sh</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>koarte run doesn't normally proceed.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># check if koarte is aborted due to wrong user</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>grep \ "${errorMsg}" /tmp/koalog</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>koarte run doesn't abort with error message of wrong user.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>grep \ "${endMsg}" /tmp/koalog</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Not Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>koarte still runs to the end without abort due to wrong user.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># check if the adaptation content doesn't generate</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Directory Should Not Exist</td>
+<td>${adaptDir}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_suiteSetup">suiteSetup</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Initialize for testsuite.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${con}=</td>
+<td>open connection</td>
+<td>${SDV_ONEPM_NAS1IP}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>login</td>
+<td>${SDV_DB_OMC_USER}</td>
+<td>${SDV_DB_OMC_PASSWORD}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>set suite variable</td>
+<td>${con}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>put file</td>
+<td>${CURDIR}/../metadata/koaactKOALA.xml</td>
+<td>/tmp/</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>put file</td>
+<td>${CURDIR}/../metadata/koaactGeneralConfiguration.cf</td>
+<td>/tmp/GenConf</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>put file</td>
+<td>${CURDIR}/../scripts/koarte_testrun.sh</td>
+<td>/tmp/</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Set Suite Variable</td>
+<td>${cmd}</td>
+<td>dos2unix /tmp/koarte_testrun.sh</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>change file format to unix towards file /tmp/koarte_testrun.sh failed.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}=</td>
+<td>Set Variable</td>
+<td>chmod 777 /tmp/koarte_testrun.sh</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>change permission of file /tmp/koarte_testrun.sh failed.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Remove adaptation directory if it exists</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}=</td>
+<td>Set Variable</td>
+<td>test -d ${adaptDir}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}=</td>
+<td>Set Variable</td>
+<td>rm -rf ${adaptDir}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '0'</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_setup">setup</a></td>
+<td>${con}=</td>
+<td>open connection</td>
+<td>${SDV_ONEPM_NAS1IP}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>login</td>
+<td>${SDV_ROOT_USER}</td>
+<td>${SDV_ROOT_PASSWORD}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td># Remove adaptation directory if it exists</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}</td>
+<td>Set Variable</td>
+<td>test -d ${adaptDir}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd}=</td>
+<td>Set Variable</td>
+<td>rm -rf ${adaptDir}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '0'</td>
+<td>Execute Command And Get RC</td>
+<td>${cmd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_cleanup">cleanup</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">cleanup generated PM adaptation directory and contents.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rc}</td>
+<td>${result}=</td>
+<td>Execute Command And Get RC</td>
+<td>rm -rf ${adaptDir}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be equal as integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>generated adaptation in the path: ${adaptDir} \ cant' be removed.</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/koalog</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_suiteCleanup">suiteCleanup</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">cleanup environment</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/koaactKOALA.xml</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/koarte_testrun.sh</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/content_check.pl</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/koalog</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Remote Remove File</td>
+<td>/tmp/GenConf</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>close connection</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

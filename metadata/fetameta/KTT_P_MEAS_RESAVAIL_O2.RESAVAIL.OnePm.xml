@@ -1,0 +1,107 @@
+<Adaptation>
+<MeasurementNumber>RESAVAIL</MeasurementNumber>
+<ObjectHierarchy>KSC-KCF-KTS/SEG/TTP</ObjectHierarchy>
+<PMCoreMeasType>RESAVAIL</PMCoreMeasType>
+<RBFolderName>Resource Availability</RBFolderName>
+<OMeSName>RESAVAIL</OMeSName>
+<BusyHourDefinitionFormula>max(RESAVAIL.AVE_BUSY_TCH)</BusyHourDefinitionFormula>
+<KoalaRawId>TTP1</KoalaRawId>
+<TimeSummaryLevels>HOUR,DAY,WEEK,BH,WEEKBH,MON,MONBH</TimeSummaryLevels>
+<NWSummaryLevels>KSC,SEG,KTS,TTP</NWSummaryLevels>
+<AggregationHierarchy >KSC-SEG-KCF-KTS/TTP</AggregationHierarchy>
+<AIBDetails>
+<DisplayID>002</DisplayID>
+<MeasurementName>RESAVAIL(002)</MeasurementName>
+<Description>This measurement type registers information on the availability of traffic channels (TCH), the stand-alone dedicated control channels (SDCCH), broadcast control channels (BCCH) and timeslots. 
+
+It also collects information on the availability of the TCHs for each interference band. In addition, time congestion of TCHs and SDCCHs, and the average and peak numbers of busy TCHs or SDCCHs are measured.
+
+The collected information is sampled for averaging at certain intervals. This sampling interval for the defined counters is 20 seconds for statistical items that are averaged. Thus the actual value of this measurement contains averaged information collected within a measurement period. The Resource Availability measurement collects one set of results for each KTS.</Description>
+<RecommendedInterval>1 h</RecommendedInterval>
+</AIBDetails>
+<RawDetails table="KTT_P_MEAS_RESAVAIL_O2" view="KTT_PS_RESAVAIL_TTP1_RAW" viewRaw="KTT_P_RESAVAIL_TTP1_PMC" viewAgg="KTT_PV_RESAVAIL_TTP1_RAW">
+</RawDetails>
+<SummaryDetails>
+<SumTable table="KTT_P_RESAVAIL_KSC_HOUR" view="KTT_PS_RESAVAIL_KSC_HOUR" viewAgg="KTT_PV_RESAVAIL_KSC_HOUR">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_DAY" view="KTT_PS_RESAVAIL_KSC_DAY" viewAgg="KTT_PV_RESAVAIL_KSC_DAY">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_WEEK" view="KTT_PS_RESAVAIL_KSC_WEEK" viewAgg="KTT_PV_RESAVAIL_KSC_WEEK">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_BH" view="KTT_PS_RESAVAIL_KSC_BH" viewAgg="KTT_PV_RESAVAIL_KSC_BH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_WEEKBH" view="KTT_PS_RESAVAIL_KSC_WEEKBH" viewAgg="KTT_PV_RESAVAIL_KSC_WEEKBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_MON" view="KTT_PS_RESAVAIL_KSC_MON" viewAgg="KTT_PV_RESAVAIL_KSC_MON">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KSC_MONBH" view="KTT_PS_RESAVAIL_KSC_MONBH" viewAgg="KTT_PV_RESAVAIL_KSC_MONBH">
+</SumTable>
+
+<SumTable table="KTT_P_RESAVAIL_KCF_HOUR" view="KTT_PS_RESAVAIL_KCF_HOUR" viewAgg="KTT_PV_RESAVAIL_KCF_HOUR">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_DAY" view="KTT_PS_RESAVAIL_KCF_DAY" viewAgg="KTT_PV_RESAVAIL_KCF_DAY">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_WEEK" view="KTT_PS_RESAVAIL_KCF_WEEK" viewAgg="KTT_PV_RESAVAIL_KCF_WEEK">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_BH" view="KTT_PS_RESAVAIL_KCF_BH" viewAgg="KTT_PV_RESAVAIL_KCF_BH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_WEEKBH" view="KTT_PS_RESAVAIL_KCF_WEEKBH" viewAgg="KTT_PV_RESAVAIL_KCF_WEEKBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_MON" view="KTT_PS_RESAVAIL_KCF_MON" viewAgg="KTT_PV_RESAVAIL_KCF_MON">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KCF_MONBH" view="KTT_PS_RESAVAIL_KCF_MONBH" viewAgg="KTT_PV_RESAVAIL_KCF_MONBH">
+</SumTable>
+
+<SumTable table="KTT_P_RESAVAIL_SEG1_HOUR" view="KTT_PS_RESAVAIL_SEG1_HOUR" viewAgg="KTT_PV_RESAVAIL_SEG1_HOUR">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_DAY" view="KTT_PS_RESAVAIL_SEG1_DAY" viewAgg="KTT_PV_RESAVAIL_SEG1_DAY">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_WEEK" view="KTT_PS_RESAVAIL_SEG1_WEEK" viewAgg="KTT_PV_RESAVAIL_SEG1_WEEK">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_BH" view="KTT_PS_RESAVAIL_SEG1_BH" viewAgg="KTT_PV_RESAVAIL_SEG1_BH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_WEEKBH" view="KTT_PS_RESAVAIL_SEG1_WEEKBH" viewAgg="KTT_PV_RESAVAIL_SEG1_WEEKBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_MON" view="KTT_PS_RESAVAIL_SEG1_MON" viewAgg="KTT_PV_RESAVAIL_SEG1_MON">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_SEG1_MONBH" view="KTT_PS_RESAVAIL_SEG1_MONBH" viewAgg="KTT_PV_RESAVAIL_SEG1_MONBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_HOUR" view="KTT_PS_RESAVAIL_KTS_HOUR" viewAgg="KTT_PV_RESAVAIL_KTS_HOUR">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_DAY" view="KTT_PS_RESAVAIL_KTS_DAY" viewAgg="KTT_PV_RESAVAIL_KTS_DAY">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_WEEK" view="KTT_PS_RESAVAIL_KTS_WEEK" viewAgg="KTT_PV_RESAVAIL_KTS_WEEK">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_BH" view="KTT_PS_RESAVAIL_KTS_BH" viewAgg="KTT_PV_RESAVAIL_KTS_BH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_WEEKBH" view="KTT_PS_RESAVAIL_KTS_WEEKBH" viewAgg="KTT_PV_RESAVAIL_KTS_WEEKBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_MON" view="KTT_PS_RESAVAIL_KTS_MON" viewAgg="KTT_PV_RESAVAIL_KTS_MON">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_KTS_MONBH" view="KTT_PS_RESAVAIL_KTS_MONBH" viewAgg="KTT_PV_RESAVAIL_KTS_MONBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_HOUR" view="KTT_PS_RESAVAIL_TTP1_HOUR" viewAgg="KTT_PV_RESAVAIL_TTP1_HOUR">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_DAY" view="KTT_PS_RESAVAIL_TTP1_DAY" viewAgg="KTT_PV_RESAVAIL_TTP1_DAY">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_WEEK" view="KTT_PS_RESAVAIL_TTP1_WEEK" viewAgg="KTT_PV_RESAVAIL_TTP1_WEEK">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_BH" view="KTT_PS_RESAVAIL_TTP1_BH" viewAgg="KTT_PV_RESAVAIL_TTP1_BH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_WEEKBH" view="KTT_PS_RESAVAIL_TTP1_WEEKBH" viewAgg="KTT_PV_RESAVAIL_TTP1_WEEKBH">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_MON" view="KTT_PS_RESAVAIL_TTP1_MON" viewAgg="KTT_PV_RESAVAIL_TTP1_MON">
+</SumTable>
+<SumTable table="KTT_P_RESAVAIL_TTP1_MONBH" view="KTT_PS_RESAVAIL_TTP1_MONBH" viewAgg="KTT_PV_RESAVAIL_TTP1_MONBH">
+</SumTable>
+</SummaryDetails>
+<Counters>
+<Counter ID="c002027" colName="AVE_BUSY_TCH" timeFormula="sum" nwFormula="sum" unit="No." neName="AVE BUSY TCH">
+<Description>The sum of the busy TCH timeslots samples. The average value is calculated by dividing the value of this counter by the value of counter 002028 RES AVAIL DENOMINATOR 14. Counter 002028 is updated along with this counter.</Description>
+<Updated>The number of busy TCH timeslots is sampled every 20 seconds. When HR capable timeslot (DR timeslot or permanent HR timeslot) has both channels occupied the number of busy TCHs is updated for both TCHs individually. Counter is updated for all type of CS traffic (FR, HR, EFR, AMR-NB, AMR-WB, OSC FR/HR, HSCSD, 14K4 DATA..) excluding DTM.</Updated>
+<OriginalRelease>S1</OriginalRelease>
+<Dependencies>002028</Dependencies>
+<InternalUnit>DWORD</InternalUnit>
+</Counter>
+</Counters>
+</Adaptation>

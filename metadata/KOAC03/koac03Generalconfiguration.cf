@@ -1,0 +1,11 @@
+# Configuration for B-4 KOALA
+
+(KOALAVersion   "BOSS5")
+(KOALAFileName	"/home/omc/chopin/koac03/koac03Koala.xml")
+(Subsystem	 "koac03")
+(SCName		 "umakoa")
+(GCDirectIntegration	"0")
+
+
+
+

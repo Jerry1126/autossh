@@ -1,0 +1,83 @@
+# ------------------------------------------------------------
+# General Definitions
+# -------------------------------------------------------------
+(KOALAVersion                   "BOSS5")
+(KOALAFileName   		"/home/omc/ddt/nokchfKoala.xml")
+(Subsystem   			"nokchf")
+(SCName    			"umachf")
+
+# ------------------------------------------------------------
+# This adaptations has to support OMeS Release 1 
+# -------------------------------------------------------------
+(TSPType 			"LocallyManaged")
+(TSMaxNextExtend   		"128")
+
+(AggregationLicence  		"LMD_OPT_AGGREGATION_FOR_BSS")
+
+(GCDirectIntegration            "1")
+
+(DimensionIndexRebuildCronEntry "0 5 * * 0,2,4")        #mdbcbo_analyse.sh
+
+(AggIndexRebuildCronEntry       "0 5 * * *")            #mdbcbo_analyse.sh
+(AggIndexMaintainCronEntry      "10 4 * * 1-6")         #mdbind.sh
+#(AggIndexMaintainFullCronEntry  "45 2 * * 0")
+
+(RawIndexMaintainCronEntry      "50 2 * * *")            #added for KOALA wrapper check - not really needed
+(RawIndexRebuildCronEntry       "30 3 * * *")            #added for KOALA wrapper check - not really needed
+#(RawIndexMaintainFullCronEntry  "50 2 * * *")            #added for KOALA wrapper check - not really needed
+
+(PartitionManagerCronEntry      "30 2 * * *")
+
+(DimensionCleanCronEntry        "30 2 * * 0")
+(DimensionInsertCronEntry       "45 * * * *")
+
+# ------------------------------------------------------------
+# The following Cron-Entry defines when summarization on the
+# RC starts.
+# -------------------------------------------------------------
+(ReporterCronEntry 		"35 3-23 * * *")
+(ReporterCronEntryGC 		"35 3-23 * * *")
+
+# ------------------------------------------------------------
+# Define the components to be generated and the location
+# of the generated file.
+# -------------------------------------------------------------
+(Component 			"Subsystem")
+(Component                      "ETLoad")
+(Component 			"PMWarehouse")
+
+#(PBMapping  			""
+#  (subsystem  			"/vobs/netact_tier3/umabss/nokbsc")
+#  (xxxcap			"/vobs/koala03/bsccap")
+#  (xxxcdb			"/vobs/koala03/bsccdb")
+#  (xxxrap   			"/vobs/koala03/bscrap")
+#  (xxxrdb   			"/vobs/koala03/bscrdb")
+#)
+
+(UseExternalAllmocFile 		"no")
+(ExplicitDropTables 		"1")
+(EnableFilterSupport   		"0")
+
+(FirstD3B_Snapshot 		"0")
+(FirstSnapshotD3BVersion        "0")
+(FirstD3B_EnhancedRaw           "0")
+
+(EnableRBSupport                "0")
+(EnableASSupport                "1")
+
+(EnableDocRTFSupport            "1")
+(EnableRawDataExport   		"0")
+
+(DatabaseObjectPrefix   	"chf")
+(RBNamespacePrefix	"nokchf")
+(EnableOraclePartitioning	"1")
+#(FirstD3B_ImprovedDimUpg 	"04_002")
+#(FirstD3B_WithoutLegacy      	"04_004")
+
+(TablespaceFileType             "BIG")
+
+(ParallelAggregationChilds      "3")
+
+# Selective resummarization
+(SelectiveResummarizing "10")
+

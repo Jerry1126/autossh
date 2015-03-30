@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="19" name="koartemx.pl -unrel" run-standalone='true'
+	xmlns="http://www.nsn.com/koala/USDescriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[This feature is to undo the action of koartemx.pl -rel. When user made a false release run, revert can be done by this command.]]></Description>
+</US>

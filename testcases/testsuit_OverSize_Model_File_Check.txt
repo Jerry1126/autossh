@@ -1,0 +1,23 @@
+*** Settings ***
+Library           Oversize_Model_Check.Oversize_Model_Check    WITH NAME    Oversize_Model_Check
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Variables         testsuit_OverSize_Model_File_Check.py
+
+*** Test Cases ***
+OverSize_Model_File_Check
+    [Tags]    FTT    common    US57    L3
+    Initial ssh instance and inject into KoalaRTE
+    upload koala input and general config to cs    ${ss_name}
+    build test pm package    ${ss_name}
+    ${ss_name}    Oversize_Model_Check.get_lower    ${ss_name}
+    ${koala_xml_path}    Oversize_Model_Check.get_koala_xml_path    ${ss_name}
+    write    ${koala_xml_path}
+    ${dic1}    Oversize_Model_Check.get_measurement_dic    ${koala_xml_path}
+    ${model_file_path}    Oversize_Model_Check.make_dir    ${ss_name}
+    Get file    /var/tmp/rtekoa/integrationTool/${ss_name}/conf/${ss_name}.model    ${model_file_path}
+    write    ${model_file_path}
+    ${dic2}    Oversize_Model_Check.get_measurement_dic    ${model_file_path}
+    ${flag}    Oversize_Model_Check.get_compare    ${dic1}    ${dic2}
+    Oversize_Model_Check.remove_dir    ${model_file_path}
+    should be true    ${flag}
+    teardown and clear ss environment

@@ -1,0 +1,36 @@
+*** Settings ***
+Documentation     Check duplicated summaries part is removed in ssmeta_mx.cf for extension adaptation or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    US39    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Library           Remove_duplicated_summaries_part.RemoveDuplicateSummaries    WITH NAME    RemoveDuplicateSummaries
+
+*** Variables ***
+${basessname}     nokktt
+${basescname}     umaktt
+${extensionscname}    umacus
+${extensionssname}    cusktt
+
+*** Test Cases ***
+Remove dupilicated summaries
+    [Documentation]    Purpose of this test case is to check remove duplicate summaries in ${extensionssname}meta_mx.cf file
+    upload koala input and general config to cs    ${extensionssname}
+    ${rpm1}=    build test pm package    ${extensionssname}
+    install test pm package    ${rpm1}
+    ${versions}=    retrieve_rpm_version    ${rpm1}
+    ${summaries}=    get_summaries_in_ssmeta_file    ${versions}
+    ${result}=    check_summaries_unique_or_not    ${summaries}
+    should be true    ${result}
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    RemoveDuplicateSummaries.set ssh    ${ssh}
+
+Test Suite Teardown
+    uninstall test pm package    ${extensionscname}    ${extensionssname}
+    KoalaRTE.close_ssh_sessions

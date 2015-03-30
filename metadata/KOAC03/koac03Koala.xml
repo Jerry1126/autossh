@@ -1,0 +1,136 @@
+<!--
+
+   =================================================================
+
+   ===================== SYSTEM IDENTIFICATION =====================
+
+   =================================================================
+
+   ==
+
+   ==       Adaptation: Nokia CHOPIN 01.003
+
+   ==       Subsystem : koac01
+
+   ==
+
+   =================================================================
+
+   ==
+
+   ==       This is the main configuration file for this adaptation
+
+   ==
+
+   =================================================================
+
+-->
+<Adaptation ID="koac01" UMAProcessID="0x0000" RepProcessID="0x">
+	<Release>
+		<Vendor>Nokia</Vendor>
+		<Element>CHOPIN</Element>
+		<Version>01.003</Version>
+	</Release>
+	<Topology ID="ROOT" Path="PLMN(16:PLMN_OBJECT_CLASS)-PLMN" Dimension="network_element">
+		<Level ID="GENESIS" ObjectNumber="1" Aggregation="true"	IsTransient="false">
+			<ObjectClassDefinition IntClassID="200" IsNE="false" Name="KCP002_GENESIS_OBJECT_CLASS"/>
+			<Key ID="genesis_id"/>
+			<Level ID="EXODUE" ObjectNumber="1" Aggregation="true" IsTransient="false">
+				<ObjectClassDefinition IntClassID="210" IsNE="false" Name="KCP002_EXODUE_OBJECT_CLASS"/>
+				<Key ID="exodue_id"/>
+					<Level ID="LEVI" ObjectNumber="1" Aggregation="true" IsTransient="false">
+					<ObjectClassDefinition IntClassID="220" IsNE="false" Name="KCP002_LEVI_OBJECT_CLASS"/>
+					<Key ID="levi_id"/>
+				</Level>
+			</Level>
+		</Level>
+	</Topology>
+	<Measurement ID="BaseY" Aggregation="All">
+		<PartitionLevels ServerType="RC">
+			<Raw>hour</Raw>
+			<Hour>hour</Hour>
+			<Day>hour</Day>
+			<Week>hour</Week>
+			<Month>hour</Month>
+		</PartitionLevels>
+		<PartitionLevels ServerType="GC">
+			<Raw>week</Raw>
+			<Hour>week</Hour>
+			<Day>week</Day>
+			<Week>week</Week>
+			<Month>week</Month>
+		</PartitionLevels>
+		<Time>
+			<RawLevel>15</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT">
+			<RawLevelRef>ROOT.GENESIS.EXODUE.LEVI</RawLevelRef>
+			<FirstLevelRef>ROOT.GENESIS.EXODUE.LEVI</FirstLevelRef>
+			<LastLevelRef>ROOT.GENESIS</LastLevelRef>
+		</TopologyRef>
+		<PhysicalCounters>
+			<Counter ID="Cnt_1"/>
+		</PhysicalCounters>
+	</Measurement>
+	<Measurement ID="BaseN" Aggregation="All">
+		<Time>
+			<RawLevel>15</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT">
+			<RawLevelRef>ROOT.GENESIS.EXODUE.LEVI</RawLevelRef>
+			<FirstLevelRef>ROOT.GENESIS.EXODUE.LEVI</FirstLevelRef>
+			<LastLevelRef>ROOT.GENESIS</LastLevelRef>
+		</TopologyRef>
+		<PhysicalCounters>
+			<Counter ID="Cnt_1"/>
+		</PhysicalCounters>
+	</Measurement>
+	<Measurement ID="UpgY" Aggregation="All">
+		<PartitionLevels ServerType="RC">
+			<Raw>hour</Raw>
+			<Hour>hour</Hour>
+			<Day>hour</Day>
+			<Week>hour</Week>
+			<Month>hour</Month>
+		</PartitionLevels>
+		<PartitionLevels ServerType="GC">
+			<Raw>week</Raw>
+			<Hour>week</Hour>
+			<Day>week</Day>
+			<Week>week</Week>
+			<Month>week</Month>
+		</PartitionLevels>
+		<Time>
+			<RawLevel>15</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT">
+			<RawLevelRef>ROOT.GENESIS.EXODUE.LEVI</RawLevelRef>
+			<FirstLevelRef>ROOT.GENESIS.EXODUE.LEVI</FirstLevelRef>
+			<LastLevelRef>ROOT.GENESIS</LastLevelRef>
+		</TopologyRef>
+		<PhysicalCounters>
+			<Counter ID="Cnt_1"/>
+		</PhysicalCounters>
+	</Measurement>
+	<Measurement ID="UpgN" Aggregation="All">
+		<Time>
+			<RawLevel>15</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+		<TopologyRef ID="ROOT">
+			<RawLevelRef>ROOT.GENESIS.EXODUE.LEVI</RawLevelRef>
+			<FirstLevelRef>ROOT.GENESIS.EXODUE.LEVI</FirstLevelRef>
+			<LastLevelRef>ROOT.GENESIS</LastLevelRef>
+		</TopologyRef>
+		<PhysicalCounters>
+			<Counter ID="Cnt_1"/>
+		</PhysicalCounters>
+	</Measurement>
+</Adaptation>

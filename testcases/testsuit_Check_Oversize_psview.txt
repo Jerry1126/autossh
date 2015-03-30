@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           Oversize_psview.Oversize_psview    WITH NAME    Oversize_psview
+
+*** Variables ***
+${ssname}         NOKACF
+
+*** Test Cases ***
+Check_Oversize_psview
+    [Tags]    FTT    common    US60    L2
+    Initial ssh instance and inject into KoalaRTE
+    upload koala input and general config to cs    ${ssname}
+    ${rpm}    build test pm package    ${ssname}
+    ${ssname}    Oversize_psview.get_lower    ${ssname}
+    ${temp_file}    Oversize_psview.make_file
+    Get file    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}rdb/${ssname}rdb_cre_psviews.sql    ${temp_file}
+    ${ERR}    Oversize_psview.Oversize_psview    ${temp_file}    ${ssname}
+    should be empty    ${ERR}
+    teardown and clear ss environment

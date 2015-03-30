@@ -1,0 +1,90 @@
+*** Settings ***
+Documentation     Check update from CCKoala adaption success or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    run_standalone    US53    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Library           SettingGenralConfigFilePropertyValue.PropertyValueSetting    WITH NAME    PropertyValueSetting
+Library           Database.DatabaseCore    ${SDV_DB_HOSTNAME_IP}    ${SDV_DB_SYSTEM_USER}    ${SDV_DB_SYS_PASSWORD}    WITH NAME    DatabaseCore
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    ''    WITH NAME    ModifySSKoalaxmlfile
+
+*** Variables ***
+${scname}         UMAKTT
+${ssname}         NOKKTT
+${ssnamelower}    nokktt
+
+*** Test Cases ***
+Scratch Installating in RC for old type O2 table
+    [Documentation]    Check scratch installation on RC lab could success or not for old type O2 table
+    upload koala input and general config to cs
+    ${rpm}=    build test pm package
+    install test pm package    ${rpm}
+    ${row}=    DatabaseCore.get_rows    select COUNT(*) from all_tab_columns where table_name='KTT_P_MEAS_RESAVAIL_O2';
+    ${result}=    DatabaseCore.rows_to_simple_value_list    ${row}
+    ${value}=    Evaluate    ${result}[0]
+    should be equal    ${value}    ${1000}
+    [Teardown]    Test case teardown
+
+Scratch Installating in RC for tightly O2 table
+    [Documentation]    Check scratch installation on RC lab could success or not for old type O2 table
+    upload koala input and general config to cs
+    ${config_path}=    get general config file path    ${ssname}
+    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    1
+    ${rpm}=    build test pm package
+    install test pm package    ${rpm}
+    ${row}=    DatabaseCore.get_rows    select COUNT(*) from all_tab_columns where table_name='KTT_P_MEAS_RESAVAIL_O2';
+    ${result}=    DatabaseCore.rows_to_simple_value_list    ${row}
+    ${value}=    Evaluate    ${result}[0]
+    should be equal    ${value}    ${1000}
+    [Teardown]    Test case teardown
+
+New O2 Scratch installation on GC for old type O2 table
+    [Documentation]    Check if New O2 scratch installation on GC lab success or not for old type table
+    upload koala input and general config to cs
+    ${config_path}=    get general config file path    ${ssname}
+    set_property_value_in_general_config_file    ${config_path}    GCDirectIntegration    0
+    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    0
+    ${rpm}=    build test pm package
+    install test pm package    ${rpm}    cluster_type=gc
+    ${row}=    DatabaseCore.get_rows    select COUNT(*) from all_tab_columns where table_name='KTT_P_MEAS_RESAVAIL_O2';
+    ${result}=    DatabaseCore.rows_to_simple_value_list    ${row}
+    ${value}=    Evaluate    ${result}[0]
+    should be equal    ${value}    ${0}
+    [Teardown]    Test case teardown for gc
+
+New O2 Scratch installation on GC for tightly O2 table
+    [Documentation]    Check if New O2 scratch installation on GC lab success or not for tightly O2 table
+    upload koala input and general config to cs
+    ${config_path}=    get general config file path    ${ssname}
+    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    1
+    set_property_value_in_general_config_file    ${config_path}    GCDirectIntegration    0
+    ${rpm}=    build test pm package
+    install test pm package    ${rpm}    cluster_type=gc
+    ${row}=    DatabaseCore.get_rows    select COUNT(*) from all_tab_columns where table_name='KTT_P_MEAS_RESAVAIL_O2';
+    ${result}=    DatabaseCore.rows_to_simple_value_list    ${row}
+    ${value}=    Evaluate    ${result}[0]
+    should not be equal    ${value}    ${1000}
+    should not be equal    ${value}    ${0}
+    [Teardown]    Test case teardown for gc
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    PropertyValueSetting.set ssh    ${ssh}
+    ${db}=    DatabaseCore.getEngine
+    DatabaseCore.setEngine    ${db}
+
+Test Suite Teardown
+    teardown and clear ss environment
+    DatabaseCore.close
+
+Test case teardown
+    uninstall test pm package    ${scname}    ${ssname}
+    clear ss environment
+
+Test case teardown for gc
+    uninstall test pm package    ${scname}    ${ssname}    cluster_type=gc
+    clear ss environment

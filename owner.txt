@@ -1,0 +1,2 @@
+DESCRIPTION="com.nsn.nac.koarte"
+OWNER=""

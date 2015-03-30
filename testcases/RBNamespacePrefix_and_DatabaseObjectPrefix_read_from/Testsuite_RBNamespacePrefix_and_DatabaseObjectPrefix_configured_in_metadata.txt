@@ -1,0 +1,125 @@
+*** Settings ***
+Documentation     Check whether RBNamespacePrefix and DatabaseObjectPrefix has been read from base adaptation .model file
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Test Teardown
+Force Tags        common    US42    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           RBname_and_DBObject_Prefix_read_from_model_file.RBandDBprefixReadFrom    WITH NAME    RBandDBprefixReadFrom
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+
+*** Variables ***
+${base_ss}        nokktt
+${base_sc}        umaktt
+${extension_ss}    cusktt
+
+*** Test Cases ***
+Model file should exist after installation
+    [Documentation]    Purpose of this test case is to check whether the model file exist after installation
+    [Setup]    Test case setup for extension
+    ${stdout1}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    model
+    should be true    ${stdout1}
+    [Teardown]    Test case teardown
+
+Check DBobjectPrefix in cusxxxrdb_cre_synonyms.sql file
+    [Documentation]    The case is check the DBobjectprefix value is same as which in metadata file
+    [Setup]    Test case setup for extension_2
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${DBobjectPrefix}=    retrieve_DBObjectPrefix_or_RBNameSpacePrefix    ${ss_remote_path}
+    ${infoFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    info
+    ${modelFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    model
+    ${RBName_and_DBObject_info}=    check_RBName_and_DBObject_in_model_or_info_file    info    False    ${base_sc}    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${extension_ss}    ${RBName_and_DBObject_info}
+    [Teardown]    Test case teardown_2
+
+DBobjectprefix and RBName read from model file if info file is not exist
+    [Documentation]    Check whether RBNamespacePrefix and DatabaseObjectPrefix has been read from base adaptation .model file if .info file does not exist
+    [Setup]    Test case setup for extension when info file does not exist
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${infoFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    info
+    ${modelFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    model
+    ${DBobjectPrefix}=    retrieve_DBObjectPrefix_or_RBNameSpacePrefix    ${ss_remote_path}
+    ${RBName_and_DBObject_info}=    check_RBName_and_DBObject_in_model_or_info_file    info    False    ${base_sc}    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${extension_ss}    ${RBName_and_DBObject_info}
+    [Teardown]    Test case teardown for info or model file is edited or deleted
+
+Check DBobjectprefix and RBName cusxxxrdb_cre_synonyms.sql file when DBprefix is space value
+    [Documentation]    Check whether DBobjectprefix in cusxxxrdb_cre_synonyms.sql file \ is same as info or model file when DBprefix is ssname
+    [Setup]    Test case setup for extension when DBprefix is space value
+    ${stdout}=    delete_info_file_after_installation    ${base_sc}    ${base_ss}
+    ${infoFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    info
+    ${modelFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    model
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${DBobjectPrefix}=    retrieve_DBObjectPrefix_or_RBNameSpacePrefix    ${ss_remote_path}
+    ${RBName_and_DBObject_info}=    check_RBName_and_DBObject_in_model_or_info_file    info    False    ${base_sc}    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${extension_ss}    ${RBName_and_DBObject_model}
+    [Teardown]    Test case teardown for info or model file is edited or deleted
+
+Check DBobjectprefix and RBName cusxxxrdb_cre_synonyms.sql file when DBprefix is ssname
+    [Documentation]    Check whether DBobjectprefix in cusxxxrdb_cre_synonyms.sql file \ is same as info or model file when DBprefix is ssname
+    [Setup]    Test case setup for extension when DBprefix is ssname
+    ${stdout}=    delete_info_file_after_installation    ${base_sc}    ${base_ss}
+    ${infoFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    info
+    ${modelFileExsit}=    check_model_or_info_file_exist_or_not    True    ${base_sc}    ${base_ss}    model
+    ${ss_remote_path}=    get_ss_remote_path    ${base_ss}
+    ${DBobjectPrefix}=    retrieve_DBObjectPrefix_or_RBNameSpacePrefix    ${ss_remote_path}
+    ${RBName_and_DBObject_info}=    check_RBName_and_DBObject_in_model_or_info_file    info    False    ${base_sc}    ${base_ss}
+    ${RBName_and_DBObject_model}=    check_RBName_and_DBObject_in_model_or_info_file    model    False    ${base_sc}    ${base_ss}
+    ${stdout}=    Check_RBnamePrefix_and_DBPrefix_in_synonymsFile    ${extension_ss}    ${RBName_and_DBObject_model}
+    should not be true    ${stdout}
+    [Teardown]    Test case teardown for info or model file is edited or deleted
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    RBandDBprefixReadFrom.set ssh    ${ssh}
+    ${rs}=    execute command    mkdir -f /tmp/sun
+    ${rc}=    execute command    cp /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.info /tmp/sun/${base_ss}.info;cp /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.model /tmp/sun/${base_ss}.model
+
+Test Suite Teardown
+    ${rc}=    execute command    cp /tmp/sun/${base_ss}.info /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.info;cp /tmp/sun/${base_ss}.model /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.model
+    ${rc}=    execute command    ls /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/
+    execute command    rm /tmp/sun -rf
+
+Test case setup for extension
+    upload koala input and general config to cs    cusktt
+    ${rpms}=    build_test_pm_package    cusktt
+    install test pm package    ${rpms}
+
+Test case setup for extension when info file does not exist
+    upload koala input and general config to cs    cusktt
+    ${stdout}=    delete_info_file_after_installation    ${base_sc}    ${base_ss}
+    ${rpms}=    build_test_pm_package    cusktt
+
+Test case setup for extension when DBprefix is ssname
+    upload koala input and general config to cs    cusktt
+    ${stdout}=    modify_DBObjectPrefix_RBNamePrefix_in_model_or_info_file    ${base_ss}    ${base_sc}    ${base_ss}
+    ${stdout}=    modify_DBObjectPrefix_RBNamePrefix_in_model_or_info_file    ${base_ss}    ${base_sc}    ${base_ss}    model
+    ${rpms}=    build_test_pm_package    cusktt
+
+Test case setup for extension when DBprefix is space value
+    upload koala input and general config to cs    cusktt
+    ${stdout}=    modify_DBObjectPrefix_RBNamePrefix_in_model_or_info_file    Space    ${base_sc}    ${base_ss}
+    ${stdout}=    modify_DBObjectPrefix_RBNamePrefix_in_model_or_info_file    Space    ${base_sc}    nokktt    model
+    ${rpms}=    build_test_pm_package    cusktt
+
+Test case teardown for info or model file is edited or deleted
+    execute_command    cp /tmp/sun/${base_ss}.info /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.info;cp /tmp/sun/${base_ss}.model /opt/nokia/oss/${base_sc}-5.0-${base_ss}-1.0.0/conf/addon/${base_ss}.model
+    clear ss environment
+
+Test case teardown
+    Store koala output model file to temp file    cusktt    umacus
+    uninstall test pm package    umacus    cusktt
+    clear ss environment
+
+Test case setup for extension_2
+    upload koala input and general config to cs    cusktt
+    ${rpms}=    build_test_pm_package    cusktt
+
+Test case teardown_2
+    clear ss environment

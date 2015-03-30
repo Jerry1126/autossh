@@ -1,0 +1,61 @@
+*** Settings ***
+Documentation     Check update from CCKoala adaption success or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    run_standalone    US4    L1
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Library           Support_update_from_CCkoala.UpdateFromCCKoala    WITH NAME    UpdateFromCCKoala
+
+*** Variables ***
+${scname}         UMACUS
+${ssname}         NOKSUN
+${ssnamelower}    noksun
+
+*** Test Cases ***
+Support_update_from_CCkoala_adaptation_after_add_a_counter
+    [Documentation]    Purpose of this test case is to check update from CCKoala adaption success or not after add a counter
+    [Setup]    Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    release run on ss    ${ssname}
+    ${rc}=    execute command    mv ${ss_remotePath}/${ssnamelower}Koala_addCounter.xml ${ss_remotePath}/${ssnamelower}Koala.xml
+    ${ms}=    execute command    ls ${ss_remotePath}
+    ${ms}=    execute command    cat ${ss_remotePath}/${ssname}/${ssnamelower}Koala.xml
+    ${rpm2}=    build test pm package    ${ssname}
+    install test pm package    ${rpm2}
+    [Teardown]    Test case teardown
+
+Support_update_from_CCkoala_adaptation_after_add_a_measurement
+    [Documentation]    Purpose of this test case is to check update from CCKoala adaption success or not after add a measurement
+    [Setup]    Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    release run on ss    ${ssname}
+    ${rc}=    execute command    mv ${ss_remotePath}/${ssnamelower}Koala_addMeasurement.xml ${ss_remotePath}/${ssnamelower}Koala.xml
+    ${ms}=    execute command    ls ${ss_remotePath}
+    ${ms}=    execute command    cat ${ss_remotePath}/${ssname}/${ssnamelower}Koala.xml
+    ${rpm2}=    build test pm package    ${ssname}
+    install test pm package    ${rpm2}
+    [Teardown]    Test case teardown
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    UpdateFromCCKoala.set ssh    ${ssh}
+
+Test Suite Teardown
+    teardown and clear ss environment
+
+Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    ${rpm}=    upload_koala_metadata_and_rpm_packages    ${ss_remotePath}    ${ssname}
+    upload koala input and general config to cs    ${ssname}
+    install test pm package    ${rpm}
+    ${rs}=    execute command    ls ${ss_remotePath}
+
+Test case teardown
+    uninstall test pm package    ${scname}    ${ssname}
+    unrelease run on ss    ${ssname}
+    execute command    rm -rf /var/opt/nokia/oss/global/rtekoa/work/RPM/noarch/Nokia-UMACUS-NOKSUN*.*
+    clear ss environment

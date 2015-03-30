@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.nsn.com/koala/USDescriptor" xmlns:tns="http://www.nsn.org/koala/USDescriptor" elementFormDefault="qualified" xmlns:Q1="http://www.nsn.com/koala/USDescriptor">
+
+    <complexType name="USType">
+    	<sequence minOccurs="1" maxOccurs="1">
+    		<element name="Description" type="string" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<element name="KoalaTemplate" type="Q1:KoalaTemplateType"
+    			maxOccurs="1" minOccurs="0">
+    		</element>
+    		<element name="GeneralConfTemplate"
+    			type="Q1:GeneralConfTemplateType" maxOccurs="1" minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="id" type="int" use="required"></attribute>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="run-standalone" type="boolean" use="optional"
+    		default="false">
+    	</attribute>
+    	<attribute name="requireInstall" type="boolean" use="optional"
+    		default="false">
+    	</attribute>
+    </complexType>
+
+    <element name="US" type="Q1:USType"></element>
+
+
+    <complexType name="KoalaTemplateType">
+    	<attribute name="src">
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern value="\w+\.xml"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="GeneralConfTemplateType">
+    	<attribute name="src">
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern value="\w+\.cfg"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+</schema>

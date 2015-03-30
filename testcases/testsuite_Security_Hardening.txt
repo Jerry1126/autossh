@@ -1,0 +1,41 @@
+*** Settings ***
+Library           SettingGenralConfigFilePropertyValue.PropertyValueSetting    WITH NAME    PropertyValueSetting
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           Security_Hardening.Security_Hardening    WITH NAME    Security_Hardening
+
+*** Variables ***
+${ssname}         NOKABJ
+
+*** Test Cases ***
+Security Hardening
+    [Tags]    FTT    common    US58    L2
+    [Setup]    Setup
+    [Template]    Security_Hardening
+    1
+    0
+    [Teardown]    Teardown
+
+*** Keywords ***
+Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    PropertyValueSetting.set ssh    ${ssh}
+    upload koala input and general config to cs    ${ssname}
+
+Security_Hardening
+    [Arguments]    ${value}
+    ${config_path}=    get general config file path    ${ssname}
+    set_property_value_in_general_config_file    ${config_path}    LOCK_SCHEMA_OWNER    ${value}
+    ${rpm}    build test pm package    ${ssname}
+    ${ssname}    Security_Hardening.get_lower    ${ssname}
+    @{output_file_path_list}    Set Variable    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}rdb/${ssname}rdb_d3b.cfg    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}cdb/${ssname}cdb_d3b.cfg    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}cdb/${ssname}cdb_d3b_user.cfg    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}cdb/${ssname}cdb_d3b_gc.cfg    /var/tmp/rtekoa/integrationTool/${ssname}/${ssname}cdb/${ssname}cdb_d3b_o2_gc.cfg
+    : FOR    ${output_file_path}    IN    @{output_file_path_list}
+    \    ${get_file_path}    Security_Hardening.make_dir    ${ssname}
+    \    Get File    ${output_file_path}    ${get_file_path}
+    \    ${result}    Security_Hardening.check_lock_schema_owner    ${get_file_path}
+    \    Security_Hardening.remove_dir    ${get_file_path}
+    \    should be equal    ${result}    ${value}
+
+Teardown
+    teardown and clear ss environment

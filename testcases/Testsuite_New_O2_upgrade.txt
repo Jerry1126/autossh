@@ -1,0 +1,123 @@
+*** Settings ***
+Documentation     Check update from CCKoala adaption success or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    run_standalone    US54    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    ''    WITH NAME    ModifySSKoalaxmlfile
+Library           SettingGenralConfigFilePropertyValue.PropertyValueSetting    WITH NAME    PropertyValueSetting
+Library           Database.DatabaseCore    ${SDV_DB_HOSTNAME_IP}    ${SDV_DB_SYSTEM_USER}    ${SDV_DB_SYS_PASSWORD}    WITH NAME    DatabaseCore
+
+*** Variables ***
+${scname}         umappt
+${ssname}         nokppt
+
+*** Test Cases ***
+Upgrade of NetAct8 base on RC lab when add a counter for old type O2 table
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter for old type O2 table
+    [Setup]    Test case setup for old type O2 table    rc
+    Upgrade installation    rc
+    ${O2tableColumnCount}=    O2 table column count
+    should be equal    ${O2tableColumnCount}    ${1000}
+    [Teardown]    Test case teardown    rc
+
+Upgrade of NetAct8 base on RC lab when add a counter for tightly O2 table
+    [Documentation]    Purpose of this case is to support upgrade of NetAct8 base on RC lab when add a counter for tightly O2 table
+    [Setup]    Test case setup for tightly O2 table    rc
+    Upgrade installation    rc
+    ${O2tableColumnCount}=    O2 table column count
+    should be equal    ${O2tableColumnCount}    ${1000}
+    [Teardown]    Test case teardown    rc
+
+Upgrade GC installation base on GC lab when add a counter for old type O2 table
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter and for old type O2 table
+    [Setup]    Test case setup for old type O2 table    gc
+    Upgrade installation    gc
+    ${O2tableColumnCount}=    O2 table column count
+    should be equal    ${O2tableColumnCount}    ${0}
+    [Teardown]    Test case teardown    gc
+
+Upgrade GC installation base on GC lab when add a counter for tightly O2 table
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter for tightly O2 table
+    [Setup]    Test case setup for tightly O2 table    gc    False
+    Upgrade installation    gc    check_warningLog=True
+    Upgrade installation    gc    True
+    ${O2tableColumnCount}=    O2 table column count
+    should not be equal    ${O2tableColumnCount}    ${1000}
+    should not be equal    ${O2tableColumnCount}    ${0}
+    [Teardown]    Test case teardown    gc
+
+Upgrade GC installation base on GC lab when add a measurement for tightly O2 table base on old type O2 table
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter fortightly O2 table base on old type O2 table
+    [Setup]    Test case setup for old type O2 table    gc    True
+    Upgrade installation and modify config file    True    gc    check_warningLog=True
+    Upgrade installation and modify config file    False    gc    True
+    ${O2tableColumnCount}=    O2 table column count
+    should not be equal    ${O2tableColumnCount}    ${1000}
+    should not be equal    ${O2tableColumnCount}    ${0}
+    [Teardown]    Test case teardown    gc
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    ModifySSKoalaxmlfile.set ssh    ${ssh}
+    PropertyValueSetting.set ssh    ${ssh}
+    ${db}=    DatabaseCore.getEngine
+    DatabaseCore.setEngine    ${db}
+
+Test Suite Teardown
+    teardown and clear ss environment
+    DatabaseCore.close
+
+Test case setup for old type O2 table
+    [Arguments]    ${cluster_type}=rc    ${check_warningLog}=False
+    upload koala input and general config to cs    ${ssname}
+    ${config_path}=    get general config file path    ${ssname}
+    Run keyword if    '${cluster_type}' == 'gc'    set_property_value_in_general_config_file    ${config_path}    GCDirectIntegration    0
+    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    0
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}    ${cluster_type}    ${check_warningLog}
+    ${O2tableColumnCount}=    O2 table column count
+
+Test case setup for tightly O2 table
+    [Arguments]    ${cluster_type}=rc    ${check_warningLog}=False
+    upload koala input and general config to cs    ${ssname}
+    ${config_path}=    get general config file path    ${ssname}
+    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    1
+    Run keyword if    '${cluster_type}' == 'gc'    set_property_value_in_general_config_file    ${config_path}    GCDirectIntegration    0
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}    ${cluster_type}    ${check_warningLog}
+    ${O2tableColumnCount}=    O2 table column count
+
+Test case teardown
+    [Arguments]    ${cluster_type}
+    uninstall test pm package    ${scname}    ${ssname}    ${cluster_type}
+    unrelease run on ss    ${ssname}
+    clear ss environment
+
+Upgrade installation
+    [Arguments]    ${cluster_type}=rc    ${check_warningLog}=False
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${ID}=    AddNode    Counter    ${kola_input_file_path}    ID=SEG_AVE_BUSY_TCH
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}    ${cluster_type}    ${check_warningLog}
+
+Upgrade installation and modify config file
+    [Arguments]    ${EnableTightlyO2Install}=False    ${cluster_type}=rc    ${check_warningLog}=False
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${config_path}=    get general config file path    ${ssname}
+    Run keyword if    ${EnableTightlyO2Install}    set_property_value_in_general_config_file    ${config_path}    EnableTightlyO2Install    1
+    ${ID}=    AddNode    Measurement    ${kola_input_file_path}    ID=RESAVAIL
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}    ${cluster_type}    ${check_warningLog}
+
+O2 table column count
+    ${row}=    DatabaseCore.get_rows    select COUNT(*) from all_tab_columns where table_name='PPT_P_MEAS_RESAVAIL_O2';
+    ${result}=    DatabaseCore.rows_to_simple_value_list    ${row}
+    ${value}=    Evaluate    ${result}[0]
+    [Return]    ${value}

@@ -1,0 +1,31 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           String    WITH NAME    String
+
+*** Keywords ***
+Run itk
+    [Arguments]    ${model file}
+    ${log_name}=    evaluate    "${model file}".replace("/","_")
+    SSHLibrary.execute_command    sed -i 's;^koala.model.file=.*$;koala.model.file=${model file};' ${ss_properties_remote_path}
+    ${log}=    SSHLibrary.execute_command    /opt/nokia/oss/bin/koalaDef.sh -f \ ${ss_properties_remote_path}| tee ${itk_folder}/${log_name}
+    Comment    ${log}=    SSHLibrary.execute command    cat ${itk_folder}/${log_name}
+    log    ${log}
+    ${error_cnt}=    SSHLibrary.execute_command    grep '^ERROR' ${itk_folder}/${log_name}|wc -l
+    should be equal    ${error_cnt}    0
+
+List koala model file
+    [Arguments]    ${ssname}=noktt    ${scname}=umaktt
+    ${response}=    SSHLibrary.execute command    /usr/bin/nokia/ManageSS.pl --list ${scname} ${ssname}
+    @{response}=    Split String    ${response}    \n
+    : FOR    ${list}    IN    @{response}
+    \    Log    ${list}
+    \    ${flag}=    Evaluate    re.search('ACTIVE',"${list}")    re
+    \    #Continue For Loop If    '${flag}'=='None'
+    \    Run Keyword If    '${flag}'=='None'    Continue For Loop
+    \    ${final_list}=    Evaluate    "${list}"
+    @{version_list}=    Split String    ${final_list}
+    ${version}=    Evaluate    @{version_list}.pop(0)
+    ${version_lower}=    Evaluate    "${version}".lower()
+    ${ssname_lower}=    Evaluate    "${ssname}".lower()
+    ${mode_file}=    Evaluate    "/opt/nokia/oss/${version_lower}/conf/addon/${ssname_lower}.model"
+    [Return]    ${mode_file}

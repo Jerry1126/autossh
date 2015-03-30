@@ -1,0 +1,102 @@
+*** Settings ***
+Documentation     Test if all the adaptation published in the environment can be runned by koarte without error. The input file come from models.
+Suite Setup       Setup
+Suite Teardown    Teardown
+Force Tags        FTT    common    run_standalone    L1
+Default Tags
+Test Timeout      30 minutes
+Metadata          Author    tony.peng@nsn.com
+Library           SSHLibrary
+Library           OperatingSystem
+Library           Connection.py    WITH NAME    Connect
+Library           koarteRun.py    WITH NAME    KOARTE
+
+*** Test Cases ***
+EnableHTMLDocument
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva    (EnableHTMLDocumentation \\\"1\\\")
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/doc/webdoc_pm_nva.tar.gz
+    Should Be Equal As Strings    ${result}    1
+
+FirstNERelease
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    Level\\\\\\sID=\\\\\\"NVNE\\\\\\".*FirstNERelease=\\\\\\"11\\\\\\.0\\\\\\".*ChangedFromNERelease=\\\\\\"9\\\\\\.0\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    Level\\\\\\sID=\\\\\\"RRR\\\\\\".*FirstNERelease=\\\\\\"15\\\\\\.0\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    Measurement\\\\\\sID=\\\\\\"B2idu24\\\\\\".*FirstNERelease=\\\\\\"12\\\\\\".*ChangedFromNERelease=\\\\\\"11\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    Counter\\\\\\sID=\\\\\\"AutageIntensity861\\\\\\".*FirstNERelease=\\\\\\"11\\\\\\.0\\\\\\".*ChangedFromNERelease=\\\\\\"10\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    Counter\\\\\\sID=\\\\\\"AutageIntensity862\\\\\\".*FirstNERelease=\\\\\\"11\\\\\\.0\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+
+ExternalAdaptationID
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/pm_nvacdb/pm_nvacdb_pmcore_update.xml    ExternalAdaptationId=\\\\\\"com.nsn.adap1,com.nsn.adap2,com.nsn.adap3\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+
+ParentObject
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/pm_nvacdb/pm_nvacdb_pmcore_update.xml    \\\\\\<MeOType\\\\\\sname=\\\\\\"NVNE\\\\\\".*Parent=\\\\\\"NETV\\\\\\".*\\\\\\>
+    Should Be Equal As Strings    ${result}    1
+
+EnableNUPSRVSupport
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva    (EnableNUPSRVSupport \\\"1\\\")
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/conf/nupsrvmx.wco
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/INSTALL/Nokia-UMACUS-PM_NVA.configure    nupsrvmx
+    Should Be Equal As Strings    ${result}    1
+
+AdditionalTopoPath
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    AdditionalTopologyPaths Replacement=\\\\\\"ROOT\\\\\\"
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsContentMatch    /var/tmp/rtekoa/integrationTool/pm_nva/conf/pm_nva.model    \\\\\\<AdditionalTopologyPath\\\\\\>ROOT\\\\\\.NETVIWER\\\\\\</AdditionalTopologyPath\\\\\\>
+    Should Be Equal As Strings    ${result}    1
+
+document
+    ${models}=    Create List    /tmp/KOALA.xml
+    Set Variable    ${models}
+    KOARTE.Run    ${con}    ${models}    pm_nva
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/doc/dnDBDescription.xml
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/doc/pm_nvaDatabase.sgml
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/doc/pm_nvaJump.txt
+    Should Be Equal As Strings    ${result}    1
+    ${result}=    IsFileExist    /var/tmp/rtekoa/integrationTool/pm_nva/doc/pm_nvaDBDescription.rtf
+    Should Be Equal As Strings    ${result}    1
+
+*** Keywords ***
+Setup
+    ${con}=    Connect    ${SDV_ONEPM_NAS1IP}    ${SDV_DB_OMC_USER}    ${SDV_DB_OMC_PASSWORD}
+    Set Suite Variable    ${con}
+    Scp    ${con}    ${CURDIR}/../scripts/content_check.pl    /tmp/content_check.pl
+    Scp    ${con}    ${CURDIR}/../scripts/koarte_testrun.sh    /tmp/koarte_testrun.sh
+    Scp    ${con}    ${CURDIR}/../metadata/KOALA.xml    /tmp/KOALA.xml
+    Scp    ${con}    ${CURDIR}/../metadata/TSTRAW.xml    /tmp/TSTRAW.xml
+
+Teardown
+    Connect.Close    ${con}
+
+IsFileExist
+    [Arguments]    ${file}
+    ${result}=    Execute    ${con}    /tmp/content_check.pl ${file}
+    [Return]    ${result}
+
+IsContentMatch
+    [Arguments]    ${file}    ${regex}
+    ${result}=    Execute    ${con}    /tmp/content_check.pl ${file} ${regex}
+    [Return]    ${result}

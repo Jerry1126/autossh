@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>testsuite Release Version Revert</title>
+</head>
+<body>
+<h1>testsuite Release Version Revert</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Documentation</td>
+<td class="colspan4" colspan="4">This TestSuite used to check that if an user made a false release run, then user can revert the release versiob via koartemx.pl -unrel or not.\n<br>
+\n<br>
+Remenber: Please modify the SS_NAME as you want in the variables file (testsuite_Release_Version_Revert.py).</td>
+</tr>
+<tr>
+<td class="name">Suite Setup</td>
+<td>My Suite Setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>My Suite Teardown</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Force Tags</td>
+<td>FTT</td>
+<td>US19</td>
+<td>L1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Metadata</td>
+<td>Author</td>
+<td>jinping.chen@nsn.com</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>SSHLibrary</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../robot_resources/KoalaRTE_Keywords.txt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Variables</td>
+<td>testsuite_Release_Version_Revert.py</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="variable">
+<tr>
+<th class="name" colspan="5">Variables</th>
+</tr>
+<tr>
+<td class="name">@{ROOT_LOGIN}</td>
+<td>root</td>
+<td>arthur</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">@{OMC_LOGIN}</td>
+<td>omc</td>
+<td>omc</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">${RELEASE_FILE_PATH}</td>
+<td>$VARROOT/global/rtekoa/work/releases</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Cases</th>
+</tr>
+<tr>
+<td class="name"><a name="test_Koarte_Release_Revert_Check">Koarte_Release_Revert_Check</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">This TestSuite used to check that if an user made a false release run, then user can revert the release versiob via koartemx.pl -unrel or not.\n<br>
+\n<br>
+Remenber: Please modify the SS_NAME as you want in the variables file (testsuite_Release_Version_Revert.py).</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Tags]</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Setup]</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Create Release</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Revert Release</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Teardown]</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_My Suite Setup">My Suite Setup</a></td>
+<td>${ssname_1}=</td>
+<td>Evaluate</td>
+<td>'${SS_NAME}'.lower()</td>
+<td>string</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${release_path}=</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+<td>${RELEASE_FILE_PATH}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>/</td>
+<td>${ssname_1}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Set Suite Variable</td>
+<td>\${release_path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Node Connection</td>
+<td>${SDV_ONEPM_NAS1IP}</td>
+<td>@{OMC_LOGIN}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>initial ssh instance and inject into koalarte</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>upload koala input and general config to cs</td>
+<td>ss=${SS_NAME}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_My Suite Teardown">My Suite Teardown</a></td>
+<td>teardown and clear ss environment</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>SSHLibrary.Close All Connections</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Create Release">Create Release</a></td>
+<td>${output}=</td>
+<td>release run on ss</td>
+<td>ss=${SS_NAME}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${file}</td>
+<td>${rc}=</td>
+<td>SSHLibrary.Execute Command</td>
+<td>ls -a ${release_path} | grep -i '${SS_NAME}Metadata_REL_'</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>return_rc=True</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${file}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '1'</td>
+<td>Fail</td>
+<td>Release File Not Created!!!</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '0'</td>
+<td>Log</td>
+<td>Release File Generated Successful!!</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Revert Release">Revert Release</a></td>
+<td>${output}=</td>
+<td>unrelease run on ss</td>
+<td>ss=${SS_NAME}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${file}</td>
+<td>${rc}=</td>
+<td>SSHLibrary.Execute Command</td>
+<td>ls -a ${release_path} | grep -i '${SS_NAME}Metadata_REL_'</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>return_rc=True</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>${file}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '0'</td>
+<td>Fail</td>
+<td>Release File Not Deleted!!!</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Run Keyword If</td>
+<td>'${rc}' == '1'</td>
+<td>Log</td>
+<td>Release File Reverted Successful!!</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Node Connection">Node Connection</a></td>
+<td>[Arguments]</td>
+<td>${hostname}</td>
+<td>@{login}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${username}</td>
+<td>${passwd}</td>
+<td>Create List</td>
+<td>@{login}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${index}=</td>
+<td>SSHLibrary.Open Connection</td>
+<td>${SDV_ONEPM_NAS1IP}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${output}=</td>
+<td>SSHLibrary.Login</td>
+<td>${username}</td>
+<td>${passwd}</td>
+</tr>
+</table>
+</body>
+</html>

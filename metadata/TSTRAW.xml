@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<Adaptation ID="raw" UMAProcessID="0xFEBB" RepProcessID="0xFEBB">
+        <Release>
+                <Vendor>Nokia</Vendor>
+                <Element>KOARTE TA</Element>
+                <Version>1.0</Version>
+        </Release>
+        <Topology ID="ROOT" Dimension="3G Network" Path="PLMN-PLMN">
+                <Level ID="TABC" ObjectNumber="5" Aggregation="true" IsTransient="false" HasServicesSupport="true">
+                        <ObjectClassDefinition IntClassID="97531" IsNE="true" Name="NOKIA_VERIFICATION_TABC_OBJECT_CLASS"/>
+                        <Key ID="tabc_id"/>
+                </Level>
+        </Topology>
+        <Topology ID="TRANS1" Dimension="TRANSIENT" Path="PLMN-PLMN">
+                <Level ID="TRAN1" ObjectNumber="10" Aggregation="true" IsTransient="true">
+                        <Key ID="trans_id" MaxLength="222"/>
+                </Level>
+        </Topology>
+
+        <Topology ID="TRANS2" Dimension="TRANSIENT2" Path="PLMN-PLMN">
+                <Level ID="TRAN2" ObjectNumber="10" Aggregation="true" IsTransient="true">
+                        <Key ID="tran2_id" MaxLength="222"/>
+                        <Level ID="TRAN3" ObjectNumber="10" Aggregation="true" IsTransient="true" ParentObj="TRAN2">
+                        <Key ID="tran3_id" MaxLength="222"/>
+                        </Level>
+                </Level>
+        </Topology>
+
+        <Measurement ID="sample" Aggregation="No">
+                <Time>
+                        <RawLevel>15</RawLevel>
+                        <FirstLevel>week</FirstLevel>
+                        <LastLevel>month</LastLevel>
+                </Time>
+                <TopologyRef ID="ROOT">
+                        <RawLevelRef>ROOT.TABC</RawLevelRef>
+                        <FirstLevelRef>ROOT.TABC</FirstLevelRef>
+                        <LastLevelRef>ROOT.TABC</LastLevelRef>
+                </TopologyRef>
+                <TopologyRef ID="TRANS1">
+                        <RawLevelRef>TRANS1.TRAN1</RawLevelRef>
+                        <FirstLevelRef>TRANS1.TRAN1</FirstLevelRef>
+                        <LastLevelRef>TRANS1.TRAN1</LastLevelRef>
+                </TopologyRef>
+                <TopologyRef ID="TRANS2">
+                        <RawLevelRef>TRANS2.TRAN2</RawLevelRef>
+                        <FirstLevelRef>TRANS2.TRAN2</FirstLevelRef>
+                        <LastLevelRef>TRANS2.TRAN2</LastLevelRef>
+                </TopologyRef>				
+                <PhysicalCounters>
+                        <Counter ID="test_counter">
+                        </Counter>
+                        <Counter ID="test_counter2">
+                        </Counter>
+                        <Counter ID="new_counter">
+                        </Counter>
+                </PhysicalCounters>
+        </Measurement>
+</Adaptation>

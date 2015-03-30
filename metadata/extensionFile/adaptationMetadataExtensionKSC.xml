@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!--
+		The configuration file is for OnePM TA. KOAOES setting has been
+		cleaned up. Adaptation Test Data can be modified or some MID/Counter
+		ignored by this configuration file.
+	-->
+<AdaptationExtension id="NOKKTT" release="S16.1"
+	owner="nokktt" systemcomponent="umaktt" dbSchemaPrefix="NOKKTT"
+	rootObject="KSC" omesFileVersion="2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Mapping>
+		<!--
+			Unit modification in Adaptation scope is supported. The original unit
+			string in RISE/AD may be different in OnePM Metadata. <Map
+			type="unit" to="sec"> <From>s</From> </Map>
+		-->
+
+	</Mapping>
+
+	<PMPart useDBPartitions="true">
+		<!--
+			Remove a measurement by Koala id "MeasurementNumber"
+			    or remove counters by "colName"
+			    <RemoveMeasurement id="SEGABIS" />
+		-->
+
+		<RemoveMeasurement id="SEGABIS" />
+		<RemoveMeasurement id = "SEGPCU" />
+		<RemoveMeasurement id = "SEGPOW" />
+		<RemoveMeasurement id = "SEGRES" />
+		<RemoveMeasurement id = "SEGRLC" />
+		<RemoveMeasurement id = "NRXQRXL" />
+		
+
+		<!-- offical to spare not need any change  -->
+
+
+
+		<!--
+			ignore obsolete old OS RAS RNC measurements
+		-->
+		<!--  <RemoveMeasurement id="WBTSPOOL" />-->
+
+		<!-- RU40 RN7.0 NEW counters are ignored from RU30EP2 build. -->
+         <!-- spare to offical spare counter and real counter should exist  -->
+		<IgnoreItem source="DBRAW" id="RESAVAIL">
+			<item id="AVE_BUSY_TCH_HSCSD" />
+			<item id="AVE_HSCSD_USERS" />
+			<item id="AVE_HSCSD_USERS" />
+			<item id="AVE_TCH_HOLD_TIME_HSCSD" />
+            <item id="SPARE002088" />
+		</IgnoreItem>
+		
+		<IgnoreItem source="DBRAW" id="HO">
+			<item id="SPARE004212" />
+			<item id="SPARE004211" />
+			<item id="SPARE004210" />
+		</IgnoreItem>
+
+		<IgnoreItem source="DBRAW" id="PCU">
+			<item id="SPARE072241" />
+			<item id="SPARE072240" />
+			<item id="SPARE072237" />
+			<item id="SPARE072239" />
+			<item id="SPARE072238" />
+			<item id="SPARE072236" />
+			<item id="SPARE072249" />
+			
+		</IgnoreItem>
+		
+		<IgnoreItem source="DBRAW" id="RESACC">
+			<item id="SPARE003060" />
+		</IgnoreItem>
+		
+	    <IgnoreItem source="DBRAW" id="CELRESEL">
+			<item id="SPARE095028" />
+		</IgnoreItem>
+		
+		<IgnoreItem source="DBRAW" id="TRAFFICT">
+			<item id="SPARE001229" />
+			<item id="SPARE001228" />
+			<item id="SPARE001225" />
+			<item id="SPARE001226" />
+			<item id="SPARE001230" />
+			<item id="SPARE001227" />
+			<item id="SPARE001191" />
+		</IgnoreItem>
+			<IgnoreItem source="DBRAW" id="TOTFEP">
+			<item id="BA_LIST_CHANGED" />
+			<item id="NBR_OF_SAMPLES" />
+			<item id="TOTAL_INTERFERENCE" />
+		</IgnoreItem>
+
+		<IgnoreItem source="DBAGG" id="TOTFEP">
+			<item id="BA_LIST_CHANGED" />
+			<item id="NBR_OF_SAMPLES" />
+			<item id="TOTAL_INTERFERENCE" />
+		</IgnoreItem>
+		
+		<IgnoreItem source="DBRAW" id="CC">
+			<item id="SPARE0500635" />
+		</IgnoreItem>
+		<IgnoreItem source="DBRAW" id="CCPM">
+			<item id="SPARE051026" />
+			<item id="SPARE051023" />
+			<item id="SPARE051065" />
+		</IgnoreItem>
+
+       
+		<IgnoreItem source="DBRAW" id="TREETH">
+			<item id="TRE_ETHERNET_STATUS" />
+		</IgnoreItem>
+
+		<RemoveMeasurementFromDB id = "SEGABIS" />
+		<RemoveMeasurementFromDB id = "SEGPCU" />
+		<RemoveMeasurementFromDB id = "SEGPOW" />
+		<RemoveMeasurementFromDB id = "SEGRES" />
+		<RemoveMeasurementFromDB id = "SEGRLC" />
+		<RemoveMeasurementFromDB id = "CELPCU" />
+		<RemoveMeasurementFromDB id = "NRXQRXL" />
+		
+	
+		
+		<!-- <IgnoreItem source="DBAGG" id="CC">
+			<item id="SPARE0500635" />
+		</IgnoreItem>-->
+		<IgnoreItem source="CONF" id="RESAVAIL">
+			<item id="AVE_BUSY_TCH_HSCSD" />
+			<item id="AVE_HSCSD_USERS" />
+			<item id="AVE_HSCSD_USERS" />
+            <item id="AVE_TCH_HOLD_TIME_HSCSD" />
+            <item id="SEG_AVE_BUSY_TCH" />
+            <item id="RESAVAIL_PERIOD_DURATION" />
+		</IgnoreItem>
+		
+		
+	
+		<IgnoreItem source="CONF" id="AMRPPC">
+			<item id="POWER_DENOM1" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="QOS">
+			<item id="BH_CRITERION_QOS_1" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="RLC">
+			<item id="SEG_UL_DL_RLC_MAC_BLOCKS" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="GBOVIP">
+			<item id="BH_CRITERION_GBOVIP_1" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="POWER">
+			<item id="BH_CRITERION_POWER_1" />
+			<item id="SEG_BH_CRITERION_POWER_1" />
+			<item id="SEG_POWER_DENOM1" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="ABISDCH">
+			<item id="SEG_DL_OCTETS" />
+			<item id="SEG_UL_OCTETS" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="AMRSIG">
+			<item id="BH_CRITERION_AMRSIG_1" />
+		</IgnoreItem>
+		<IgnoreItem source="CONF" id="TREETH">
+			<item id="TRE_ETHERNET_STATUS" />
+		</IgnoreItem>
+
+		<IgnoreItem source="CONF" id="TOTFEP">
+			<item id="BA_LIST_CHANGED" />
+			<item id="NBR_OF_SAMPLES" />
+			<item id="TOTAL_INTERFERENCE" />
+		</IgnoreItem>
+		
+		<!-- offical to  spare, not need any change, existed agg conf retain  -->
+	
+
+		
+		
+		<!--
+			Change some attribute value in measurement and its counters.
+			Note: "MeasurementNumber" and Counter "colName" replacement 
+			    are not possible
+		-->
+		
+		<!--update IPROUT mesurement AIB value and counters attribute value end-->
+
+		<!--
+			These elements are used to set ignore items in OnePM Database and Conf file.
+			One measurement, one "IgnoreDatabaseItem" tag.
+			User can define the columns(in DB Raw PS View) 
+			    or the columns (in DB Agg Table and Views)
+			    and counters(in nokrwwmeta_mx.cf) which he/she doesn't want be compared with Metadata here.
+			Tags of these elements are fixed and should not be changed.
+			Format:
+				<IgnoreItem source="DBRAW"/"DBAGG"/"CONF" id="measurement_id">
+					<item id="DBRAW column_id / DBAGG column_id / counter_id" />
+					<item id="DBRAW column_id / DBAGG column_id / counter_id" />
+					...
+				</IgnoreItem>
+		-->
+	
+		
+		<!-- Following Partition related "Data Storage Period" setting
+		     can be kept for Partition TA usage. -->
+		<SetMeasurementData all="true">
+			<Attribute name="Storing.Raw">
+				<value>15</value>
+			</Attribute>
+			<Attribute name="Storing.Hour">
+				<value>8</value>
+			</Attribute>
+			<Attribute name="Storing.Day">
+				<value>15</value>
+			</Attribute>
+			<Attribute name="Storing.Week">
+				<value>15</value>
+			</Attribute>
+			<Attribute name="Storing.Month">
+				<value>95</value>
+			</Attribute>
+			<Attribute name="Storing.DayBH">
+				<value>15</value>
+			</Attribute>
+			<Attribute name="Storing.WeekBH">
+				<value>15</value>
+			</Attribute>
+			<Attribute name="Storing.MonthBH">
+				<value>95</value>
+			</Attribute>
+		</SetMeasurementData>
+
+	</PMPart>
+</AdaptationExtension>

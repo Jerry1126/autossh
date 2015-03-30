@@ -1,0 +1,63 @@
+(KOALAVersion   "BOSS5")
+
+(KOALAFileName	"/home/omc/koala/noksun/noksunKoala.xml")
+(UpgradeType            "Environment")
+(PortingFromCC     "1")
+(Subsystem	 "noksun")
+(SCName		 "umacus")
+
+(Component	"Subsystem")
+(Component	"ETLoad")
+(Component	"PMWarehouse")
+
+(TSPType	"LocallyManaged")
+(EnableRBSupport     "0")
+(EnableRBInstall     "0")
+
+# Adaptation uses partitioning
+(EnableOraclePartitioning "0")
+
+# Oracle bigfile
+(TablespaceFileType     "big")
+
+# Cron definitions
+#(ReporterCronEntry	"10 4 * * *") 
+#(ReporterCronEntryGC	"40 6 * * *")
+
+#Change to 6 times a day due to pronto:45786ESPE01
+#Added in RU20EP1
+(ReporterCronEntry	"10 1,5,9,13,17,21 * * *") 
+(ReporterCronEntryGC	"40 3,7,11,15,19,23 * * *")
+
+(RawIndexMaintainCronEntry	"30 2 * * *")
+(RawIndexRebuildCronEntry	"10 3 * * *")
+(RawIndexMaintainFullCronEntry	"0 7 * * 0")
+
+(AggIndexMaintainCronEntry "45 6 * * *")
+
+(AggIndexMaintainCronEntryGC "45 6 1 * */45 6 * * 1")
+
+(AggIndexRebuildCronEntry "20 7 * * *") 
+(AggIndexMaintainFullCronEntry	"50 8 * * 0")
+
+#(DimensionIndexMaintainFullCronEntry "10 10 * * *")
+(DimensionIndexRebuildCronEntry "40 5 * * 0")
+(DimensionInsertCronEntry       "58 * * * *")
+(DimensionCleanCronEntry        "10 1 * * 1")
+
+(PartitionManagerCronEntry	"0 1 * * *")
+
+# Selective resummarization
+(SelectiveResummarizing	"1")
+(ParallelAggregationChilds "3")
+
+(PBMapping	""
+	(subsystem	"/vobs/netact_tier3/umakoa/noksun")
+	(xxxcdb		"/vobs/netact_tier3/umakoa/noksun/suncdb")
+	(xxxrap		"/vobs/netact_tier3/umakoa/noksun/sunrap")
+	(xxxrdb		"/vobs/netact_tier3/umakoa/noksun/sunrdb")
+        (xxxcap         "/vobs/netact_tier3/umakoa/noksun/suncap")
+)
+
+
+

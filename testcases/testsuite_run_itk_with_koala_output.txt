@@ -1,0 +1,44 @@
+*** Settings ***
+Suite Setup       Suite setup
+Suite Teardown    Suite teardown
+Force Tags        FTT    common    US51    L1
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           String    WITH NAME    String
+Variables         testsuite_run_itk_with_koala_output.py
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Resource          ../robot_resources/RunITK_Keywords.txt
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+
+*** Test Cases ***
+run itk with koala output
+    @{model_list}=    Get koala output model file
+    : FOR    ${m}    IN    @{model_list}
+    \    Run itk    ${m}
+
+*** Keywords ***
+Suite setup_bak
+    SSHLibrary.open connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_omc    prompt=$
+    SSHLibrary.login    omc    ${SDV_ONEPM_NAS_PASSWORD}
+    ${itk_folder_postfix}=    evaluate    random.randint(0, sys.maxint)    random,sys
+    ${itk_folder}=    evaluate    "/tmp/itk_${itk_folder_postfix}"
+    ${ss_properties_remote_path}=    evaluate    "${itk_folder}/ss.properties"
+    set suite variable    ${itk_folder}
+    set suite variable    ${ss_properties_remote_path}
+    SSHLibrary.execute_command    mkdir ${itk_folder}
+    SSHLibrary.put file    ${SS_PROPERTIES_PATH}    ${ss_properties_remote_path}
+    SSHLibrary.execute_command    sed -i 's;^adaptation.support.metadata.output=.*$;adaptation.support.metadata.output=${itk_folder};' ${ss_properties_remote_path}
+    ${model_list}=    List koala model file    ${ssname}    ${scname}
+    set suite variable    ${model_list}
+
+Suite teardown
+    SSHLibrary.execute command    rm -rf ${itk_folder}
+    KoalaRTE.Clear Temp Koala Output Model File
+    teardown and clear ss environment
+    SSHLibrary.close all connections
+
+Suite setup
+    Initial ssh instance and inject into KoalaRTE
+    ${itk_folder}=    evaluate    "/tmp/koala_model"
+    ${ss_properties_remote_path}=    evaluate    "${itk_folder}/ss.properties"
+    set suite variable    ${itk_folder}
+    set suite variable    ${ss_properties_remote_path}

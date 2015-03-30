@@ -1,0 +1,126 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    "    WITH NAME    ModifySSKoalaxmlfile
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SettingGenralConfigFilePropertyValue.PropertyValueSetting    WITH NAME    PropertyValueSetting
+Library           period_duration_sum.period_duration_sum    WITH NAME    period_duration_sum
+
+*** Test Cases ***
+Period_Duration_Sum
+    [Tags]    US48    FTT    L2
+    [Template]    perid_duration_sum
+    NOKABV    UMAABV    Counter    1    #conf(0)+xml(0)-->conf(1)+xml(0)
+    NOKABW    UMAABW    Measurement    0    #conf(0)+xml(0)-->conf(0)+xml(1)
+    NOKABX    UMAABX    Measurement    1    #conf(0)+xml(0)-->conf(1)+xml(1)
+    NOKABY    UMAABY    Measurement    1    #conf(1)+xml(0)-->conf(1)+xml(1)
+    NOKABZ    UMAABZ    Measurement    0    #conf(1)+xml(0)-->conf(0)+xml(1)
+    NOKACB    UMAACB    Counter    0    #conf(1)+xml(0)-->conf(0)+xml(0)
+    NOKACD    UMAACD    Counter    1    #conf(0)+xml(1)-->conf(1)+xml(1)
+    NOKACE    UMAACE    Counier    0    #conf(1)+xml(1)-->conf(0)+xml(1)
+
+*** Keywords ***
+perid_duration_sum
+    [Arguments]    ${ss}    ${sc}    ${add_element}    ${EnablePeriodDurationSum_value}
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    ModifySSKoalaxmlfile.set_ssh    ${ssh}
+    PropertyValueSetting.set ssh    ${ssh}
+    upload koala input and general config to cs    ${ss}
+    ${ss}    period_duration_sum.get_lower    ${ss}
+    ${rpms}    build test pm package    ${ss}
+    Comment    install test pm package    ${rpms}
+    ${config_path}=    get general config file path    ${ss}
+    ${koala_remote_path}    get koala input file path    ${ss}
+    ${koala_input_file}    period_duration_sum.make_file
+    Get file    ${koala_remote_path}    ${koala_input_file}
+    @{measurement}    period_duration_sum.get_period_duration_sum_measurementID    ${koala_input_file}
+    #Check model file
+    ${model_file}    period_duration_sum.make_file
+    Get file    /var/tmp/rtekoa/integrationTool/${ss}/conf/${ss}.model    ${model_file}
+    @{measurement_model}    period_duration_sum.get_period_duration_sum_measurementID    ${model_file}
+    ${result_cd}=    Evaluate    cmp(@{measurement},@{measurement_model})
+    Should Be Equal As Integers    ${result_cd}    0
+    period_duration_sum.remove_file    ${koala_input_file}
+    period_duration_sum.remove_file    ${model_file}
+    : FOR    ${measurement_ID}    IN    @{measurement}
+    \    #Check pmc view
+    \    ${pmc_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_rawviews.sql    ${pmc_view}
+    \    ${pmc_rs}    period_duration_sum.check_pmc_view    ${pmc_view}    ${measurement_ID}
+    \    should be true    ${pmc_rs}
+    \    #Check pvps view
+    \    ${pvps_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_final_rawviews.sql    ${pvps_view}
+    \    ${pvps_rs}    period_duration_sum.check_pvps_view    ${pvps_view}    ${measurement_ID}
+    \    should be true    ${pvps_rs}
+    \    #Check pv view
+    \    ${pv_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_psviews_gc.sql    ${pv_view}
+    \    ${pv_rs}    period_duration_sum.check_ps_AND_pv_gc_view    ${pv_view}    ${measurement_ID}
+    \    should be true    ${pv_rs}
+    \    #Check ps view
+    \    ${ps_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_rawviews_gc.sql    ${ps_view}
+    \    ${ps_rs}    period_duration_sum.check_ps_AND_pv_gc_view    ${ps_view}    ${measurement_ID}
+    \    should be true    ${ps_rs}
+    \    #Check dnDB
+    \    ${dnDB_file}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/doc/dnDBDescription.xml    ${dnDB_file}
+    \    ${dnDB_rs}    period_duration_sum.check_dnDB    ${dnDB_file}    ${measurement_ID}
+    \    should be true    ${dnDB_rs}
+    \    period_duration_sum.remove_file    ${pmc_view}
+    \    period_duration_sum.remove_file    ${pvps_view}
+    \    period_duration_sum.remove_file    ${pv_view}
+    \    period_duration_sum.remove_file    ${ps_view}
+    \    period_duration_sum.remove_file    ${dnDB_file}
+    release run on ss    ${ss}
+    ${config_path}=    get general config file path    ${ss}
+    ${koala_remote_path}    get koala input file path    ${ss}
+    ${ID}=    ModifySSKoalaxmlfile.AddNode    ${add_element}    ${koala_remote_path}    ${ss}Koala.xml
+    set_property_value_in_general_config_file    ${config_path}    EnablePeriodDurationSum    ${EnablePeriodDurationSum_value}
+    ${rpms}    build test pm package    ${ss}
+    Comment    install test pm package    ${rpms}
+    ${koala_input_file}    period_duration_sum.make_file
+    Get file    ${koala_remote_path}    ${koala_input_file}
+    @{measurement}    period_duration_sum.get_period_duration_sum_measurementID    ${koala_input_file}
+    #Check model file
+    ${model_file}    period_duration_sum.make_file
+    Get file    /var/tmp/rtekoa/integrationTool/${ss}/conf/${ss}.model    ${model_file}
+    @{measurement_model}    period_duration_sum.get_period_duration_sum_measurementID    ${model_file}
+    ${result_cd}=    Evaluate    cmp(@{measurement},@{measurement_model})
+    Should Be Equal As Integers    ${result_cd}    0
+    period_duration_sum.remove_file    ${koala_input_file}
+    period_duration_sum.remove_file    ${model_file}
+    : FOR    ${measurement_ID}    IN    @{measurement}
+    \    #Check pmc view
+    \    ${pmc_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_rawviews.sql    ${pmc_view}
+    \    ${pmc_rs}    period_duration_sum.check_pmc_view    ${pmc_view}    ${measurement_ID}
+    \    should be true    ${pmc_rs}
+    \    #Check pvps view
+    \    ${pvps_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_final_rawviews.sql    ${pvps_view}
+    \    ${pvps_rs}    period_duration_sum.check_pvps_view    ${pvps_view}    ${measurement_ID}
+    \    should be true    ${pvps_rs}
+    \    #Check pv view
+    \    ${pv_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_psviews_gc.sql    ${pv_view}
+    \    ${pv_rs}    period_duration_sum.check_ps_AND_pv_gc_view    ${pv_view}    ${measurement_ID}
+    \    should be true    ${pv_rs}
+    \    #Check ps view
+    \    ${ps_view}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/${ss}cdb/${ss}cdb_cre_rawviews_gc.sql    ${ps_view}
+    \    ${ps_rs}    period_duration_sum.check_ps_AND_pv_gc_view    ${ps_view}    ${measurement_ID}
+    \    should be true    ${ps_rs}
+    \    #Check dnDB
+    \    ${dnDB_file}    period_duration_sum.make_file
+    \    Get file    /var/tmp/rtekoa/integrationTool/${ss}/doc/dnDBDescription.xml    ${dnDB_file}
+    \    ${dnDB_rs}    period_duration_sum.check_dnDB    ${dnDB_file}    ${measurement_ID}
+    \    should be true    ${dnDB_rs}
+    \    period_duration_sum.remove_file    ${pmc_view}
+    \    period_duration_sum.remove_file    ${pvps_view}
+    \    period_duration_sum.remove_file    ${pv_view}
+    \    period_duration_sum.remove_file    ${ps_view}
+    \    period_duration_sum.remove_file    ${dnDB_file}
+    Comment    uninstall test pm package    ${sc}    ${ss}
+    teardown and clear ss environment

@@ -1,0 +1,5 @@
+(BaseAdaptationDir	"/opt/nokia/oss/umaktt-5.0-nokktt-1.0.0")
+(Subsystem		"cusktt")
+(SCName    			"umacus")
+(KOALAFileName		"/home/omc/koala/cusktt/cuskttKoala.xml")
+(EnableRBSupport        "0")

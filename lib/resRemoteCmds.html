@@ -1,0 +1,1568 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="RobotIDE" /> 
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+p {
+  max-width: 60em;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 0.1em solid black;
+}
+th, td {
+  border-style: solid;
+  border-width: 0.05em 0.1em;
+  border-color: black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  border-width: 0.1em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  letter-spacing: 0.1em;
+}
+/* Widths of named columns */
+col.name {
+  width: 10em;
+}
+.action, .value, .arg {
+  width: 15em;
+}
+/* Properties for the name column 
+- td:first-child should work in CSS 2.1 avare browsers (tested in Firefox)
+- col.name is against specs but works in IE
+*/
+td:first-child, col.name {
+  background-color: rgb(240, 240, 240);
+  text-transform: capitalize;
+  letter-spacing: 0.1em;
+}
+/* required for IE */
+th {
+  font-style: normal;
+}
+</style>
+<title>Resremotecmds</title>
+</head>
+<body>
+<h1>Resremotecmds</h1>
+
+<table border="1">
+<colgroup span="99">
+<col class="name">
+<col class="value" span="4"></colgroup>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Value</th>
+<th>Value</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>Library</td>
+<td>StringUtils</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Library</td>
+<td>SSHLibrary</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+<table border="1">
+<colgroup span="99">
+<col class="name">
+<col class="value" span="4"></colgroup>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+<th>Value</th>
+<th>Value</th>
+<th>Value</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+<table border="1">
+<colgroup span="99">
+<col class="name">
+<col class="action">
+<col class="arg" span="3"></colgroup>
+<tr>
+<th>Keyword</th>
+<th>Action</th>
+<th>Argument</th>
+<th>Argument</th>
+<th>Argument</th>
+</tr>
+<tr>
+<td>Execute SQL Query Remotely</td>
+<td>[Arguments]</td>
+<td>${sqlquery}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Documentation]</td>
+<td>Execute SQL query remotely via active SSH connection. Check if rc is 0 and output doesn't contain ERROR:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${result} =</td>
+<td>Execute Command and Get RC</td>
+<td>echo -e \"set feedback off\\nset pagesize 0\\n${sqlquery}\" | sqlplus -s omc/omc</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>${0}</td>
+<td>SQL query ${sqlquery} exited with result ${rc}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not Contain</td>
+<td>${result}</td>
+<td>ERROR</td>
+<td>SQL query ${sqlquery} result contains ERROR</td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Execute SQL Query Remotely And Return List</td>
+<td>[Arguments]</td>
+<td>${sqlquery}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${result} =</td>
+<td>Execute SQL Query Remotely</td>
+<td>${sqlquery}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Log</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${resultList} =</td>
+<td>Get Lines As List</td>
+<td>${result}</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${resultList}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Execute Command And Get RC</td>
+<td>[Arguments]</td>
+<td>${command}</td>
+<td>@{restargs}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Documentation]</td>
+<td>Execute command remotely and get RC. Returns list of [rc, output]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${result} =</td>
+<td>Execute Command</td>
+<td>${command};echo -e "\$?"</td>
+<td>@{restargs}</td>
+</tr>
+<tr>
+<td></td>
+<td>Log</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${lastLine}</td>
+<td>${allButLastLine} =</td>
+<td>Split to Last Line and Rest</td>
+<td>${result}</td>
+</tr>
+<tr>
+<td></td>
+<td>${rc} =</td>
+<td>Convert To Integer</td>
+<td>${lastLine}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${resultList} =</td>
+<td>Create List</td>
+<td>${rc}</td>
+<td>${allButLastLine}</td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${resultList}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Execute Command And Check Status</td>
+<td>[Arguments]</td>
+<td>@{commandargs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Documentation]</td>
+<td>Executes remote command, checks if RC is 0 and result contains nor ERROR nor FAIL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command And Get RC</td>
+<td>@{commandargs}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>Command @{commandargs}[0] exited with status ${rc}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not Contain</td>
+<td>${resultLines}</td>
+<td>ERROR</td>
+<td>Command @{commandargs}[0] result contains ERROR</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not Contain</td>
+<td>${resultLines}</td>
+<td>FAIL</td>
+<td>Command @{commandargs}[0] result contains FAIL</td>
+</tr>
+<tr>
+<td></td>
+<td>@{resultList} =</td>
+<td>Create List</td>
+<td>${rc}</td>
+<td>${resultLines}</td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>@{resultList}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote File Should Exist</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${filename}</td>
+<td>Filename empty. Provide a valid filename</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -f ${filename}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>Remote file ${filename} does not exist or is not a regular file</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Directory Should Exist</td>
+<td>[Arguments]</td>
+<td>${dirname}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${dirname}</td>
+<td>Directory name empty. Please provide a valid name.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -d ${dirname}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>Remote directory ${dirname} does not exist or is not a directory</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Remove File</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${resultLines} =</td>
+<td>Execute Command</td>
+<td>rm -f ${filename}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not Contain</td>
+<td>${resultLines}</td>
+<td>Permission denied</td>
+<td>File still exists: permission denied to remove</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Directory Should Not Exist</td>
+<td>[Arguments]</td>
+<td>${dirname}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${dirname}</td>
+<td>Directory name empty. Please provide a valid name.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -d ${dirname}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>1</td>
+<td>Remote directory ${dirname} exists</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote File Should Not Exist</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not be empty</td>
+<td>${filename}</td>
+<td>Filename empty. Provide a valid filename</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -f ${filename}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>1</td>
+<td>Remote file ${filename} exists</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Should Exist</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${filename}</td>
+<td>Name empty. Please provide a valid file or directory name</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -e ${filename}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>No such file or directory as ${filename}</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Should Not Exist</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${resultLines} =</td>
+<td>Execute Command and Get RC</td>
+<td>test -e ${filename}</td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${rc}</td>
+<td>1</td>
+<td>File or directory ${filename} exists</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote File Should Not Be Empty</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${filesize} =</td>
+<td>Remote Get File Size</td>
+<td>${filename}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should Not Be Equal As Integers</td>
+<td>${filesize}</td>
+<td>0</td>
+<td>File ${filename} is empty</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote File Should Be Empty</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${filesize} =</td>
+<td>Remote Get File Size</td>
+<td>${filename}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should Be Equal As Integers</td>
+<td>${filesize}</td>
+<td>0</td>
+<td>File ${filename} is not empty: size ${filesize}</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Get File Size</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote File Should Exist</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${FileSize} =</td>
+<td>Execute Command</td>
+<td>du -b ${filename}|awk '{print $1}'</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${FileSize}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Directory Should Not Be Empty</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${res} =</td>
+<td>Execute Command</td>
+<td>ls ${filename}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>get length</td>
+<td>${res}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>fail if</td>
+<td>${len}==0</td>
+<td>Directory '${filename}' is empty.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Directory Should Be Empty</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${res} =</td>
+<td>Execute Command</td>
+<td>ls ${filename}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>get length</td>
+<td>${res}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>fail unless</td>
+<td>${len}==0</td>
+<td>Directory '${filename}' is not empty.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote List Directories In Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${RESULT} =</td>
+<td>Execute Command</td>
+<td>ls -p ${path} | grep / | sed \'s/\\///\'</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Log</td>
+<td>${RESULT}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote List Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${RESULT} =</td>
+<td>Execute Command</td>
+<td>ls -1 ${path}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Log</td>
+<td>${RESULT}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${Result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote List Files In Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${RESULT} =</td>
+<td>Execute Command</td>
+<td>ls -p ${path} | grep -v /</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Log</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${result}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Get Environment Variable</td>
+<td>[Arguments]</td>
+<td>${env_var}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${text} =</td>
+<td>execute command</td>
+<td>echo $${env_var}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>get length</td>
+<td>${text}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>fail if</td>
+<td>${len} == 1</td>
+<td>Environment variable '${env_var}' doesn't exist</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${text}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Set Environment Variable</td>
+<td>[Arguments]</td>
+<td>${env_var}</td>
+<td>${env_var_val}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>FAIL</td>
+<td>Not possible to implement, since every keyword executed in a separate session</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${cont} =</td>
+<td>execute command</td>
+<td>export ${env_var}=${env_var_val}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Count Directories In Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${out} =</td>
+<td>Execute command</td>
+<td>ls -p -l ${path} |grep /</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${count} =</td>
+<td>Get Line Count</td>
+<td>${out}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${count}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Count Files In Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${out} =</td>
+<td>Execute command</td>
+<td>ls -p -l ${path} |grep -v /</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${count} =</td>
+<td>Get Line Count</td>
+<td>${out}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${cnt} =</td>
+<td>Evaluate</td>
+<td>${count}-1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${cnt}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RemoteCount Items In Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${out} =</td>
+<td>Execute command</td>
+<td>ls -l ${path}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${count} =</td>
+<td>Get Line Count</td>
+<td>${out}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${cnt} =</td>
+<td>Evaluate</td>
+<td>${count}-1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${cnt}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Create Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>mkdir -p ${path}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Create File</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td>${content}=</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>echo ${content} &gt; ${path}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Copy Directory</td>
+<td>[Arguments]</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${source}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>cp -r ${source} ${destination}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Copy File</td>
+<td>[Arguments]</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote File Should Exist</td>
+<td>${source}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>cp ${source} ${destination}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Move Directory</td>
+<td>[Arguments]</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Copy Directory</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>rm -r ${source}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Move File</td>
+<td>[Arguments]</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Copy File</td>
+<td>${source}</td>
+<td>${destination}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>rm ${source}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Grep File</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td>${pattern}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${cnt}</td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>cat ${path}|grep ${pattern}</td>
+</tr>
+<tr>
+<td></td>
+<td>...</td>
+<td>both</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${cnt}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Touch</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Not Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>touch ${path}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Empty Directory</td>
+<td>[Arguments]</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Directory Should Exist</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${err} =</td>
+<td>Execute Command</td>
+<td>rm -rf ${path}/*</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>${len} =</td>
+<td>Get Length</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Fail Unless</td>
+<td>${len}==0</td>
+<td>${err}</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Get File Type</td>
+<td>[Arguments]</td>
+<td>${filename}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[Documentation]</td>
+<td>Checks whether is a file or directory. Returns 'file' or 'directory'. If neither, fails</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${filename}</td>
+<td>Name is empty, please provide a valid name</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${rc}</td>
+<td>${output} =</td>
+<td>Execute Command And get RC</td>
+<td>if \[ -f ${filename} \]; then echo \"file\"; echo 0; exit; fi\n if \[ -d ${filename} \]; then echo \"directory\"; echo 0; exit; fi\n echo 255; exit -1</td>
+</tr>
+<tr>
+<td></td>
+<td>Should be equal as integers</td>
+<td>${rc}</td>
+<td>0</td>
+<td>Neither file nor directory</td>
+</tr>
+<tr>
+<td></td>
+<td>[Return]</td>
+<td>${output}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Remote Remove File Or Directory With Subdirectories</td>
+<td>[Arguments]</td>
+<td>${name}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Should not be empty</td>
+<td>${name}</td>
+<td>Name empty. Please provide a valid name</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>${stderr} =</td>
+<td>Execute Command</td>
+<td>rm -rf ${name}</td>
+<td>stderr</td>
+</tr>
+<tr>
+<td></td>
+<td>Should not contain</td>
+<td>${stderr}</td>
+<td>Permission denied</td>
+<td>Permission to remove ${name} denied</td>
+</tr>
+<tr>
+<td></td>
+<td>Remote Should not exist</td>
+<td>${name}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+</body>
+</html>

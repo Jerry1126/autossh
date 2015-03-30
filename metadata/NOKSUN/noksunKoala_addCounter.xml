@@ -1,0 +1,279 @@
+<?xml version="1.0" ?>
+<!-- 
+     =================================================================
+     ===================== SYSTEM IDENTIFICATION =====================
+     =================================================================
+     ==
+     ==       Adaptation: Nokia RNC RN7.0 and mcRN3.0
+     ==       Subsystem : nokrww
+     ==
+     =================================================================
+-->
+<Adaptation ID="sun" UMAProcessID="0x0000" RepProcessID="0xA55F">
+  <Release>
+    <Vendor>Nokia</Vendor>
+    <Element>Chopin</Element>
+    <Version>v1.0</Version>
+  </Release>
+		
+  <Topology ID="ROOT" Path="PLMN-*" Dimension="Managed Object">
+		<Level ID="MO1" Aggregation="true" HasServicesSupport="true">
+			<ObjectClassDefinition IntClassID="100" IsNE="true" Name="CHOPIN_MO1_OBJECT_CLASS"/>
+			<Key ID="mo1_id"/>
+			<Level ID="MO2" Aggregation="true">
+				<ObjectClassDefinition IntClassID="110" IsNE="true" Name="CHOPIN_MO2_OBJECT_CLASS"/>
+				<Key ID="mo2_id"/>
+					<Level ID="MO31" Aggregation="true">
+						<ObjectClassDefinition IntClassID="120" IsNE="true" Name="CHOPIN_MO31_OBJECT_CLASS"/>
+						<Key ID="mo31_id"/>
+					</Level>
+					<Level ID="MO32">
+						<ObjectClassDefinition IntClassID="121" IsNE="true" Name="CHOPIN_MO32_OBJECT_CLASS"/>
+						<Key ID="mo32_id"/>
+					</Level>
+			</Level>
+		</Level>
+	</Topology>
+
+  <Topology ID="LOCATION" Path="PLMN-*" Dimension="Location Object">
+		<Level ID="CHINA" Aggregation="true" IsTransient="true">
+			<ObjectClassDefinition IntClassID="200" IsNE="false" Name="CHOPIN_CHINA_OBJECT_CLASS"/>
+			<Key ID="china_id"/>
+			<Level ID="SICHUAN" Aggregation="true" IsTransient="true">
+				<ObjectClassDefinition IntClassID="210" IsNE="false" Name="CHOPIN_SICHUAN_OBJECT_CLASS"/>
+				<Key ID="sichuan_id"/>
+					<Level ID="CHENGDU" Aggregation="true" IsTransient="true">
+						<ObjectClassDefinition IntClassID="220" IsNE="false" Name="CHOPIN_CHENGDU_OBJECT_CLASS"/>
+						<Key ID="chengdu_id"/>
+					</Level>
+			</Level>
+		</Level>
+	</Topology>
+
+	<Measurement ID="Traf" Aggregation="All">
+		<Description>This measurement is aim to test all managed object and transient object</Description>
+		<Time>
+			<RawLevel>15</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>month</LastLevel>
+		</Time>
+
+		<TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef> 
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="LOCATION">
+      <RawLevelRef>LOCATION.CHINA.SICHUAN.CHENGDU</RawLevelRef> 
+      <FirstLevelRef>LOCATION.CHINA.SICHUAN.CHENGDU</FirstLevelRef>
+      <LastLevelRef>LOCATION.CHINA</LastLevelRef>
+		</TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(TRAFFIC_BH_1 / TRAFFIC_BH_2)</Formula>
+    </BusyHourDefinition>
+
+		<PhysicalCounters>
+			<CounterGroup ID="TRAFFIC_BH">
+				<Counter ID="TRAFFIC_BH_1"/>
+				<Counter ID="TRAFFIC_BH_2"/>
+			</CounterGroup>
+			<CounterGroup ID="TRAFFIC_MEAS">
+				<Counter ID="TRAFFIC_TYPE_1"/>
+				<Counter ID="TRAFFIC_TYPE_2"/>
+				<Counter ID="TRAFFIC_TYPE_3"/>
+				<Counter ID="TRAFFIC_TYPE_4"/>
+                                <Counter ID="TRAFFIC_TYPE_5"/>
+                                <Counter ID="TRAFFIC_TYPE_6"/>
+                                <Counter ID="TRAFFIC_TYPE_7"/>
+                                 <Counter ID="TRAFFIC_TYPE_8"/>
+								 <Counter ID="TRAFFIC_TYPE_9"/>
+			</CounterGroup>
+		</PhysicalCounters>
+
+	</Measurement>
+
+	<Measurement ID="CPU" Aggregation="All">
+		<Description>This measurement is aim to test all managed object</Description>
+		<Time>
+			<RawLevel>10</RawLevel>
+			<FirstLevel>hour</FirstLevel>
+			<LastLevel>day</LastLevel>
+		</Time>
+
+		<TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef> 
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+		</TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(CPU_USED_1 / CPU_DURATION_1)</Formula>
+    </BusyHourDefinition>
+
+		<PhysicalCounters>
+			<CounterGroup ID="CPU_BH_CG">
+				<Counter ID="CPU_USED_1">
+					<TimeRawFormula>avg(CPU_USED_1)</TimeRawFormula>
+				</Counter>
+				<Counter ID="CPU_DURATION_1">
+					<TimeRawFormula>avg(CPU_DURATION_1)</TimeRawFormula>
+				</Counter>
+                                <Counter ID="CPU_LEFT_1"> 
+                                </Counter>
+                                <Counter ID="CPU_OVERIDE_1">
+                                </Counter>
+                                 <Counter ID="CPU_INDEX_1">
+                                </Counter>
+                                 <Counter ID="CPU_INDEX_2">
+                                 </Counter>
+			</CounterGroup>
+		</PhysicalCounters>
+	</Measurement>
+       
+        <Measurement ID="CPU1" Aggregation="All">
+                <Description>This measurement is aim to test all managed object</Description>
+                <Time>
+                        <RawLevel>10</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>day</LastLevel>
+                </Time>
+
+                <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef>
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+                </TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(CPU1_USED_1 / CPU1_DURATION_1)</Formula>
+    </BusyHourDefinition>
+
+                <PhysicalCounters>
+                        <CounterGroup ID="CPU1_BH_CG">
+                                <Counter ID="CPU1_USED_1">
+                                        <TimeRawFormula>avg(CPU1_USED_1)</TimeRawFormula>
+                                </Counter>
+                                <Counter ID="CPU1_DURATION_1">
+                                        <TimeRawFormula>avg(CPU1_DURATION_1)</TimeRawFormula>
+                                </Counter>
+                                 <Counter ID="CPU1_INDEX_1">
+                                 </Counter>
+                        </CounterGroup>
+                </PhysicalCounters>
+        </Measurement>
+         <Measurement ID="CPPU" Aggregation="All">
+                <Description>This measurement is aim to test all managed object</Description>
+                <Time>
+                        <RawLevel>10</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>day</LastLevel>
+                </Time>
+
+                <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef>
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+                </TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(CPPU_USED_1 / CPPU_DURATION_1)</Formula>
+    </BusyHourDefinition>
+
+                <PhysicalCounters>
+                        <CounterGroup ID="CPPU_BH_CG">
+                                <Counter ID="CPPU_USED_1">
+                                        <TimeRawFormula>avg(CPPU_USED_1)</TimeRawFormula>
+                                </Counter>
+                                <Counter ID="CPPU_DURATION_1">
+                                        <TimeRawFormula>avg(CPPU_DURATION_1)</TimeRawFormula>
+                                </Counter>
+                                 <Counter ID="CPPU_INDEX_1">
+                                 </Counter>
+                                  <Counter ID="CPPU_PAIR">
+                                 </Counter>
+                                 <Counter ID="CPPU_OWNER">
+                                 </Counter>
+                  </CounterGroup>
+                </PhysicalCounters>
+        </Measurement>
+
+        <Measurement ID="MMDU" Aggregation="All">
+                <Description>This measurement is aim to test all managed object</Description>
+                <Time>
+                        <RawLevel>10</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>day</LastLevel>
+                </Time>
+
+                <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef>
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+                </TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(MMDU_USED_1 / MMDU_DURATION_1)</Formula>
+    </BusyHourDefinition>
+
+                <PhysicalCounters>
+                        <CounterGroup ID="MMDU_BH_CG">
+                                <Counter ID="MMDU_USED_1">
+                                        <TimeRawFormula>avg(MMDU_USED_1)</TimeRawFormula>
+                                </Counter>
+                                <Counter ID="MMDU_DURATION_1">
+                                        <TimeRawFormula>avg(MMDU_DURATION_1)</TimeRawFormula>
+                                </Counter>
+                                 <Counter ID="MMDU_LEFT_1">
+                                 </Counter> 
+                                 <Counter ID="MMDU_COUNT_1">
+                                 </Counter>
+                                  <Counter ID="MMDU_INDEX_1">
+                                 </Counter>
+                                    <Counter ID="MMDU_OWNER">
+                                 </Counter>
+                        </CounterGroup>
+                </PhysicalCounters>
+        </Measurement>
+
+        <Measurement ID="MCHU" Aggregation="All">
+                <Description>This measurement is aim to test all managed object</Description>
+                <Time>
+                        <RawLevel>10</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>day</LastLevel>
+                </Time>
+
+                <TopologyRef ID="ROOT">
+      <RawLevelRef>ROOT.MO1.MO2.MO31</RawLevelRef>
+      <FirstLevelRef>ROOT.MO1.MO2.MO31</FirstLevelRef>
+      <LastLevelRef>ROOT.MO1</LastLevelRef>
+                </TopologyRef>
+
+    <BusyHourDefinition>
+      <Formula>avg(MCHU_USED_1 / MCHU_DURATION_1)</Formula>
+    </BusyHourDefinition>
+
+                <PhysicalCounters>
+                        <CounterGroup ID="MCHU_BH_CG">
+                                <Counter ID="MCHU_USED_1">
+                                        <TimeRawFormula>avg(MCHU_USED_1)</TimeRawFormula>
+                                </Counter>
+                                <Counter ID="MCHU_DURATION_1">
+                                        <TimeRawFormula>avg(MCHU_DURATION_1)</TimeRawFormula>
+                                </Counter>
+                                 <Counter ID="MCHU_LEFT_1">
+                                </Counter>
+                                 <Counter ID="MCHU_INDEX_1">
+                                </Counter>
+                                 <Counter ID="MCHU_SIZE_1">
+                                </Counter>
+                                  <Counter ID="MCHU_OWNER">
+                                </Counter>
+                                  <Counter ID="MCHU_COUNTS">
+                                </Counter>
+                        </CounterGroup>
+                </PhysicalCounters>
+        </Measurement>
+
+</Adaptation>

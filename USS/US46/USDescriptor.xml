@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="46" name="Oracle EE DB version change from 11G to 12c" xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[1. Explicitly grante UNLIMITED TABLESPACE privilege
+	2. bigfile type table space should have at least 8MB initual size
+developing label:CC_KOALA_DEV_045]]></Description>
+</US>

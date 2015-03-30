@@ -1,0 +1,41 @@
+<com.nokia.oss.oss51:Metadata
+        xmlns:com.nokia.oss.oss51="http://www.nokia.com/oss/oss51">
+        <Adaptation ID="cusktt" RepProcessID="0xFFA3">
+        <Measurement ID="TESTSUN" Aggregation="All">
+                <Time>
+                        <RawLevel>60</RawLevel>
+                        <FirstLevel>hour</FirstLevel>
+                        <LastLevel>day</LastLevel>
+                </Time>
+		<TopologyRef ID="ROOT" SkipAggregation="false">
+			<RawLevelRef>ROOT.KSC.KCF.KTS</RawLevelRef>
+			<FirstLevelRef>ROOT.KSC.KCF.KTS</FirstLevelRef>
+			<LastLevelRef>ROOT.KSC</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="SEG_TOPO" SkipAggregation="false">
+			<RawLevelRef>SEG_TOPO.SEG</RawLevelRef>
+			<FirstLevelRef>SEG_TOPO.SEG</FirstLevelRef>
+			<LastLevelRef>SEG_TOPO.SEG</LastLevelRef>
+		</TopologyRef>
+		<TopologyRef ID="TRXTP_TOPO" SkipAggregation="false">
+			<RawLevelRef>TRXTP_TOPO.TTP</RawLevelRef>
+			<FirstLevelRef>TRXTP_TOPO.TTP</FirstLevelRef>
+			<LastLevelRef>TRXTP_TOPO.TTP</LastLevelRef>
+		</TopologyRef>
+		<BusyHourDefinition>
+			<Formula>MAX(SDCCH_SEIZ_ATT)</Formula>
+		</BusyHourDefinition>
+                <LogicalCounters>
+
+                <CounterRef Measurement="TRAFFICT" ID="SDCCH_SEIZ_ATT" Unit="bytes">
+                <TimeRawFormula>SUM(SDCCH_SEIZ_ATT)</TimeRawFormula>
+                </CounterRef>
+
+
+                </LogicalCounters>
+        </Measurement>
+
+
+        </Adaptation>
+</com.nokia.oss.oss51:Metadata>
+

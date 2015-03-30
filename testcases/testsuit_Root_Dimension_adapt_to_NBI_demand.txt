@@ -1,0 +1,31 @@
+*** Settings ***
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           Root_dimension_adapt_to_NBI_demand.Root_Dimension    WITH NAME    Root_Dimension
+
+*** Test Cases ***
+Root Dimension adapt to NBI demand
+    [Tags]    FTT    common    US16    L3
+    [Setup]    setup
+    [Template]    Run KOARTE and Check the output
+    false    false    false
+    false    false    true
+    false    true    true
+    [Teardown]    teardown
+
+*** Keywords ***
+setup
+    Initial ssh instance and inject into KoalaRTE
+
+teardown
+    clear ss environment
+
+Run KOARTE and Check the output
+    [Arguments]    ${flag1}    ${flag2}    ${flag3}
+    Root_Dimension.modify_xml    nokkdd    ${flag1}    ${flag2}    ${flag3}
+    upload koala input and general config to cs    NOKKDD
+    ${rpms}    build test pm package    nokkdd
+    ${pmcore_update_path}    Root_Dimension.make_dir
+    Get File    /var/tmp/rtekoa/integrationTool/nokkdd/nokkddcdb/nokkddcdb_pmcore_update.xml    ${pmcore_update_path}
+    ${ERR}    Root_Dimension.get_Dimension_compare    nokkdd    ${pmcore_update_path}
+    should be empty    ${ERR}
+    Root_Dimension.remove_dir    ${pmcore_update_path}

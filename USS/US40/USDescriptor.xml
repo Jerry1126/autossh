@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="40" name="special chars convert in generating .model file" xmlns="http://www.nsn.com/koala/USDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[ADescription:
+		Currently KOARTE/CCKOALA generates the content to model file without
+		considering converting the special characters: "&", ">", "<", "'",
+		""". These characters should be converted as it's in xml structure
+		thus ITK/DA/extension adaptation can correctly read and parse it.
+
+		Solution:
+		Add the convertion for these chars during outputing the contents to model
+		file.
+
+		Changed file:
+		koacfgXMLFileWriter_c.pm]]></Description>
+</US>

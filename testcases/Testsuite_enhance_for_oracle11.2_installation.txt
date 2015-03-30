@@ -1,0 +1,35 @@
+*** Settings ***
+Documentation     Check whether enhance for oracle11.2 installation successed or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    US33    L3
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Enhance_for_oracle_installation.OracleInsallationEnhance    WITH NAME    OracleInsallationEnhance
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Variables         testsuite_Check_RBSupport_ASSupport.py
+
+*** Variables ***
+${oldversion}     old
+
+*** Test Cases ***
+enhance_for_oracle11.2_installation
+    [Documentation]    Purpose of this test case is to check the previliges are changed when the enhance for oracle 11.2 installation feature is effective.
+    ${filepath}=    get_filepath_without_installation    ${ss}
+    ${privileges}=    previliges_version_check    ${ss}    ${filepath}
+    should be true    ${privileges}
+    ${privileges}=    previliges_version_check    ${ss}    ${filepath}    ${oldversion}
+    should not be true    ${privileges}
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    upload koala input and general config to cs
+    ${ssh}=    Get Library Instance    SSHLibrary
+    OracleInsallationEnhance.set ssh    ${ssh}
+    ${rpms}=    build test pm package
+    SSHLibrary.open_connection    ${SDV_ONEPM_NAS1IP}    onepm_cs1_root    prompt=#
+    SSHLibrary.login    root    ${SDV_ONEPM_ROOT_PASSWORD}
+
+Test Suite Teardown
+    teardown and clear ss environment

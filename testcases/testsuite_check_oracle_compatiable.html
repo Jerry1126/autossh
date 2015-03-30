@@ -1,0 +1,661 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Testsuite Check Oracle Compatiable</title>
+</head>
+<body>
+<h1>Testsuite Check Oracle Compatiable</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Suite Setup</td>
+<td>test suite setup</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Suite Teardown</td>
+<td>test suite teardown</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Force Tags</td>
+<td>FTT</td>
+<td>common</td>
+<td>US46</td>
+<td>L3</td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../robot_resources/KoalaRTE_Keywords.txt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Library</td>
+<td>SSHLibrary.SSHLibrary</td>
+<td>WITH NAME</td>
+<td>SSHLibrary</td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Variables</td>
+<td>testsuite_Check_Oracle_Compatiable.py</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="variable">
+<tr>
+<th class="name" colspan="5">Variables</th>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="testcase">
+<tr>
+<th class="name" colspan="5">Test Cases</th>
+</tr>
+<tr>
+<td class="name"><a name="test_check unlimited tablespace privilege in install script">check unlimited tablespace privilege in install script</a></td>
+<td>[Template]</td>
+<td>check unlimited tablespace privilege in install script</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SC}</td>
+<td>${SS}</td>
+<td>cdb</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SC}</td>
+<td>${SS}</td>
+<td>rdb</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_check tablespace bigfile initial size in install script">check tablespace bigfile initial size in install script</a></td>
+<td>[Template]</td>
+<td>check tablespace bigfile initial size in install script</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SC}</td>
+<td>${SS}</td>
+<td>cdb</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SC}</td>
+<td>${SS}</td>
+<td>rdb</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="test_check unliited tablespace privilege in db">check unliited tablespace privilege in db</a></td>
+<td>[Template]</td>
+<td>check user privilege in db</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SS}</td>
+<td>UNLIMITED TABLESPACE</td>
+<td>True</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${SS}RAW</td>
+<td>UNLIMITED TABLESPACE</td>
+<td>True</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Test Suite Setup">Test Suite Setup</a></td>
+<td>SSHLibrary.open connection</td>
+<td>${SDV_ONEPM_DSS1NAME}</td>
+<td>prompt=#</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>SSHLibrary.login</td>
+<td>root</td>
+<td>${SDV_ONEPM_ROOT_PASSWORD}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Test Suite Teardown">Test Suite Teardown</a></td>
+<td>SSHLibrary.close all connections</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check tablespace bigfile initial size in sql script">check tablespace bigfile initial size in sql script</a></td>
+<td>[Arguments]</td>
+<td>${file_path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${content}=</td>
+<td>get sql statments from sql script</td>
+<td>${file_path}</td>
+<td>CREATE BIGFILE TABLESPACE</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be true</td>
+<td>len(${content})&gt;0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>@{content}=</td>
+<td>set variable</td>
+<td>${content}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>: FOR</td>
+<td>${c}</td>
+<td>IN</td>
+<td>@{content}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>log</td>
+<td>${c}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${size}</td>
+<td>get size parameter from sql statment</td>
+<td>${c}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>should be true</td>
+<td>${size}&gt;=8*1024*1024</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${file_path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_get size parameter from sql statment">get size parameter from sql statment</a></td>
+<td>[Arguments]</td>
+<td>${sql statment}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${tags}=</td>
+<td>Evaluate</td>
+<td>filter(lambda x:x!='',"""${sql statment}""".replace('\\n',' ').replace('\\t',' ').split(' '))</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${size_tag_pos}=</td>
+<td>evaluate</td>
+<td>filter(lambda x:${tags}[x].upper()=='SIZE',range(0,len(${tags})))</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${size_tag_pos}=</td>
+<td>evaluate</td>
+<td>${size_tag_pos}[0] if len(${size_tag_pos})==1 else -1</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${size}=</td>
+<td>run keyword if</td>
+<td>${size_tag_pos}&gt;0</td>
+<td>evaluate</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${tags}[${size_tag_pos}+1]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${size}=</td>
+<td>evaluate</td>
+<td>"${size}".upper().replace("M","*1024*1024").replace("K","*1024").replace("G","*1024*1024*1024")</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${size}=</td>
+<td>evaluate</td>
+<td>${size}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${size}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_get sql statments from sql script">get sql statments from sql script</a></td>
+<td>[Arguments]</td>
+<td>${file_path}</td>
+<td>${sql start partern}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}=</td>
+<td>execute command</td>
+<td>perl -n -e '$line=$_;if(not $creating){if($line=~/${sql start partern}/){$creating=1;}}else{if($line=~/;\s*$/){$creating=0;print "$_";}}if($creating){print "$line";}' ${file_path}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs}=</td>
+<td>Evaluate</td>
+<td>filter(lambda x:x!='',"""${rs}""".split(';'))</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${rs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check tablespace bigfile initial size in install script">check tablespace bigfile initial size in install script</a></td>
+<td>[Arguments]</td>
+<td>${sc}</td>
+<td>${ss}</td>
+<td>${subsystem}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${path}=</td>
+<td>evaluate</td>
+<td>'/opt/nokia/oss/${sc}-5.0-${ss}-db-${WS_PM_RPM_VERSION}/install/conf/${ss}${subsystem}_cre_tablespaces.sql'.lower()</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>check tablespace bigfile initial size in sql script</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check unlimited tablespace privilege in sql script">check unlimited tablespace privilege in sql script</a></td>
+<td>[Arguments]</td>
+<td>${file_path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${content}=</td>
+<td>get sql statments from sql script</td>
+<td>${file_path}</td>
+<td>GRANT</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should be true</td>
+<td>len(${content})&gt;0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>@{content}=</td>
+<td>set variable</td>
+<td>${content}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>: FOR</td>
+<td>${c}</td>
+<td>IN</td>
+<td>@{content}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>log</td>
+<td>${c}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${c}=</td>
+<td>Evaluate</td>
+<td>"""${c}""".replace('\\n',' ').replace('\\t',' ')</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${match}</td>
+<td>${privileges}=</td>
+<td>Should match regexp</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${c}</td>
+<td>GRANT (.*) TO .*</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${privileges}=</td>
+<td>Evaluate</td>
+<td>map(lambda x:x.strip(),"""${privileges}""".split(','))</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>log</td>
+<td>${privileges}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>should contain</td>
+<td>${privileges}</td>
+<td>UNLIMITED TABLESPACE</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>${file_path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check unlimited tablespace privilege in install script">check unlimited tablespace privilege in install script</a></td>
+<td>[Arguments]</td>
+<td>${sc}</td>
+<td>${ss}</td>
+<td>${subsystem}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${path}=</td>
+<td>evaluate</td>
+<td>'/opt/nokia/oss/${sc}-5.0-${ss}-db-${WS_PM_RPM_VERSION}/install/conf/${ss}${subsystem}_cre_user.sql'.lower()</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>check unlimited tablespace privilege in sql script</td>
+<td>${path}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_check user privilege in db">check user privilege in db</a></td>
+<td>[Arguments]</td>
+<td>${user_name}</td>
+<td>${privilege}</td>
+<td>${is_adm}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${cmd_rs}=</td>
+<td>SSHLibrary.execute command</td>
+<td>echo 'dict([';echo "select PRIVILEGE,ADMIN_OPTION from dba_sys_privs where grantee='${user_name}';"|sqlplus system/manager|sed -n '/^--[ -]*$/,/^\\s*$/p'|perl -n -e 'if($_=~/^(.*\\w)\\s+(\\w+)$/){printf("(\\"%s\\",\\"%s\\"),\\n",$1,$2)}';echo '])'</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${cmd_rs}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs_dict}=</td>
+<td>evaluate</td>
+<td>${cmd_rs}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>log</td>
+<td>${rs_dict}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${rs_keys}=</td>
+<td>evaluate</td>
+<td>${rs_dict}.keys()</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>should contain</td>
+<td>${rs_keys}</td>
+<td>${privilege}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${adm}=</td>
+<td>evaluate</td>
+<td>${rs_dict}["${privilege}"]</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>run keyword if</td>
+<td>${is_adm}</td>
+<td>should be equal</td>
+<td>${adm}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>YES</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>run keyword unless</td>
+<td>${is_adm}</td>
+<td>should be equal</td>
+<td>${adm}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>NO</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

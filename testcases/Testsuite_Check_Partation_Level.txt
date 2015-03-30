@@ -1,0 +1,84 @@
+*** Settings ***
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           check_partition_level.CheckPartationLevel    WITH NAME    CheckPartationLevel
+
+*** Variables ***
+${ssname}         koac03
+
+*** Test Cases ***
+Check_Partation_Level
+    [Documentation]    The TA case measurment used for checking partation level.    ##########################################    ##########################################    ##########################################
+    ...
+    ...    *NOTE_1:*
+    ...    Input File: \ ss_Name + koala.xml
+    ...    Output File:
+    ...    cdb/nokobw_NOKOBW_PMC_part.cf \ <Raw> - RC
+    ...    cdb/nokobw_NOKOBW_RAW_part.cf \ <Raw> - GC
+    ...    rdb/nokobw_NOKOBW_AGG_part_gc.cf \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !<Raw> - GC
+    ...    rdb/nokobw_NOKOBW_AGG_part_rc.cf \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !<Raw> - RC
+    ...
+    ...    if the level is RAW, then find cdb/, else find rdb/
+    ...    in cdb, if the service type is RC, then find PMC(RC), else find RAW(GC)
+    ...    To check the the value between Input file and Output file is equal.
+    ...
+    ...    *NOTE_2:*
+    ...    1. RC Default Value: \ \ \ 'raw' \ \ \ \ => 'day',
+    ...    'hour' \ \ \ => 'day',
+    ...    'hourq' \ \ => 'day',
+    ...    'day' \ \ \ \ => 'day',
+    ...    'daybh' \ \ => 'day',
+    ...    'bhq' \ \ \ \ => 'day',
+    ...    'nwbh' \ \ \ => 'day',
+    ...    'week' \ \ \ => 'week',
+    ...    'weekbh' \ => 'week',
+    ...    'wkbhq' \ \ => 'week',
+    ...    'nwwbh' \ \ => 'week',
+    ...    'bdbh' \ \ \ => 'week',
+    ...    'tcbh' \ \ \ => 'week',
+    ...    'month' \ \ => 'mon',
+    ...    'monthbh' => 'mon',
+    ...    'nwmbh' \ \ => 'mon',
+    ...    'mnbhq' \ \ => 'mon',
+    ...    'peakbh' \ => 'day',
+    ...    'ttlbh' \ \ => 'day',
+    ...    'wttlbh' \ => 'week',
+    ...    'mttlbh' \ => 'mon'
+    ...
+    ...    2. GC Default Value:
+    ...    'raw' \ \ \ \ => 'day',
+    ...    'hour' \ \ \ => 'day',
+    ...    'hourq' \ \ => 'day',
+    ...    'day' \ \ \ \ => 'week',
+    ...    'daybh' \ \ => 'week',
+    ...    'bhq' \ \ \ \ => 'week',
+    ...    'nwbh' \ \ \ => 'week',
+    ...    'week' \ \ \ => 'mon',
+    ...    'weekbh' \ => 'mon',
+    ...    'wkbhq' \ \ => 'mon',
+    ...    'nwwbh' \ \ => 'mon',
+    ...    'bdbh' \ \ \ => 'mon',
+    ...    'tcbh' \ \ \ => 'mon',
+    ...    'month' \ \ => '6mon',
+    ...    'monthbh' => '6mon',
+    ...    'mnbhq' \ \ => '6mon',
+    ...    'nwmbh' \ \ => '6mon',
+    ...    'peakbh' \ => 'day',
+    ...    'ttlbh' \ \ => 'day',
+    ...    'wttlbh' \ => 'week',
+    ...    'mttlbh' \ => 'mon'
+    [Setup]    setup
+    ${parm2}=    CheckPartationLevel.compare    ${ssname}
+    log    ${parm2}
+    ${Result}    CheckPartationLevel.compare    ${ssname}
+    should be empty    ${Result}
+    [Teardown]
+
+*** Keywords ***
+setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    CheckPartationLevel.set_ssh    ${ssh}
+
+teardown
+    SSHLibrary.Close all connections

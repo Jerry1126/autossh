@@ -1,0 +1,87 @@
+*** Settings ***
+Documentation     Check update from CCKoala adaption success or not
+Suite Setup       Test Suite Setup
+Suite Teardown    Test Suite Teardown
+Force Tags        FTT    common    US52    run_standalone    L1
+Resource          ../robot_resources/KoalaRTE_Keywords.txt
+Library           SSHLibrary.SSHLibrary    WITH NAME    SSHLibrary
+Library           Koala.KoalaRTE.KoalaRTE    WITH NAME    KoalaRTE
+Library           Support_update_from_CCkoala.UpdateFromCCKoala    WITH NAME    UpdateFromCCKoala
+Library           ModifySSKoalaxmlfile.ModifySSKoalaxmlfile    ''    WITH NAME    ModifySSKoalaxmlfile
+
+*** Variables ***
+${scname}         UMACUS
+${ssname}         NOKSUN
+
+*** Test Cases ***
+Support_update_adaptation_after_add_a_counter
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter
+    [Setup]    Test case setup
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${ID}=    AddNode    Counter    ${kola_input_file_path}
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}
+    [Teardown]    Test case teardown
+
+Support_update_adaptation_after_add_a_measurement
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a measurement
+    [Setup]    Test case setup
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${ID}=    AddNode    Measurement    ${kola_input_file_path}    ID=CPU
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}
+    [Teardown]    Test case teardown
+
+No_change_in_update_adaptation_after_release_run
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a counter
+    [Setup]    Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    release run on ss    ${ssname}
+    ${rpm}    ${return_info}=    build test pm package    ${ssname}    400    True
+    ${rc}=    should contain    ${return_info}    No changes were found
+    install test pm package    ${rpm}
+    [Teardown]    Test case teardown
+
+Remove_a_counter_in_update_adaptation_after_release_run
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a measurement
+    [Setup]    Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${ID}=    deleteNode    Counter    ${kola_input_file_path}
+    ${ID}=    Evaluate    "${ID}".lower()
+    ${rpm}    ${return_info}=    build test pm package    ${ssname}    return_print=True
+    should contain    ${return_info}    '${ID}' was removed
+    [Teardown]    Test case teardown
+
+Remove_a_measurement_in_update_adaptation_after_release_run
+    [Documentation]    Purpose of this test case is to check update adaption success or not after add a measurement
+    [Setup]    Test case setup
+    ${kola_input_file_path}=    get koala input file path    ${ssname}
+    release run on ss    ${ssname}
+    ${ID}=    deleteNode    Measurement    ${kola_input_file_path}
+    ${rpm}    ${return_info}=    build test pm package    ${ssname}    return_print=True
+    should contain    ${return_info}    Measurement '${ID}' was deleted!
+    [Teardown]    Test case teardown
+
+*** Keywords ***
+Test Suite Setup
+    Initial ssh instance and inject into KoalaRTE
+    ${ssh}=    Get Library Instance    SSHLibrary
+    ModifySSKoalaxmlfile.set ssh    ${ssh}
+
+Test Suite Teardown
+    teardown and clear ss environment
+
+Test case setup
+    ${ss_remotePath}=    get_ss_remote_path    ${ssname}
+    upload koala input and general config to cs    ${ssname}
+    ${rpm}=    build test pm package    ${ssname}
+    install test pm package    ${rpm}
+
+Test case teardown
+    uninstall test pm package    ${scname}    ${ssname}
+    unrelease run on ss    ${ssname}
+    clear ss environment

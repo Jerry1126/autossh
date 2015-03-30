@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<US id="45" name="INES support for NOKBCU" run-standalone="true"
+	xmlns="http://www.nsn.com/koala/USDescriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.nsn.com/koala/USDescriptor ../USDescriptor.xsd">
+	<Description><![CDATA[developing label: RTEKOA_DEV_045 ]]></Description>
+</US>
