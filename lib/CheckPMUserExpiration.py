@@ -1,7 +1,6 @@
 '''
 Created on Jul 28, 2014
 
-@author: j19li
 '''
 import re,time
 import os.path
