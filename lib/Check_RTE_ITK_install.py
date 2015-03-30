@@ -17,12 +17,13 @@ class Check_RTE_ITK_install(object):
     def check_RTE_install(self, con):        
         con.execute_command("/usr/bin/nokia/ManageSS.pl --list umakoa rtekoa > tmp")
         re = con.execute_command("grep '(CONFIGURED) (ACTIVATED) (ACTIVE)' tmp")
-        if re == "":
-            print "Lab don't install KOARTE successfully!"
-            ret = False
-        else: 
+        if re:
             print "Lab install KOARTE successfully!"
             ret = True
+        else:
+            print "Lab don't install KOARTE successfully!"
+            ret = False
+           
         return str(ret)
         
     def check_ITK_install(self, con):
